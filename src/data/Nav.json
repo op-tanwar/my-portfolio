@@ -1,0 +1,25 @@
+{
+  "menuitems": [
+    {
+      "title": "About",
+      "path": "#"
+   
+    },
+    {
+      "title": "Tools",
+      "path": "/#tools"
+    },
+      {
+      "title": "Projects",
+      "path": "/#projects"
+    },
+     {
+      "title": "Experience",
+      "path": "/#experience"
+    },
+    {
+      "title": "Contact Us",
+      "path": "/#contact"
+    }    
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "menuitems": [
+    {
+      "path": "/assets/js.svg",
+      "name": "JavaScript"      
+    },
+    {
+      "path": "/assets/reactjs.svg",
+      "name": "React.js"      
+    },
+    {
+      "path": "/assets/html5.svg",
+      "name": "HTML"      
+    },
+    {
+      "path": "/assets/css3.svg",
+      "name": "CSS"      
+    },
+    {
+      "path": "/assets/astro.svg",
+      "name": "Astro.js"      
+    },
+    {
+      "path": "/assets/tailwind.svg",
+      "name": "Tailwind CSS"      
+    },
+    {
+      "path": "/assets/material-ui.svg",
+      "name": "Material UI"      
+    },
+    {
+      "path": "/assets/bootstrap5.svg",
+      "name": "Bootstrap"      
+    },
+    {
+      "path": "/assets/nextjs.svg",
+      "name": "Next.js"      
+    },
+    
+    {
+      "path": "/assets/github.svg",
+      "name": "GitHub"      
+    }
+   
+  ]
+}
