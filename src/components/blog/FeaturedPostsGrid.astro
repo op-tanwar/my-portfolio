@@ -1,0 +1,31 @@
+---
+import FeaturedPost from "./FeaturedPost.astro";
+import { getPostAccent, type BlogPost } from "../../lib/blog";
+
+interface Props {
+  posts: BlogPost[];
+  allPosts: BlogPost[];
+}
+
+const { posts, allPosts } = Astro.props;
+---
+
+<div class="mb-10 sm:mb-14 space-y-6 sm:space-y-8">
+  <p
+    class="text-[8px] font-mono tracking-[0.25em] uppercase"
+    style="color:rgba(0,255,247,0.35);"
+  >
+    // blog.featured()
+  </p>
+  {
+    posts.slice(0, 1).map((post) => {
+      const globalIndex = allPosts.indexOf(post);
+      return (
+        <FeaturedPost
+          post={post}
+          accent={getPostAccent(post, globalIndex >= 0 ? globalIndex : 0)}
+        />
+      );
+    })
+  }
+</div>

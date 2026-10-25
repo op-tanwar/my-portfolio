@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/home/Welcome.astro";
+import ServicesSection from "../components/home/ServicesSection.astro";
+import ProjectsSection from "../components/home/ProjectsSection.astro";
+import SkillsSection from "../components/home/Skills.astro";
+import AboutMe from "../components/home/AboutSection.astro";
+import WhyMe from "../components/home/WhyMeSection.astro";
+import TestimonialsSection from "../components/home/TestimonialsSection.astro";
+import ContactSection from "../components/home/ContactSection.astro";
+import { getSiteUrl } from "../lib/site";
+import {
+  buildBreadcrumbSchema,
+  buildProfessionalServiceSchema,
+  buildWebPageSchema,
+} from "../lib/seo";
+
+const siteUrl = getSiteUrl(Astro.site);
+const title =
+  "Frontend Developer | Hire React, Next.js & Astro Expert | Omprakash Tanwar";
+const description =
+  "Hire Omprakash Tanwar — Frontend Developer specializing in React, Next.js, Astro, TypeScript, and Tailwind CSS. High-performance, SEO-optimized websites for US, UK, EU, Canada & Australia clients.";
+const canonical = `${siteUrl}/`;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={canonical}
+  tags={[
+    "Frontend Developer",
+    "Hire Astro Developer",
+    "Next.js Developer",
+    "React Developer",
+    "TypeScript Developer",
+    "Tailwind CSS",
+    "Core Web Vitals",
+    "White Label Frontend",
+  ]}
+  jsonLd={[
+    buildProfessionalServiceSchema(siteUrl),
+    buildWebPageSchema({
+      siteUrl,
+      url: canonical,
+      name: title,
+      description,
+      type: "WebPage",
+    }),
+    buildBreadcrumbSchema([{ name: "Home", url: canonical }]),
+  ]}
+>
+  <div id="main-content">
+    <!-- 1. HERO — First impression, above the fold -->
+    <section id="hire-frontend-developer">
+      <HeroSection />
+    </section>
+
+    <!-- 2. ABOUT — Who I am (builds personal connection) -->
+    <section id="about-frontend-developer">
+      <AboutMe />
+    </section>
+
+    <!-- 3. SERVICES — What I offer (visitor's first question after hero) -->
+    <section id="frontend-development-services">
+      <ServicesSection />
+    </section>
+
+    <!-- 4. PROJECTS — Proof of work (show before asking to trust you) -->
+    <section id="frontend-developer-projects">
+      <ProjectsSection />
+    </section>
+
+    <!-- 5. SKILLS — Stack details (after seeing real project) -->
+    <section id="react-nextjs-astro-skills">
+      <SkillsSection />
+    </section>
+
+    <!-- 6. WHY ME — Final push before CTA (objection handling) -->
+    <section id="why-hire-frontend-developer">
+      <WhyMe />
+    </section>
+
+    <!-- 7. TESTIMONIALS — Real client proof before final CTA -->
+    <TestimonialsSection />
+
+    <!-- 8. CONTACT — CTA last, after full trust is built -->
+    <section id="contact-frontend-developer">
+      <ContactSection />
+    </section>
+  </div>
+</Layout>

@@ -1,0 +1,62 @@
+---
+interface Props {
+  label: string;
+  titleWhite: string;
+  titleGradient: string;
+  subtitle?: string;
+}
+
+const { label, titleWhite, titleGradient, subtitle } = Astro.props;
+---
+
+<div class="section-header mb-10 sm:mb-16">
+  <p
+    class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
+    style="color:rgba(0,255,247,0.45);"
+  >
+    {label}
+  </p>
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
+    <h1
+      class="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight"
+      style="font-family:'Courier New',monospace;"
+    >
+      <span style="color:rgba(255,255,255,0.9);">{titleWhite}</span>
+      <span
+        class="block"
+        style="background:linear-gradient(90deg,#00fff7,#bf00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"
+      >
+        {titleGradient}
+      </span>
+    </h1>
+    {subtitle && (
+      <p
+        class="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase sm:pb-2"
+        style="color:rgba(255,255,255,0.2);"
+      >
+        {subtitle}
+      </p>
+    )}
+  </div>
+  <div
+    class="mt-6 sm:mt-8 h-px w-full"
+    style="background:linear-gradient(90deg,rgba(0,255,247,0.25),rgba(191,0,255,0.15),transparent);"
+  ></div>
+</div>
+
+<style>
+  .section-header {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.05s;
+  }
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

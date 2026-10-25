@@ -1,0 +1,104 @@
+---
+interface Props {
+  basePath: string;
+  currentPage: number;
+  totalPages: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
+
+const { basePath, currentPage, totalPages, hasPrev, hasNext, prevPage, nextPage } = Astro.props;
+
+function pageHref(page: number) {
+  if (page === 1) return basePath;
+  return `${basePath}/page/${page}`;
+}
+---
+
+{totalPages > 1 && (
+  <nav class="pagination flex items-center justify-center gap-3 mt-12 sm:mt-16" aria-label="Blog pagination">
+    {hasPrev && prevPage ? (
+      <a
+        href={pageHref(prevPage)}
+        class="pagination-btn inline-flex items-center gap-2 px-4 py-2.5 text-[10px] font-mono font-bold tracking-[0.15em] uppercase transition-all duration-200 hover:-translate-y-0.5 no-underline"
+        style="color:#00fff7;border:1px solid rgba(0,255,247,0.25);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));"
+        aria-label="Previous page"
+      >
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+        </svg>
+        Prev
+      </a>
+    ) : (
+      <span
+        class="inline-flex items-center gap-2 px-4 py-2.5 text-[10px] font-mono font-bold tracking-[0.15em] uppercase opacity-30 cursor-not-allowed"
+        style="color:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.06);"
+        aria-hidden="true"
+      >
+        Prev
+      </span>
+    )}
+
+    <div class="flex items-center gap-1.5" role="list">
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <a
+          href={pageHref(page)}
+          class:list={["pagination-num w-8 h-8 flex items-center justify-center text-[10px] font-mono font-bold transition-all duration-200 no-underline", page === currentPage && "pagination-num-active"]}
+          style={page === currentPage
+            ? "color:#020204;background:#00fff7;"
+            : "color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);"}
+          aria-label={`Page ${page}`}
+          aria-current={page === currentPage ? "page" : undefined}
+          role="listitem"
+        >
+          {page}
+        </a>
+      ))}
+    </div>
+
+    {hasNext && nextPage ? (
+      <a
+        href={pageHref(nextPage)}
+        class="pagination-btn inline-flex items-center gap-2 px-4 py-2.5 text-[10px] font-mono font-bold tracking-[0.15em] uppercase transition-all duration-200 hover:-translate-y-0.5 no-underline"
+        style="color:#00fff7;border:1px solid rgba(0,255,247,0.25);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));"
+        aria-label="Next page"
+      >
+        Next
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    ) : (
+      <span
+        class="inline-flex items-center gap-2 px-4 py-2.5 text-[10px] font-mono font-bold tracking-[0.15em] uppercase opacity-30 cursor-not-allowed"
+        style="color:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.06);"
+        aria-hidden="true"
+      >
+        Next
+      </span>
+    )}
+  </nav>
+)}
+
+<style>
+  .pagination-btn:hover {
+    border-color: rgba(0, 255, 247, 0.4) !important;
+    box-shadow: 0 0 24px rgba(0, 255, 247, 0.15);
+  }
+  .pagination-num {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 4px) 0,
+      100% 4px,
+      100% 100%,
+      4px 100%,
+      0 calc(100% - 4px)
+    );
+  }
+  .pagination-num:hover:not(.pagination-num-active) {
+    color: #00fff7 !important;
+    border-color: rgba(0, 255, 247, 0.2) !important;
+  }
+</style>

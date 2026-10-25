@@ -1,0 +1,513 @@
+---
+// ContactSection.astro — CYBERPUNK v3 · Web3Forms API INTEGRATED
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SETUP (2 steps):
+//   1. Go to https://web3forms.com
+//   2. Enter your email → get FREE Access Key
+//   3. Replace "YOUR_WEB3FORMS_ACCESS_KEY" below with your key
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Free plan: 250 submissions/month · No backend needed
+// Data stored in Web3Forms dashboard + email notification to you
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+interface Props {
+  email?: string;
+  upworkUrl?: string;
+  fiverrUrl?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  location?: string;
+  number?: number;
+  web3formsKey?: string;
+}
+
+const {
+  email         = "optanwar10@gmail.com",
+  number        = 7440262928,
+  upworkUrl     = "https://www.upwork.com/freelancers/~013f75d3791e17fa5d",
+  fiverrUrl     = "https://www.fiverr.com/optanwar1",
+  githubUrl     = "https://github.com/optanwar",
+  linkedinUrl   = "https://www.linkedin.com/in/optanwar/",
+  location      = "Indore, India · Remote Worldwide",
+  web3formsKey  = "38c0c762-35eb-4b81-8ff2-0ea707ccf88a", // ← Replace this!
+} = Astro.props;
+
+const socialLinks = [
+  { label:"Upwork",   sub:"Top Rated · 100% JSS",    href:upworkUrl,   color:"#14a800",
+    svg:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3.001-2.439-5.452-5.439-5.452z"/></svg>` },
+  { label:"GitHub",   sub:"Open source work",         href:githubUrl,   color:"#ffffff",
+    svg:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>` },
+  { label:"Fiverr",   sub:"Astro.js gigs",            href:fiverrUrl,   color:"#1dbf73",
+    svg:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508.02 508.02"><defs><style>.a{fill:#1dbf73;}.b{fill:#fff;}</style></defs><circle class="a" cx="254.01" cy="254.01" r="254.01"/><circle class="b" cx="315.97" cy="162.19" r="26.87"/><path class="b" d="M345.87,207.66h-123V199.6c0-15.83,15.83-16.13,23.89-16.13,9.25,0,13.44.9,13.44.9v-43.6a155.21,155.21,0,0,0-19.71-1.19c-25.68,0-73.16,7.16-73.16,61.51V208h-22.4v40.31h22.4v85.1h-20.9v40.31H247.34V333.37H222.85v-85.1H290v85.1H269.13v40.31h97.65V333.37H345.87Z" transform="translate(-1.83 -0.98)"/></svg>` },
+  { label:"LinkedIn", sub:"Professional network",     href:linkedinUrl, color:"#0A66C2",
+    svg:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>` },
+];
+
+const projectTypes = [
+  "Landing Page / Marketing Site",
+  "E-Commerce (Next.js + Stripe)",
+  "Astro Performance Site",
+  "React Web App",
+  "Figma → Code Conversion",
+  "Performance Audit & Fix",
+  "Other",
+];
+---
+
+<section id="contact" class="contact-section relative py-20 sm:py-28 overflow-hidden" style="background:#020204;">
+
+  <!-- Scanlines -->
+  <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,247,0.005) 3px,rgba(0,255,247,0.005) 4px);" aria-hidden="true"></div>
+
+  <!-- Top separator + glow -->
+  <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(255,0,110,0.3),rgba(0,255,247,0.2),transparent);" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[500px] h-40 pointer-events-none" style="background:radial-gradient(ellipse,rgba(255,0,110,0.06) 0%,transparent 70%);filter:blur(24px);" aria-hidden="true"></div>
+
+  <!-- Corner TL -->
+  <div class="absolute top-8 left-4 sm:left-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px" style="background:linear-gradient(90deg,#ff006e,transparent);"></div>
+    <div class="w-px h-10 sm:h-12" style="background:linear-gradient(180deg,#ff006e,transparent);"></div>
+    <div class="absolute top-0 left-0 w-1.5 h-1.5 rounded-full" style="background:#ff006e;box-shadow:0 0 8px #ff006e;"></div>
+  </div>
+  <!-- Corner TR -->
+  <div class="absolute top-8 right-4 sm:right-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px ml-auto" style="background:linear-gradient(270deg,#00fff7,transparent);"></div>
+    <div class="w-px h-10 sm:h-12 ml-auto" style="background:linear-gradient(180deg,#00fff7,transparent);"></div>
+    <div class="absolute top-0 right-0 w-1.5 h-1.5 rounded-full" style="background:#00fff7;box-shadow:0 0 8px #00fff7;"></div>
+  </div>
+
+  <!-- Hidden: pass Web3Forms key to JS -->
+  <meta id="w3f-key" data-key={web3formsKey} />
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+
+    <!-- HEADER -->
+    <div class="contact-header mb-10 sm:mb-16">
+      <p class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3" style="color:rgba(255,0,110,0.5);">// contact.init()</p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight" style="font-family:'Courier New',monospace;">
+          <span style="color:rgba(255,255,255,0.9);">Let's</span>
+          <span class="block" style="background:linear-gradient(90deg,#ff006e,#00fff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Build_</span>
+        </h2>
+        <div class="flex items-center gap-3 sm:pb-2">
+          <div class="h-px w-10 sm:w-16" style="background:linear-gradient(90deg,transparent,rgba(255,0,110,0.5));"></div>
+          <span class="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase" style="color:rgba(255,255,255,0.2);">Response within 24h</span>
+        </div>
+      </div>
+      <div class="mt-6 sm:mt-8 h-px w-full" style="background:linear-gradient(90deg,rgba(255,0,110,0.3),rgba(0,255,247,0.15),transparent);"></div>
+    </div>
+
+    <!-- TWO COLUMNS -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-8 sm:gap-10 lg:gap-14 items-start">
+
+      <!-- LEFT — Info -->
+      <div class="contact-left flex flex-col gap-4 sm:gap-6">
+
+        <!-- Availability -->
+        <div class="relative p-4 sm:p-5 overflow-hidden" style="background:rgba(0,255,247,0.03);border:1px solid rgba(0,255,247,0.15);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));">
+          <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,#00fff7,transparent);opacity:0.4;" aria-hidden="true"></div>
+          <p class="text-[8px] sm:text-[9px] font-mono tracking-[0.3em] uppercase mb-2 sm:mb-3" style="color:rgba(0,255,247,0.4);">// status.check()</p>
+          <div class="flex items-center gap-2.5 mb-2">
+            <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background:#00fff7;"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background:#00fff7;box-shadow:0 0 8px #00fff7;"></span>
+            </span>
+            <span class="text-xs sm:text-sm font-black font-mono" style="color:#00fff7;">Open to new projects</span>
+          </div>
+          <p class="text-[10px] sm:text-xs font-mono leading-relaxed" style="color:rgba(255,255,255,0.35);">
+            Available for freelance — US/UK/EU clients preferred.<br/>
+            Full projects, hourly, and retainers welcome.
+          </p>
+          <div class="flex items-center gap-2 mt-3 sm:mt-4 pt-3" style="border-top:1px solid rgba(0,255,247,0.1);">
+            <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="#00fff7" stroke-width="2" viewBox="0 0 24 24" style="opacity:0.5;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span class="text-[9px] sm:text-[10px] font-mono" style="color:rgba(255,255,255,0.3);">{location}</span>
+          </div>
+        </div>
+
+        <!-- Email + WhatsApp -->
+        <div class="space-y-2 sm:space-y-2.5">
+          <!-- Email link -->
+          <a href={`mailto:${email}`}
+            title="Email Frontend Developer Omprakash"
+  aria-label="Send email to Omprakash Tanwar frontend developer"
+            class="email-link group relative flex items-center justify-between p-3.5 sm:p-4 transition-all duration-300 hover:-translate-y-0.5"
+            style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+            <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.6),transparent);" aria-hidden="true"></div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1" style="color:rgba(255,255,255,0.25);">Direct email</p>
+              <p class="text-xs sm:text-sm font-black font-mono truncate" style="color:rgba(255,255,255,0.8);">{email}</p>
+            </div>
+            <svg class="w-4 h-4 flex-shrink-0 ml-3 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" fill="none" stroke="#00fff7" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+
+          <!-- WhatsApp link -->
+          <a 
+          title="Message to a Frontend Developer Omprakash"
+          aria-label="Send Whatsapp message to Omprakash Tanwar frontend developer"
+           href={`https://wa.me/91${number}?text=${encodeURIComponent("Hi Omprakash, I came across your portfolio and would like to discuss a project.")}`}
+            target="_blank" rel="noopener noreferrer"
+            class="email-link group relative flex items-center justify-between p-3.5 sm:p-4 transition-all duration-300 hover:-translate-y-0.5"
+            style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+            <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity" style="background:linear-gradient(90deg,transparent,rgba(37,211,102,0.6),transparent);" aria-hidden="true"></div>
+            <div class="min-w-0 flex-1">
+              <p class="text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1" style="color:rgba(255,255,255,0.25);">WhatsApp</p>
+              <p class="text-xs sm:text-sm font-black font-mono truncate" style="color:rgba(255,255,255,0.8);">Chat on WhatsApp</p>
+            </div>
+            <svg class="w-4 h-4 flex-shrink-0 ml-3 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200"
+              fill="currentColor" viewBox="0 0 24 24" style="color:#25D366;">
+              <path d="M20.52 3.48A11.82 11.82 0 0012.05 0C5.4 0 .01 5.39 0 12.05c0 2.12.55 4.2 1.6 6.04L0 24l6.1-1.6a11.96 11.96 0 005.95 1.53h.01c6.66 0 12.05-5.39 12.05-12.05 0-3.22-1.26-6.25-3.59-8.4zM12.06 21.3a9.2 9.2 0 01-4.68-1.28l-.33-.2-3.62.95.97-3.53-.21-.36a9.2 9.2 0 01-1.4-4.9c0-5.1 4.16-9.26 9.27-9.26 2.47 0 4.8.96 6.55 2.7a9.2 9.2 0 012.7 6.55c0 5.11-4.16 9.27-9.25 9.27zm5.2-6.94c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.17.19-.33.21-.61.07-.28-.14-1.2-.44-2.29-1.4-.85-.75-1.43-1.67-1.6-1.95-.17-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.17.19-.28.28-.47.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.47-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.28-1 1-.98 2.43.02 1.43 1.03 2.81 1.18 3 .14.19 2.04 3.11 4.95 4.36.69.3 1.23.48 1.65.61.69.22 1.31.19 1.8.12.55-.08 1.66-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.55-.33z"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Social links -->
+        <div class="space-y-2 sm:space-y-2.5">
+          <p class="text-[8px] sm:text-[9px] font-mono tracking-[0.3em] uppercase" style="color:rgba(255,255,255,0.2);">// find_me_at()</p>
+          {socialLinks.map(link => (
+            <a href={link.href} target="_blank" rel="noopener noreferrer"
+              class="social-link group flex items-center gap-3 sm:gap-4 p-3 sm:p-3.5 transition-all duration-300 hover:-translate-y-0.5"
+              style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));"
+              data-color={link.color}>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                style={`color:${link.color};background:${link.color}12;border:1px solid ${link.color}25;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}>
+                <div class="w-3.5 h-3.5 sm:w-4 sm:h-4" set:html={link.svg}></div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-[10px] sm:text-xs font-black font-mono" style="color:rgba(255,255,255,0.8);">{link.label}</p>
+                <p class="text-[8px] sm:text-[9px] font-mono truncate" style="color:rgba(255,255,255,0.25);">{link.sub}</p>
+              </div>
+              <svg class="w-3 h-3 flex-shrink-0 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={`color:${link.color};`}>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+
+      </div>
+
+      <!-- RIGHT — Form -->
+      <div class="contact-right">
+        <div id="contact-form-wrap" class="relative p-5 sm:p-6 lg:p-8 overflow-hidden"
+          style="background:rgba(255,255,255,0.02);border:1px solid rgba(0,255,247,0.1);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));">
+
+          <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.4),rgba(255,0,110,0.3),transparent);" aria-hidden="true"></div>
+          <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 100% 0%,rgba(255,0,110,0.04) 0%,transparent 50%),radial-gradient(ellipse at 0% 100%,rgba(0,255,247,0.04) 0%,transparent 50%);" aria-hidden="true"></div>
+          <div class="absolute top-3 right-4 flex gap-1" aria-hidden="true">
+            <div class="w-1 h-1 rounded-full" style="background:#00fff7;opacity:0.4;box-shadow:0 0 4px #00fff7;"></div>
+            <div class="w-1 h-1 rounded-full" style="background:#bf00ff;opacity:0.4;"></div>
+            <div class="w-1 h-1 rounded-full" style="background:#ff006e;opacity:0.4;"></div>
+          </div>
+
+          <p class="text-[8px] sm:text-[9px] font-mono tracking-[0.3em] uppercase mb-4 sm:mb-6" style="color:rgba(0,255,247,0.4);">// message.compose()</p>
+
+          <!-- SUCCESS STATE -->
+          <div id="form-success" class="hidden flex-col items-center justify-center py-12 sm:py-16 gap-4 text-center">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center" style="background:rgba(0,255,247,0.08);border:1px solid rgba(0,255,247,0.3);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));box-shadow:0 0 30px rgba(0,255,247,0.2);">
+              <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="#00fff7" viewBox="0 0 24 24" style="filter:drop-shadow(0 0 6px #00fff7);">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-base sm:text-lg font-black font-mono" style="color:#00fff7;">message.sent()</p>
+              <p class="text-[10px] sm:text-xs font-mono mt-1" style="color:rgba(255,255,255,0.35);">I'll respond within 24 hours.</p>
+            </div>
+          </div>
+
+          <!-- ERROR STATE -->
+          <div id="form-error" class="hidden items-center gap-3 p-3 sm:p-4 mb-4"
+            style="background:rgba(255,0,110,0.06);border:1px solid rgba(255,0,110,0.25);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="#ff006e" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p id="error-msg" class="text-[10px] sm:text-xs font-mono" style="color:rgba(255,100,130,0.9);">Something went wrong. Please try again.</p>
+          </div>
+
+          <!-- FORM FIELDS -->
+          <div id="contact-form-inner" class="flex flex-col gap-4 sm:gap-5">
+
+            <!-- Name + Email -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div>
+                <label class="block text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1.5 sm:mb-2" style="color:rgba(0,255,247,0.5);" for="cf-name">Your Name</label>
+                <input id="cf-name" name="name" type="text" required placeholder="John Smith"
+                  class="cyber-input w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono outline-none transition-all duration-300"
+                  style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));"/>
+              </div>
+              <div>
+                <label class="block text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1.5 sm:mb-2" style="color:rgba(0,255,247,0.5);" for="cf-email">Email Address</label>
+                <input id="cf-email" name="email" type="email" required placeholder="john@company.com"
+                  class="cyber-input w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono outline-none transition-all duration-300"
+                  style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));"/>
+              </div>
+            </div>
+
+            <!-- Project Type -->
+            <div>
+              <label class="block text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1.5 sm:mb-2" style="color:rgba(0,255,247,0.5);">Project Type</label>
+              <div class="flex flex-wrap gap-1.5 sm:gap-2">
+                {projectTypes.map(type => (
+                  <button type="button"
+                    class="project-type-btn text-[8px] sm:text-[9px] font-mono font-bold tracking-widest uppercase px-2 sm:px-2.5 py-1 sm:py-1.5 transition-all duration-200"
+                    style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));"
+                    data-value={type} aria-pressed="false">{type}</button>
+                ))}
+              </div>
+              <input type="hidden" id="cf-type" name="project_type" value=""/>
+            </div>
+
+            <!-- Budget -->
+            <div>
+              <label class="block text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1.5 sm:mb-2" style="color:rgba(0,255,247,0.5);">Budget Range</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {[
+                  {label:"$500–1k", val:"$500–$1,000"},
+                  {label:"$1k–3k",  val:"$1,000–$3,000"},
+                  {label:"$3k–5k",  val:"$3,000–$5,000"},
+                  {label:"$5k+",    val:"$5,000+"},
+                ].map(b => (
+                  <button type="button"
+                    class="budget-btn text-[9px] sm:text-[10px] font-mono font-bold tracking-widest uppercase px-2 sm:px-3 py-2 sm:py-2.5 transition-all duration-200"
+                    style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));"
+                    data-value={b.val} aria-pressed="false">{b.label}</button>
+                ))}
+              </div>
+              <input type="hidden" id="cf-budget" name="budget" value=""/>
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label class="block text-[8px] sm:text-[9px] font-mono tracking-[0.25em] uppercase mb-1.5 sm:mb-2" style="color:rgba(0,255,247,0.5);" for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" required rows="4"
+                placeholder="Tell me about your project — goals, timeline, any existing designs..."
+                class="cyber-input w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono outline-none transition-all duration-300 resize-none"
+                style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));"></textarea>
+              <div class="flex justify-end mt-1">
+                <span id="char-count" class="text-[8px] sm:text-[9px] font-mono" style="color:rgba(255,255,255,0.2);">0 / 500</span>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button id="submit-btn" type="button"
+              class="submit-btn group relative w-full flex items-center justify-center gap-2.5 sm:gap-3 py-3.5 sm:py-4 font-black text-xs sm:text-sm tracking-[0.18em] uppercase font-mono overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+              style="background:linear-gradient(90deg,#00fff7,#bf00ff);color:#020204;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));">
+              <div class="btn-shimmer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);" aria-hidden="true"></div>
+              <span id="btn-text" class="relative z-10">Send Message</span>
+              <svg id="btn-icon" class="relative z-10 w-3.5 sm:w-4 h-3.5 sm:h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+              <svg id="btn-spinner" class="hidden relative z-10 w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+            </button>
+
+            <p class="text-center text-[8px] sm:text-[9px] font-mono" style="color:rgba(255,255,255,0.18);">
+              No spam · Project details stay confidential · NDA available on request
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="hidden">
+    <h3>Frontend Development Services</h3>
+    <ul>
+      <li>React.js Development</li>
+      <li>Next.js Development</li>
+      <li>Astro Website Development</li>
+      <li>Tailwind CSS UI Development</li>
+      <li>Figma to Code Conversion</li>
+      <li>Website Performance Optimization</li>
+    </ul>
+  </div>
+  <!-- Bottom divider -->
+  <div class="absolute bottom-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.15),rgba(255,0,110,0.1),transparent);" aria-hidden="true"></div>
+
+</section>
+
+<style>
+.contact-header { animation:slideUp .6s cubic-bezier(.16,1,.3,1) both; animation-delay:.05s; }
+.contact-left   { animation:slideUp .65s cubic-bezier(.16,1,.3,1) both; animation-delay:.15s; }
+.contact-right  { animation:slideUp .65s cubic-bezier(.16,1,.3,1) both; animation-delay:.25s; }
+@keyframes slideUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+.cyber-input::placeholder { color:rgba(255,255,255,0.2); }
+.cyber-input:focus { border-color:rgba(0,255,247,0.45)!important; background:rgba(0,255,247,0.04)!important; box-shadow:0 0 20px rgba(0,255,247,0.08),inset 0 0 10px rgba(0,255,247,0.03); }
+
+.project-type-btn.active { color:#00fff7!important; border-color:rgba(0,255,247,0.4)!important; background:rgba(0,255,247,0.08)!important; box-shadow:0 0 12px rgba(0,255,247,0.15); }
+.project-type-btn:hover:not(.active) { border-color:rgba(255,255,255,0.2)!important; color:rgba(255,255,255,0.6)!important; }
+
+.budget-btn.active { color:#bf00ff!important; border-color:rgba(191,0,255,0.4)!important; background:rgba(191,0,255,0.08)!important; box-shadow:0 0 12px rgba(191,0,255,0.2); }
+.budget-btn:hover:not(.active) { border-color:rgba(255,255,255,0.2)!important; color:rgba(255,255,255,0.6)!important; }
+
+.email-link:hover { border-color:rgba(0,255,247,0.2)!important; }
+.social-link:hover { border-color:rgba(255,255,255,0.15)!important; background:rgba(255,255,255,0.04)!important; }
+.submit-btn:hover { box-shadow:0 0 30px rgba(0,255,247,.3),0 0 10px rgba(191,0,255,.2); }
+.submit-btn.loading { opacity:.7; pointer-events:none; }
+
+.btn-shimmer { animation:shimmerSlide 1.8s ease-in-out infinite; }
+@keyframes shimmerSlide { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+
+#form-success { animation:fadeScale .5s cubic-bezier(.16,1,.3,1) both; }
+@keyframes fadeScale { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+</style>
+
+<script>
+(function () {
+  // ── Get Web3Forms access key from meta tag ──
+  const keyMeta = document.getElementById('w3f-key') as HTMLMetaElement | null;
+  const ACCESS_KEY = keyMeta?.dataset.key ?? '';
+
+  // ── DOM refs ──
+  const typeBtns    = document.querySelectorAll<HTMLButtonElement>('.project-type-btn');
+  const typeInput   = document.getElementById('cf-type')    as HTMLInputElement | null;
+  const budgetBtns  = document.querySelectorAll<HTMLButtonElement>('.budget-btn');
+  const budgetInput = document.getElementById('cf-budget')  as HTMLInputElement | null;
+  const msgArea     = document.getElementById('cf-message') as HTMLTextAreaElement | null;
+  const charCount   = document.getElementById('char-count');
+  const submitBtn   = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const btnText     = document.getElementById('btn-text');
+  const btnIcon     = document.getElementById('btn-icon');
+  const btnSpinner  = document.getElementById('btn-spinner');
+  const formInner   = document.getElementById('contact-form-inner');
+  const formSuccess = document.getElementById('form-success');
+  const formError   = document.getElementById('form-error');
+  const errorMsg    = document.getElementById('error-msg');
+
+  // ── Project type pill toggle ──
+  typeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      typeBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
+      if (typeInput) typeInput.value = btn.dataset.value ?? '';
+    });
+  });
+
+  // ── Budget pill toggle ──
+  budgetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      budgetBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
+      if (budgetInput) budgetInput.value = btn.dataset.value ?? '';
+    });
+  });
+
+  // ── Char counter ──
+  msgArea?.addEventListener('input', () => {
+    const len = msgArea.value.length;
+    if (charCount) {
+      charCount.textContent = `${len} / 500`;
+      charCount.style.color = len > 450 ? 'rgba(255,0,110,0.7)' : 'rgba(255,255,255,0.2)';
+    }
+    if (len > 500) msgArea.value = msgArea.value.slice(0, 500);
+  });
+
+  // ── Helpers ──
+  const shakeField = (id: string) => {
+    const el = document.getElementById(id) as HTMLElement | null;
+    el?.animate(
+      [{ transform: 'translateX(-4px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }],
+      { duration: 300, iterations: 2 }
+    );
+    if (el) {
+      el.style.borderColor = 'rgba(255,0,110,0.6)';
+      setTimeout(() => { el.style.borderColor = ''; }, 2000);
+    }
+  };
+
+  const setLoading = (on: boolean) => {
+    if (!submitBtn) return;
+    submitBtn.classList.toggle('loading', on);
+    if (btnText)    btnText.textContent = on ? 'Sending...' : 'Send Message';
+    if (btnIcon)    btnIcon.classList.toggle('hidden', on);
+    if (btnSpinner) btnSpinner.classList.toggle('hidden', !on);
+  };
+
+  const showError = (msg: string) => {
+    if (formError) { formError.classList.remove('hidden'); formError.classList.add('flex'); }
+    if (errorMsg)  errorMsg.textContent = msg;
+  };
+  const hideError = () => {
+    if (formError) { formError.classList.add('hidden'); formError.classList.remove('flex'); }
+  };
+
+  // ── Submit handler ──
+  submitBtn?.addEventListener('click', async () => {
+    hideError();
+
+    const nameVal    = (document.getElementById('cf-name')    as HTMLInputElement)?.value.trim();
+    const emailVal   = (document.getElementById('cf-email')   as HTMLInputElement)?.value.trim();
+    const messageVal = (document.getElementById('cf-message') as HTMLTextAreaElement)?.value.trim();
+
+    // Client-side validation
+    let valid = true;
+    if (!nameVal)    { shakeField('cf-name');    valid = false; }
+    if (!emailVal)   { shakeField('cf-email');   valid = false; }
+    if (!messageVal) { shakeField('cf-message'); valid = false; }
+    if (!valid) return;
+
+    setLoading(true);
+
+    try {
+      // ── Web3Forms API call ──
+      const payload = {
+        access_key:   ACCESS_KEY,
+        subject:      `New Portfolio Inquiry from ${nameVal}`,
+        from_name:    nameVal,
+        name:         nameVal,
+        email:        emailVal,
+        message:      messageVal,
+        project_type: typeInput?.value  || 'Not specified',
+        budget:       budgetInput?.value || 'Not specified',
+        // Metadata
+        botcheck:     '',  // honeypot field — leave empty
+      };
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        // ✅ SUCCESS
+        if (formInner)  formInner.classList.add('hidden');
+        if (formSuccess) {
+          formSuccess.classList.remove('hidden');
+          formSuccess.classList.add('flex');
+        }
+      } else {
+        // ❌ API returned error
+        setLoading(false);
+        showError(data.message || 'Submission failed. Please try again.');
+      }
+    } catch (err) {
+      // ❌ Network error
+      setLoading(false);
+      showError('Network error. Please check your connection and try again.');
+    }
+  });
+
+  // ── Social link dynamic hover colors ──
+  document.querySelectorAll<HTMLElement>('.social-link').forEach(link => {
+    const color = link.dataset.color ?? '#00fff7';
+    link.addEventListener('mouseenter', () => {
+      link.style.borderColor = `${color}33`;
+      link.style.boxShadow   = `0 0 20px ${color}12`;
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.borderColor = '';
+      link.style.boxShadow   = '';
+    });
+  });
+})();
+</script>

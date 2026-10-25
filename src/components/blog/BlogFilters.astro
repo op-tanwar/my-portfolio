@@ -1,0 +1,117 @@
+---
+import { slugify } from "../../lib/blog";
+
+interface Props {
+  categories: string[];
+  tags: string[];
+  activeCategory?: string;
+  activeTag?: string;
+}
+
+const { categories, tags, activeCategory, activeTag } = Astro.props;
+---
+
+<div class="blog-filters flex flex-col gap-4 mb-8 sm:mb-10">
+  <div>
+    <p class="text-[8px] font-mono tracking-[0.25em] uppercase mb-2" style="color:rgba(0,255,247,0.35);">
+      // filter.category()
+    </p>
+    <div class="flex flex-wrap gap-2" role="navigation" aria-label="Blog categories">
+      <a
+        href="/blog"
+        class:list={[
+          "filter-chip text-[8px] sm:text-[9px] font-mono font-bold tracking-widest uppercase px-3 py-1.5 transition-all duration-200 no-underline",
+          !activeCategory && !activeTag && "filter-chip-active",
+        ]}
+        style={!activeCategory && !activeTag
+          ? "color:#00fff7;background:rgba(0,255,247,0.1);border:1px solid rgba(0,255,247,0.3);"
+          : "color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);"}
+      >
+        All
+      </a>
+      {categories.map((category) => {
+        const isActive = activeCategory === slugify(category);
+        return (
+          <a
+            href={`/blog/category/${slugify(category)}`}
+            class:list={["filter-chip text-[8px] sm:text-[9px] font-mono font-bold tracking-widest uppercase px-3 py-1.5 transition-all duration-200 no-underline", isActive && "filter-chip-active"]}
+            style={isActive
+              ? "color:#00fff7;background:rgba(0,255,247,0.1);border:1px solid rgba(0,255,247,0.3);"
+              : "color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);"}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {category}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+
+  <div>
+    <p class="text-[8px] font-mono tracking-[0.25em] uppercase mb-2" style="color:rgba(191,0,255,0.35);">
+      // filter.tags()
+    </p>
+    <div class="flex flex-wrap gap-1.5" role="navigation" aria-label="Blog tags" data-tag-list>
+      {tags.map((tag, index) => {
+        const isActive = activeTag === slugify(tag);
+        const isHidden = index >= 24;
+        return (
+          <a
+            href={`/blog/tag/${slugify(tag)}`}
+            class:list={["filter-chip text-[7px] sm:text-[8px] font-mono font-bold tracking-widest uppercase px-2 py-1 transition-all duration-200 no-underline", isActive && "filter-chip-active", isHidden && "hidden tag-collapsed"]}
+            style={isActive
+              ? "color:#bf00ff;background:rgba(191,0,255,0.1);border:1px solid rgba(191,0,255,0.3);"
+              : "color:rgba(255,255,255,0.35);border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);"}
+            aria-current={isActive ? "page" : undefined}
+          >
+            #{tag}
+          </a>
+        );
+      })}
+    </div>
+    {tags.length > 24 && (
+      <button
+        type="button"
+        class="mt-2 text-[8px] font-mono font-bold tracking-widest uppercase px-2 py-1 transition-colors"
+        style="color:rgba(191,0,255,0.6);border:1px solid rgba(191,0,255,0.15);background:rgba(191,0,255,0.05);"
+        data-tag-toggle
+        aria-expanded="false"
+      >
+        Show all {tags.length} tags
+      </button>
+    )}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-tag-toggle]").forEach((btn) => {
+    const total = btn.textContent?.match(/\d+/)?.[0] ?? "";
+    btn.addEventListener("click", () => {
+      const list = btn.parentElement?.querySelector("[data-tag-list]");
+      const collapsed = list?.querySelectorAll(".tag-collapsed");
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+      collapsed?.forEach((el) => el.classList.toggle("hidden", isExpanded));
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      btn.textContent = isExpanded ? `Show all ${total} tags` : "Show fewer tags";
+    });
+  });
+</script>
+
+<style>
+  .filter-chip {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 4px) 0,
+      100% 4px,
+      100% 100%,
+      4px 100%,
+      0 calc(100% - 4px)
+    );
+  }
+  .filter-chip:hover {
+    color: #00fff7 !important;
+    border-color: rgba(0, 255, 247, 0.2) !important;
+    background: rgba(0, 255, 247, 0.05) !important;
+  }
+</style>

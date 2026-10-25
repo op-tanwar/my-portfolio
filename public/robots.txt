@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Prefer crawling indexable content; paginated archives are noindex but remain crawlable via links.
+Sitemap: https://optanwar.vercel.app/sitemap-index.xml

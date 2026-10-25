@@ -1,0 +1,179 @@
+---
+// Navbar.astro — CYBERPUNK NAVBAR (Matches Hero UI)
+
+const links = [
+  {
+    name: "Home",
+    href: "/",
+    title: "Frontend Developer Portfolio - Home"
+  },
+  {
+    name: "About",
+    href: "/#about",
+    title: "About Me - Frontend Developer Skills and Experience"
+  },
+  {
+    name: "Services",
+    href: "/#services",
+    title: "Services - Frontend Developer services and Experience"
+  },
+  {
+    name: "Projects",
+    href: "/#projects",
+    title: "View My Web Development Projects - React and Next.js"
+  },
+  {
+    name: "Skills",
+    href: "/#skills",
+    title: "Frontend Development Skills - React, Next.js, Tailwind CSS"
+  },
+  {
+    name: "Testimonials",
+    href: "/#testimonials",
+    title: "Client Reviews & Testimonials - Omprakash Tanwar"
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+    title: "Frontend Development Blog - React, Next.js, Astro, Sanity CMS and Web Performance"
+  },
+  {
+    name: "Contact",
+    href: "/#contact",
+    title: "Contact Me - Hire a Frontend Developer"
+  }
+];
+---
+
+<header class="fixed top-0 left-0 w-full z-50">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+  
+      <!-- GLASS NAVBAR -->
+      <nav aria-label="Primary Navigation" class="mt-4 flex items-center justify-between px-4 sm:px-5 py-3 relative"
+        style="background:rgba(255,255,255,0.02);
+               border:1px solid rgba(0,255,247,0.12);
+               backdrop-filter:blur(14px);
+               box-shadow:0 0 40px rgba(0,255,247,0.04), inset 0 1px 0 rgba(255,255,255,0.05);
+               clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+  
+        <!-- TOP RIGHT DOTS -->
+        <div class="absolute top-2 right-2 flex gap-1 opacity-70">
+          <div class="w-1 h-1 rounded-full bg-cyan-400"></div>
+          <div class="w-1 h-1 rounded-full bg-purple-500"></div>
+          <div class="w-1 h-1 rounded-full bg-pink-500"></div>
+        </div>
+  
+        <!-- LOGO -->
+        <div class="flex items-center gap-2 font-mono text-sm tracking-widest flex-shrink-0">
+          <a href="/" class="flex items-center gap-2 font-mono text-sm tracking-widest">
+            <span style="color:#00fff7;">&lt;/&gt;</span>
+            <span class="font-bold"
+              style="background:linear-gradient(90deg,#00fff7,#bf00ff,#ff006e);
+                     -webkit-background-clip:text;
+                     -webkit-text-fill-color:transparent;">
+                      OP.dev
+            </span>
+          </a>
+        </div>
+  
+        <!-- NAV LINKS -->
+        <ul class="nav-list hidden md:flex items-center gap-6 text-[11px] font-mono tracking-[0.2em] uppercase">
+          {links.map(link => (
+            <li>
+              <a href={link.href} title={link.title}
+                class="nav-link relative px-1 py-1 transition-all duration-200 whitespace-nowrap"
+                style="color:rgba(255,255,255,0.5);">
+                {link.name}
+  
+                <!-- underline glow -->
+                <span class="absolute left-0 bottom-0 w-0 h-px transition-all duration-300"
+                  style="background:#00fff7;"></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+  
+        <!-- CTA -->
+        <a href="/#contact"
+          class="nav-cta hidden md:inline-flex items-center gap-2 px-5 py-2 text-[11px] font-black font-mono tracking-[0.15em] uppercase transition-all duration-200 hover:-translate-y-0.5 flex-shrink-0"
+          style="color:#020204;
+                 background:#00fff7;
+                 clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));">
+          Let's Talk
+        </a>
+  
+        <!-- MOBILE MENU BUTTON -->
+        <button id="menu-btn"
+          aria-label="Toggle Navigation Menu"
+          class="md:hidden flex items-center justify-center w-9 h-9 cursor-pointer"
+          style="border:1px solid rgba(0,255,247,0.3);
+                 color:#00fff7;">
+          ☰
+        </button>
+      </nav>
+  
+      <!-- MOBILE MENU -->
+      <div id="mobile-menu"
+        class="hidden mt-3 p-5 flex flex-col gap-4 md:hidden"
+        style="background:rgba(2,2,4,0.95);
+               border:1px solid rgba(0,255,247,0.15);
+               backdrop-filter:blur(12px);
+               clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+  
+        {links.map(link => (
+          <a href={link.href} title={link.title}
+            class="text-[12px] font-mono tracking-[0.2em] uppercase"
+            style="color:rgba(255,255,255,0.6);">
+            {link.name}
+          </a>
+        ))}
+  
+        <!-- CTA -->
+        <a href="/#contact"
+          class="flex md:hidden text-center w-full items-center justify-center gap-2 px-5 py-2 text-[11px] font-black font-mono tracking-[0.15em] uppercase transition-all duration-200 hover:-translate-y-0.5"
+          style="color:#020204;
+                 background:#00fff7;
+                 clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));">
+          Let's Talk
+        </a>
+      </div>
+  
+    </div>
+  </header>
+  
+  <style>
+  /* Hover effects */
+  .nav-link:hover {
+    color: #00fff7 !important;
+  }
+  .nav-link:hover span {
+    width: 100%;
+    box-shadow: 0 0 8px #00fff7;
+  }
+
+  /* Responsiveness fix for 768px to 1100px screen widths */
+  @media (min-width: 768px) and (max-width: 1100px) {
+    .nav-list {
+      gap: 0.625rem !important; /* 10px spacing */
+      letter-spacing: 0.1em !important;
+      font-size: 10px !important;
+    }
+    .nav-link {
+      padding-left: 0.25rem !important;
+      padding-right: 0.25rem !important;
+    }
+    .nav-cta {
+      padding: 0.375rem 0.75rem !important;
+      font-size: 10px !important;
+    }
+  }
+  </style>
+  
+  <script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+  </script>

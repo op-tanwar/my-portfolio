@@ -1,0 +1,100 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import BlogListing from "../../../components/blog/BlogListing.astro";
+import {
+  getPublishedPosts,
+  getFeaturedPosts,
+  getListingPosts,
+  getCategories,
+  getTags,
+  paginatePosts,
+  POSTS_PER_PAGE,
+  getPaginationPath,
+} from "../../../lib/blog";
+import { getSiteUrl } from "../../../lib/site";
+
+export async function getStaticPaths() {
+  const allPosts = await getPublishedPosts();
+  const listingPosts = getListingPosts(allPosts);
+  const totalPages = Math.max(1, Math.ceil(listingPosts.length / POSTS_PER_PAGE));
+
+  if (totalPages <= 1) return [];
+
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const currentPage = i + 2;
+    const pagination = paginatePosts(listingPosts, currentPage, POSTS_PER_PAGE);
+    return {
+      params: { page: String(currentPage) },
+      props: {
+        currentPage,
+        pageItems: pagination.items,
+        totalPages: pagination.totalPages,
+        hasPrev: pagination.hasPrev,
+        hasNext: pagination.hasNext,
+        prevPage: pagination.prevPage,
+        nextPage: pagination.nextPage,
+      },
+    };
+  });
+}
+
+interface Props {
+  currentPage: number;
+  pageItems: Awaited<ReturnType<typeof getPublishedPosts>>;
+  totalPages: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
+
+const { currentPage, pageItems, totalPages, hasPrev, hasNext, prevPage, nextPage } = Astro.props;
+
+const allPosts = await getPublishedPosts();
+const featuredPosts = getFeaturedPosts(allPosts);
+const categories = getCategories(allPosts);
+const tags = getTags(allPosts);
+
+const siteUrl = getSiteUrl(Astro.site);
+const basePath = "/blog";
+const canonical = `${siteUrl}${basePath}/page/${currentPage}`;
+const prevUrl = prevPage
+  ? `${siteUrl}${getPaginationPath(basePath, prevPage)}`
+  : undefined;
+const nextUrl = nextPage
+  ? `${siteUrl}${getPaginationPath(basePath, nextPage)}`
+  : undefined;
+---
+
+<Layout
+  title={`Blog — Page ${currentPage} | Omprakash Tanwar`}
+  description={`Page ${currentPage} of frontend development articles on React, Next.js, Astro, performance optimization, and modern web engineering by Omprakash Tanwar.`}
+  canonical={canonical}
+  tags={["React", "Next.js", "Astro", "Frontend", "Blog"]}
+  noindex={true}
+  prevUrl={prevUrl}
+  nextUrl={nextUrl}
+>
+  <div id="main-content">
+    <BlogListing
+      allPosts={allPosts}
+      listingPosts={pageItems}
+      featuredPosts={featuredPosts}
+      categories={categories}
+      tags={tags}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      hasPrev={hasPrev}
+      hasNext={hasNext}
+      prevPage={prevPage}
+      nextPage={nextPage}
+      basePath={basePath}
+      headerLabel={`// blog.page(${currentPage})`}
+      titleWhite="Writing"
+      titleGradient="& Thoughts_"
+      subtitle={`Page ${currentPage} of ${totalPages}`}
+      showFeatured={false}
+      showSearch={true}
+    />
+  </div>
+</Layout>

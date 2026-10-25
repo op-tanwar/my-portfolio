@@ -1,0 +1,246 @@
+---
+// CustomCursor.astro — CYBERPUNK PREMIUM CURSOR
+// Drop inside Layout.astro <body>, before <slot />
+// Zero dependencies, pure CSS + vanilla JS
+---
+
+<!-- Cursor elements -->
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-trail-1" aria-hidden="true"></div>
+<div id="cursor-trail-2" aria-hidden="true"></div>
+
+<style>
+  /* ── Hide default cursor globally ── */
+  *, *::before, *::after { cursor: none !important; }
+
+  /* ── DOT — sharp neon center ── */
+  #cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 6px; height: 6px;
+    background: #00fff7;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    box-shadow:
+      0 0 6px  #00fff7,
+      0 0 14px #00fff7,
+      0 0 28px rgba(0,255,247,0.6);
+    transition: width .15s ease, height .15s ease, background .2s ease, box-shadow .2s ease;
+    will-change: transform;
+  }
+
+  /* ── RING — chamfered outer ring ── */
+  #cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 36px; height: 36px;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    transition: width .25s cubic-bezier(.16,1,.3,1),
+                height .25s cubic-bezier(.16,1,.3,1),
+                border-color .2s ease,
+                opacity .2s ease;
+  }
+
+  /* Ring inner SVG drawn via pseudo — clip-path chamfered square */
+  #cursor-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid rgba(0,255,247,0.7);
+    clip-path: polygon(
+      0 8px, 8px 0,
+      calc(100% - 8px) 0, 100% 8px,
+      100% calc(100% - 8px), calc(100% - 8px) 100%,
+      8px 100%, 0 calc(100% - 8px)
+    );
+    box-shadow:
+      0 0 8px rgba(0,255,247,0.3),
+      inset 0 0 8px rgba(0,255,247,0.06);
+    animation: ringRotate 4s linear infinite;
+  }
+
+  /* Second ring layer — rotates opposite, thinner, violet tint */
+  #cursor-ring::after {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(191,0,255,0.35);
+    clip-path: polygon(
+      0 5px, 5px 0,
+      calc(100% - 5px) 0, 100% 5px,
+      100% calc(100% - 5px), calc(100% - 5px) 100%,
+      5px 100%, 0 calc(100% - 5px)
+    );
+    animation: ringRotate 3s linear infinite reverse;
+  }
+
+  @keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ── TRAIL PARTICLES ── */
+  #cursor-trail-1,
+  #cursor-trail-2 {
+    position: fixed;
+    top: 0; left: 0;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99997;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    opacity: 0.5;
+  }
+  #cursor-trail-1 {
+    background: #00fff7;
+    box-shadow: 0 0 6px #00fff7;
+    transition: transform 80ms linear;
+  }
+  #cursor-trail-2 {
+    background: #bf00ff;
+    box-shadow: 0 0 6px #bf00ff;
+    transition: transform 140ms linear;
+    width: 3px; height: 3px;
+    opacity: 0.35;
+  }
+
+  /* ── HOVER STATE — link / button ── */
+  body.cursor-hover #cursor-dot {
+    width: 10px; height: 10px;
+    background: #bf00ff;
+    box-shadow: 0 0 10px #bf00ff, 0 0 24px rgba(191,0,255,0.6);
+  }
+  body.cursor-hover #cursor-ring {
+    width: 52px; height: 52px;
+  }
+  body.cursor-hover #cursor-ring::before {
+    border-color: rgba(191,0,255,0.8);
+    box-shadow: 0 0 14px rgba(191,0,255,0.4), inset 0 0 10px rgba(191,0,255,0.08);
+  }
+  body.cursor-hover #cursor-ring::after {
+    border-color: rgba(255,0,110,0.4);
+  }
+
+  /* ── CLICK STATE ── */
+  body.cursor-click #cursor-dot {
+    width: 4px; height: 4px;
+    background: #ff006e;
+    box-shadow: 0 0 8px #ff006e, 0 0 20px rgba(255,0,110,0.7);
+  }
+  body.cursor-click #cursor-ring {
+    width: 24px; height: 24px;
+  }
+  body.cursor-click #cursor-ring::before {
+    border-color: rgba(255,0,110,0.9);
+  }
+
+  /* ── TEXT HOVER ── */
+  body.cursor-text #cursor-dot {
+    width: 3px;
+    height: 24px;
+    border-radius: 2px;
+    background: #00fff7;
+    box-shadow: 0 0 8px #00fff7;
+  }
+  body.cursor-text #cursor-ring {
+    opacity: 0.3;
+  }
+
+  /* ── HIDDEN — when cursor leaves window ── */
+  body.cursor-hidden #cursor-dot,
+  body.cursor-hidden #cursor-ring,
+  body.cursor-hidden #cursor-trail-1,
+  body.cursor-hidden #cursor-trail-2 {
+    opacity: 0;
+  }
+
+  /* ── Touch: restore default cursor ── */
+  @media (hover: none) {
+    *, *::before, *::after { cursor: auto !important; }
+    #cursor-dot, #cursor-ring, #cursor-trail-1, #cursor-trail-2 { display: none; }
+  }
+</style>
+
+<script>
+(function () {
+  // Skip on touch devices
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  const dot    = document.getElementById('cursor-dot')!;
+  const ring   = document.getElementById('cursor-ring')!;
+  const trail1 = document.getElementById('cursor-trail-1')!;
+  const trail2 = document.getElementById('cursor-trail-2')!;
+  const body   = document.body;
+
+  let mouseX = -100, mouseY = -100;
+  let ringX  = -100, ringY  = -100;
+  let raf: number;
+
+  // ── Smooth ring follow via lerp ──
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+  function animate() {
+    // Ring lags behind dot with lerp
+    ringX = lerp(ringX, mouseX, 0.14);
+    ringY = lerp(ringY, mouseY, 0.14);
+
+    ring.style.transform   = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
+    trail1.style.transform = `translate(calc(${lerp(ringX, mouseX, 0.4)}px - 50%), calc(${lerp(ringY, mouseY, 0.4)}px - 50%))`;
+    trail2.style.transform = `translate(calc(${lerp(ringX, mouseX, 0.2)}px - 50%), calc(${lerp(ringY, mouseY, 0.2)}px - 50%))`;
+
+    raf = requestAnimationFrame(animate);
+  }
+  animate();
+
+  // ── Dot follows exactly (no lag) ──
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+  }, { passive: true });
+
+  // ── Click flash ──
+  document.addEventListener('mousedown', () => {
+    body.classList.add('cursor-click');
+  });
+  document.addEventListener('mouseup', () => {
+    body.classList.remove('cursor-click');
+  });
+
+  // ── Hover detection ──
+  const LINK_SELECTORS = 'a, button, [role="button"], label, select, [data-cursor="hover"], .cursor-hover-target';
+  const TEXT_SELECTORS = 'p, h1, h2, h3, h4, h5, h6, span, li, blockquote';
+
+  function getTarget(el: Element | null): 'link' | 'text' | 'none' {
+    if (!el) return 'none';
+    if (el.closest(LINK_SELECTORS)) return 'link';
+    if (el.closest(TEXT_SELECTORS)) return 'text';
+    return 'none';
+  }
+
+  document.addEventListener('mouseover', (e) => {
+    const type = getTarget(e.target as Element);
+    body.classList.toggle('cursor-hover', type === 'link');
+    body.classList.toggle('cursor-text',  type === 'text');
+  }, { passive: true });
+
+  document.addEventListener('mouseout', () => {
+    body.classList.remove('cursor-hover', 'cursor-text');
+  }, { passive: true });
+
+  // ── Hide when leaving window ──
+  document.addEventListener('mouseleave', () => body.classList.add('cursor-hidden'));
+  document.addEventListener('mouseenter', () => body.classList.remove('cursor-hidden'));
+
+  // ── Cleanup on unmount (Astro View Transitions) ──
+  document.addEventListener('astro:before-swap', () => cancelAnimationFrame(raf));
+  document.addEventListener('astro:after-swap',  () => { raf = requestAnimationFrame(animate); });
+})();
+</script>

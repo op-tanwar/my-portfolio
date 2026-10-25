@@ -1,0 +1,391 @@
+---
+// SkillsSection.astro — CYBERPUNK v3 · RESUME-ACCURATE · PERFECT RESPONSIVE
+// Skills sourced from Omprakash Tanwar's actual resume
+import type { ImageMetadata } from "astro";
+interface Skill {
+  name: string;
+  level: number;
+  color: string;
+  svg: ImageMetadata;
+  tag?: string;
+}
+
+interface SkillCategory {
+  id: string;
+  label: string;
+  comment: string;
+  accentColor: string;
+  skills: Skill[];
+}
+
+import { Image } from "astro:assets";
+import react from "../../assets/icons/react-developer.svg";
+import next from "../../assets/icons/next.js-developer.svg";
+import tailwind from "../../assets/icons/tailwind-expret.svg";
+import typescript from "../../assets/icons/typescript-developer.svg";
+import javascript from "../../assets/icons/javaScript-developer.svg";
+import astro from "../../assets/icons/AstroJs-developer.svg";
+import redux from "../../assets/icons/Redux.svg";
+import code from "../../assets/icons/figma-to-code.svg";
+import rest from "../../assets/icons/rest-api.svg";
+import jwt from "../../assets/icons/jwt.svg";
+import node from "../../assets/icons/node.svg";
+import express from "../../assets/icons/express.svg";
+import mongodb from "../../assets/icons/mongodb.svg";
+import sanity from "../../assets/icons/Sanity.svg";
+
+
+const categories: SkillCategory[] = [
+  // ── 1. FRONTEND CORE ──────────────────────────────────
+  {
+    id: "frontend",
+    label: "Frontend Core",
+    comment: "// ui.render()",
+    accentColor: "#00fff7",
+    skills: [
+      {
+        name: "JavaScript",
+        level: 92,
+        color: "#F7DF1E",
+        tag: "Expert",
+        svg: javascript,
+      },
+      {
+        name: "TypeScript",
+        level: 82,
+        color: "#3178C6",
+        tag: "Advanced",
+        svg: typescript,
+      },
+      {
+        name: "React.js",
+        level: 92,
+        color: "#61DAFB",
+        tag: "Expert",
+        svg: react,
+      },
+      {
+        name: "Next.js",
+        level: 90,
+        color: "#ffffff",
+        tag: "Expert",
+        svg: next,
+      },
+      {
+        name: "Astro.js",
+        level: 90,
+        color: "#FF5D01",
+        tag: "Expert",
+        svg: astro,
+      },
+      {
+        name: "Tailwind CSS",
+        level: 95,
+        color: "#38BDF8",
+        tag: "Expert",
+        svg: tailwind,
+      },
+    ],
+  },
+
+  // ── 2. ECOSYSTEM & INTEGRATIONS ───────────────────────
+  {
+    id: "ecosystem",
+    label: "Ecosystem & Integrations",
+    comment: "// deps.install()",
+    accentColor: "#bf00ff",
+    skills: [
+      {
+        name: "Redux Toolkit",
+        level: 88,
+        color: "#764ABC",
+        tag: "Advanced",
+        svg: redux,
+      },
+      {
+        name: "Sanity CMS",
+        level: 85,
+        color: "#F03E2F",
+        tag: "Advanced",
+        svg: sanity,
+      },
+      {
+        name: "REST API Integration",
+        level: 90,
+        color: "#00D4AA",
+        tag: "Expert",
+        svg: rest,
+      },
+      {
+        name: "Figma → Code",
+        level: 88,
+        color: "#F24E1E",
+        tag: "Expert",
+        svg: code,
+      },
+    ],
+  },
+
+  // ── 3. BACKEND & DATABASE ─────────────────────────────
+  {
+    id: "backend",
+    label: "Backend & Database",
+    comment: "// server.listen()",
+    accentColor: "#f7df1e",
+    skills: [
+      {
+        name: "Node.js",
+        level: 80,
+        color: "#339933",
+        tag: "Advanced",
+        svg: node,
+      },
+      {
+        name: "Express.js",
+        level: 78,
+        color: "#ffffff",
+        tag: "Advanced",
+        svg: express,
+      },
+      {
+        name: "MongoDB",
+        level: 78,
+        color: "#47A248",
+        tag: "Advanced",
+        svg: mongodb,
+      },
+      {
+        name: "JWT Authentication",
+        level: 82,
+        color: "#bf00ff",
+        tag: "Advanced",
+        svg: jwt,
+      },
+    ],
+  },
+];
+
+const tagColors: Record<string, { bg: string; border: string; text: string }> = {
+  Expert:   { bg:"rgba(0,255,247,0.08)",  border:"rgba(0,255,247,0.3)",  text:"#00fff7" },
+  Advanced: { bg:"rgba(191,0,255,0.08)",  border:"rgba(191,0,255,0.3)",  text:"#bf00ff" },
+  Growing:  { bg:"rgba(247,223,30,0.08)", border:"rgba(247,223,30,0.3)", text:"#f7df1e" },
+};
+
+const bottomStats = [
+  { val:"100", unit:"pts", label:"Lighthouse Score",   color:"#00fff7" },
+  { val:"<1s", unit:"",    label:"Avg LCP Target",     color:"#bf00ff" },
+  { val:"3+",unit:"yrs", label:"Prod Experience",    color:"#ff006e" },
+  { val:"MCA", unit:"",    label:"RGPV · 2024",        color:"#f7df1e" },
+];
+---
+
+<section id="skills" class="skills-section relative py-20 sm:py-28 overflow-hidden" style="background:#020204;">
+
+  <!-- Scanlines -->
+  <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,247,0.005) 3px,rgba(0,255,247,0.005) 4px);" aria-hidden="true"></div>
+
+  <!-- Top separator + glow -->
+  <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.25),rgba(191,0,255,0.2),transparent);" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[500px] h-32 pointer-events-none" style="background:radial-gradient(ellipse,rgba(191,0,255,0.06) 0%,transparent 70%);filter:blur(20px);" aria-hidden="true"></div>
+
+  <!-- Corner TL -->
+  <div class="absolute top-8 left-4 sm:left-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px" style="background:linear-gradient(90deg,#bf00ff,transparent);"></div>
+    <div class="w-px h-10 sm:h-12" style="background:linear-gradient(180deg,#bf00ff,transparent);"></div>
+    <div class="absolute top-0 left-0 w-1.5 h-1.5 rounded-full" style="background:#bf00ff;box-shadow:0 0 8px #bf00ff;"></div>
+  </div>
+  <!-- Corner TR -->
+  <div class="absolute top-8 right-4 sm:right-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px ml-auto" style="background:linear-gradient(270deg,#ff006e,transparent);"></div>
+    <div class="w-px h-10 sm:h-12 ml-auto" style="background:linear-gradient(180deg,#ff006e,transparent);"></div>
+    <div class="absolute top-0 right-0 w-1.5 h-1.5 rounded-full" style="background:#ff006e;box-shadow:0 0 8px #ff006e;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+
+    <!-- HEADER -->
+    <div class="skills-header mb-10 sm:mb-16">
+      <p class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3" style="color:rgba(191,0,255,0.5);">// skills.scan()</p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight" style="font-family:'Courier New',monospace;">
+          <span style="color:rgba(255,255,255,0.9);">Tech</span>
+          <span class="block" style="background:linear-gradient(90deg,#bf00ff,#ff006e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Arsenal_</span>
+        </h2>
+        <div class="flex items-center gap-3 sm:pb-2">
+          <div class="h-px w-10 sm:w-16" style="background:linear-gradient(90deg,transparent,rgba(191,0,255,0.5));"></div>
+          <span class="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase" style="color:rgba(255,255,255,0.2);">24 skills · 3+ years</span>
+        </div>
+      </div>
+      <div class="mt-6 sm:mt-8 h-px w-full" style="background:linear-gradient(90deg,rgba(191,0,255,0.3),rgba(255,0,110,0.2),transparent);"></div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="space-y-6 sm:space-y-8">
+      {categories.map((cat, catIdx) => (
+        <div
+          class="skill-category"
+          style={`animation:catReveal .6s cubic-bezier(.16,1,.3,1) both;animation-delay:${catIdx*0.12+0.05}s;animation-play-state:paused;`}
+          data-cat-observe
+        >
+          <!-- Category header -->
+          <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-5">
+            <span class="text-[8px] sm:text-[9px] font-mono tracking-[0.25em] sm:tracking-[0.3em] uppercase hidden sm:block" style={`color:${cat.accentColor};opacity:0.55;`}>{cat.comment}</span>
+            <div class="h-px flex-1" style={`background:linear-gradient(90deg,${cat.accentColor}30,transparent);`} aria-hidden="true"></div>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono tracking-widest uppercase px-2 sm:px-2.5 py-0.5 sm:py-1"
+              style={`color:${cat.accentColor};border:1px solid ${cat.accentColor}33;background:${cat.accentColor}0a;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}>
+              {cat.label}
+            </span>
+          </div>
+
+          <!-- Skill rows grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
+            {cat.skills.map((skill) => {
+              const tc = skill.tag ? tagColors[skill.tag] : null;
+              return (
+                <div class="skill-row group relative p-3 sm:p-4 transition-all duration-300 hover:-translate-y-0.5"
+                  style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+
+                  <!-- Hover top glow -->
+                  <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={`background:linear-gradient(90deg,transparent,${skill.color}88,transparent);`} aria-hidden="true"></div>
+                  <!-- Hover ambient -->
+                  <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={`background:radial-gradient(ellipse at 0% 50%,${skill.color}07 0%,transparent 60%);`} aria-hidden="true"></div>
+
+                  <div class="relative flex items-center gap-3 sm:gap-4">
+                    <!-- Icon -->
+                    <div class="flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                      style={`background:${skill.color}12;border:1px solid ${skill.color}30;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}>
+                      {/* <div class="w-3.5 h-3.5 sm:w-4 sm:h-4" style={`color:${skill.color};`} set:html={skill.svg}></div> */}
+                         <Image
+                          src={skill.svg}
+                          alt={`${skill.name} devevloper`}
+                          width={64}
+                          height={64}
+                          loading="lazy"                        
+                          class="w-4 h-4 sm:w-5 sm:h-5"                
+                        />
+                    </div>
+
+                    <!-- Name + bar -->
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between mb-1.5 sm:mb-2 gap-2">
+                        <span class="text-xs sm:text-sm font-black font-mono truncate" style="color:rgba(255,255,255,0.85);">{skill.name}</span>
+                        <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                          {tc && (
+                            <span class="hidden sm:inline text-[7px] sm:text-[8px] font-bold font-mono tracking-widest uppercase px-1 sm:px-1.5 py-0.5"
+                              style={`color:${tc.text};background:${tc.bg};border:1px solid ${tc.border};clip-path:polygon(0 0,calc(100% - 3px) 0,100% 3px,100% 100%,3px 100%,0 calc(100% - 3px));`}>
+                              {skill.tag}
+                            </span>
+                          )}
+                          <span class="text-[9px] sm:text-[10px] font-mono font-bold" style={`color:${skill.color};`}>{skill.level}%</span>
+                        </div>
+                      </div>
+
+                      <!-- Progress track -->
+                      <div class="relative h-1 sm:h-1.5 w-full overflow-hidden" style="background:rgba(255,255,255,0.05);clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));">
+                        <div class="skill-bar h-full transition-all duration-1000 ease-out"
+                          style={`width:0%;background:linear-gradient(90deg,${skill.color}cc,${skill.color});box-shadow:0 0 8px ${skill.color}88;`}
+                          data-width={`${skill.level}%`}></div>
+                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none skill-shimmer" aria-hidden="true"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- BOTTOM STATS STRIP -->
+    <div class="skills-footer mt-10 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-0 overflow-hidden"
+      style="border:1px solid rgba(0,255,247,0.1);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+      data-footer-observe>
+      {bottomStats.map((s, i) => (
+        <div class="group flex flex-col items-center justify-center py-5 sm:py-6 relative cursor-default transition-all duration-300 hover:bg-white/[0.02]"
+          style={i < 3 ? "border-right:1px solid rgba(0,255,247,0.08);" : ""}>
+          <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity" style={`background:linear-gradient(90deg,transparent,${s.color}55,transparent);`} aria-hidden="true"></div>
+          <div class="flex items-baseline gap-0.5">
+            <span class="text-lg sm:text-2xl font-black font-mono" style={`color:${s.color};text-shadow:0 0 18px ${s.color}66;`}>{s.val}</span>
+            {s.unit && <span class="text-[9px] sm:text-xs font-mono ml-0.5" style={`color:${s.color};opacity:0.6;`}>{s.unit}</span>}
+          </div>
+          <span class="text-[7px] sm:text-[8px] font-mono tracking-widest uppercase mt-1 sm:mt-1.5 text-center px-1" style="color:rgba(255,255,255,0.22);">{s.label}</span>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+  <!-- Bottom divider -->
+  <div class="absolute bottom-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(255,0,110,0.25),rgba(191,0,255,0.15),transparent);" aria-hidden="true"></div>
+
+</section>
+
+<style>
+/* ── CATEGORY REVEAL ── */
+@keyframes catReveal { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── HEADER + FOOTER ── */
+.skills-header { animation:slideUp .6s cubic-bezier(.16,1,.3,1) both; animation-delay:.05s; }
+@keyframes slideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── SKILL ROW HOVER ── */
+.skill-row:hover { border-color:rgba(255,255,255,0.12)!important; }
+
+/* ── PROGRESS BAR SHIMMER ── */
+.skill-shimmer {
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.15) 50%,transparent 100%);
+  animation:shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer { from{transform:translateX(-100%)} to{transform:translateX(100%)} }
+
+/* ── MOBILE: 2-col stats borders ── */
+@media(max-width:639px){
+  /* row 1: items 0,1 */
+  .skills-footer > div:nth-child(1) { border-right:1px solid rgba(0,255,247,0.08)!important; border-bottom:1px solid rgba(0,255,247,0.08)!important; }
+  .skills-footer > div:nth-child(2) { border-bottom:1px solid rgba(0,255,247,0.08)!important; border-right:none!important; }
+  /* row 2: items 2,3 */
+  .skills-footer > div:nth-child(3) { border-right:1px solid rgba(0,255,247,0.08)!important; border-bottom:none!important; }
+  .skills-footer > div:nth-child(4) { border-right:none!important; border-bottom:none!important; }
+}
+
+/* ── REDUCE MOTION ── */
+@media(prefers-reduced-motion:reduce){
+  .skill-category,.skill-shimmer,.skills-header { animation:none!important; }
+  .skill-bar { transition:none!important; }
+}
+</style>
+
+<script>
+(function(){
+  // ── Reveal categories + animate bars on scroll ──
+  const catObs = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      el.style.animationPlayState = 'running';
+      el.querySelectorAll<HTMLElement>('.skill-bar').forEach((bar, i)=>{
+        const w = bar.dataset.width ?? '0%';
+        setTimeout(()=>{ bar.style.width = w; }, i*70+180);
+      });
+      catObs.unobserve(el);
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll<HTMLElement>('[data-cat-observe]').forEach(el=>catObs.observe(el));
+
+  // ── Footer reveal ──
+  const footer = document.querySelector<HTMLElement>('[data-footer-observe]');
+  if(footer){
+    const fObs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        (e.target as HTMLElement).style.animation='slideUp .6s cubic-bezier(.16,1,.3,1) both';
+        fObs.unobserve(e.target);
+      });
+    }, { threshold:0.3 });
+    fObs.observe(footer);
+  }
+})();
+</script>

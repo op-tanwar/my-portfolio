@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Omprakash Tanwar  Frontend Developer">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00fff7"/>
+      <stop offset="50%" stop-color="#bf00ff"/>
+      <stop offset="100%" stop-color="#ff006e"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#020204"/>
+      <stop offset="100%" stop-color="#0a0a12"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="48" y="48" width="1104" height="534" fill="none" stroke="rgba(0,255,247,0.15)" stroke-width="2"/>
+  <path d="M48 48 H180" stroke="#00fff7" stroke-width="3"/>
+  <path d="M48 48 V180" stroke="#00fff7" stroke-width="3"/>
+  <path d="M1152 582 H1020" stroke="#bf00ff" stroke-width="3"/>
+  <path d="M1152 582 V450" stroke="#bf00ff" stroke-width="3"/>
+  <circle cx="48" cy="48" r="6" fill="#00fff7"/>
+  <circle cx="1152" cy="582" r="6" fill="#bf00ff"/>
+  <text x="96" y="180" fill="rgba(0,255,247,0.45)" font-family="monospace" font-size="22" letter-spacing="6">// frontend.developer()</text>
+  <text x="96" y="300" fill="url(#glow)" font-family="'Courier New', monospace" font-size="72" font-weight="900">Omprakash Tanwar</text>
+  <text x="96" y="370" fill="rgba(255,255,255,0.75)" font-family="monospace" font-size="30">React · Next.js · Astro · Performance</text>
+  <text x="96" y="520" fill="rgba(255,255,255,0.35)" font-family="monospace" font-size="22">optanwar.vercel.app</text>
+</svg>

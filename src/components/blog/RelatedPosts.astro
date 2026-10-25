@@ -1,0 +1,35 @@
+---
+import BlogCard from "./BlogCard.astro";
+import { getPostAccent, type BlogPost } from "../../lib/blog";
+
+interface Props {
+  posts: BlogPost[];
+  allPosts: BlogPost[];
+}
+
+const { posts, allPosts } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <div class="related-posts mt-16 sm:mt-20">
+    <p
+      class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2"
+      style="color:rgba(0,255,247,0.45);"
+    >
+      // related.posts()
+    </p>
+    <h2
+      class="text-2xl sm:text-3xl font-black font-mono mb-6 sm:mb-8"
+      style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
+    >
+      Continue <span style="background:linear-gradient(90deg,#00fff7,#bf00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Reading_</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+      {posts.map((post, i) => {
+        const globalIndex = allPosts.findIndex((p) => p.id === post.id);
+        const accent = getPostAccent(post, globalIndex >= 0 ? globalIndex : i);
+        return <BlogCard post={post} index={i} accent={accent} observe={false} />;
+      })}
+    </div>
+  </div>
+)}

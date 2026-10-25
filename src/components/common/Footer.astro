@@ -1,0 +1,179 @@
+---
+// Footer.astro — CYBERPUNK v3 · STANDALONE 
+// Place after ContactSection as the last element on the page
+
+interface Props {
+  name?: string;
+  year?: string;
+  navLinks?: { label: string; href: string }[];
+}
+
+const {
+  name = "Omprakash",
+  year = new Date().getFullYear(),
+  navLinks = [
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/#projects" },
+    { label: "About", href: "/#about" },
+    { label: "Services", href: "/#services" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/#contact" },
+  ],
+} = Astro.props;
+---
+
+<footer
+  id="footer"
+  class="relative overflow-hidden"
+  style="background:#020204;"
+>
+  <!-- Scanlines -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,247,0.004) 3px,rgba(0,255,247,0.004) 4px);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Top border -->
+  <div
+    class="absolute top-0 left-0 right-0 h-px"
+    style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.2),rgba(191,0,255,0.15),rgba(255,0,110,0.1),transparent);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Ambient glow -->
+  <div
+    class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-20 pointer-events-none"
+    style="background:radial-gradient(ellipse,rgba(0,255,247,0.04) 0%,transparent 70%);filter:blur(16px);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 py-6 sm:py-8"
+  >
+    <!-- Main row -->
+    <div
+      class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6"
+    >
+      <!-- Brand -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Logo chip -->
+        <div
+          class="w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0 flex items-center justify-center"
+          style="background:rgba(0,255,247,0.08);border:1px solid rgba(0,255,247,0.25);clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));"
+        >
+          <span
+            class="text-[8px] sm:text-[9px] font-black font-mono"
+            style="color:#00fff7;">OP</span
+          >
+        </div>
+        <span
+          class="text-[9px] sm:text-[10px] font-mono"
+          style="color:rgba(255,255,255,0.2);"
+        >
+          © {year}
+          {name} · Built with Astro + Tailwind
+        </span>
+      </div>
+
+      <!-- Nav links -->
+      <nav
+        class="flex flex-wrap items-center justify-center gap-4 sm:gap-6"
+        aria-label="Footer navigation"
+      >
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="footer-nav-link text-[9px] sm:text-[10px] font-mono tracking-[0.15em] sm:tracking-widest uppercase transition-all duration-200 hover:text-white hover:-translate-y-0.5"
+              style="color:rgba(255,255,255,0.25);"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <!-- Divider -->
+    <div
+      class="mt-5 sm:mt-6 h-px w-full"
+      style="background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);"
+      aria-hidden="true"
+    >
+    </div>
+
+    <!-- Bottom row -->
+    <div
+      class="mt-4 sm:mt-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4"
+    >
+      <!-- Left: tech stack -->
+      <div
+        class="flex items-center gap-2 flex-wrap justify-center sm:justify-start"
+      >
+        {
+          ["Astro", "React", "Tailwind", "TypeScript"].map((t, i) => (
+            <span
+              class="text-[8px] font-mono tracking-widest uppercase"
+              style={`color:rgba(255,255,255,0.15);${i < 3 ? "padding-right:0.5rem;border-right:1px solid rgba(255,255,255,0.08);" : ""}`}
+            >
+              {t}
+            </span>
+          ))
+        }
+      </div>
+
+      <!-- Center: end_of_file -->
+      <div class="flex items-center gap-2">
+        <div
+          class="h-px w-8 sm:w-12"
+          style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.15));"
+        >
+        </div>
+        <span
+          class="text-[7px] sm:text-[8px] font-mono tracking-[0.3em] uppercase"
+          style="color:rgba(255,255,255,0.1);">end_of_file</span
+        >
+        <div
+          class="h-px w-8 sm:w-12"
+          style="background:linear-gradient(270deg,transparent,rgba(0,255,247,0.15));"
+        >
+        </div>
+      </div>
+
+      <!-- Right: RSS + status -->
+      <div class="flex items-center gap-4">
+        <a
+          href="/rss.xml"
+          class="text-[8px] font-mono tracking-widest uppercase transition-colors hover:text-cyan-300"
+          style="color:rgba(255,255,255,0.2);"
+        >
+          RSS
+        </a>
+        <span class="relative flex h-1.5 w-1.5 flex-shrink-0">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
+            style="background:#00fff7;"></span>
+          <span
+            class="relative inline-flex rounded-full h-1.5 w-1.5"
+            style="background:#00fff7;box-shadow:0 0 4px #00fff7;"></span>
+        </span>
+        <span
+          class="text-[8px] font-mono tracking-widest uppercase"
+          style="color:rgba(0,255,247,0.3);">All systems online</span
+        >
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-nav-link:hover {
+    text-shadow: 0 0 12px rgba(0, 255, 247, 0.3);
+  }
+</style>

@@ -1,0 +1,381 @@
+---
+// ProjectsSection.astro — CYBERPUNK EDITION
+// Place after HeroSection in your page
+
+interface Project {
+  id: string;
+  title: string;
+  type: string;
+  status: "LIVE" | "WIP" | "SHIPPED";
+  year: string;
+  description: string;
+  tags: string[];
+  metrics?: { label: string; value: string }[];
+  liveUrl?: string;
+  githubUrl?: string;
+  accentColor: string;
+}
+
+const projects: Project[] = [
+  {
+    id: "01",
+    title: "YummyGummies",
+    type: "E-Commerce Platform",
+    status: "WIP",
+    year: "2025",
+    description:
+      "Full-stack eCommerce with SSR/ISR, guest-to-server cart merge, Stripe webhook payments, Sanity CMS product management, and a real-time admin dashboard. Built for performance — sub-1s LCP on all routes.",
+    tags: ["Next.js", "Stripe", "Sanity", "TypeScript", "Tailwind", "Redux"],
+    metrics: [
+      { label: "LCP", value: "<1s" },
+      { label: "CLS", value: "0.02" },
+      { label: "Routes", value: "ISR" },
+    ],
+    accentColor: "#00fff7",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: "02",
+    title: "GoQuant Orderbook",
+    type: "Real-Time Trading UI",
+    status: "SHIPPED",
+    year: "2024",
+    description:
+      "Live crypto orderbook app with sub-100ms WebSocket updates, bid/ask depth visualization, and smooth React state diffs. Handles 500+ updates/sec without jank using virtualized lists.",
+    tags: ["React", "WebSockets", "TypeScript", "Recharts", "Redux Toolkit"],
+    metrics: [
+      { label: "Latency", value: "<100ms" },
+      { label: "Updates/s", value: "500+" },
+      { label: "Re-renders", value: "0 wasted" },
+    ],
+    accentColor: "#bf00ff",
+    liveUrl: "#",
+    githubUrl: "#",
+  },
+  {
+    id: "03",
+    title: "Boutee",
+    type: "Fashion Brand Site",
+    status: "SHIPPED",
+    year: "2024",
+    description:
+      "High-performance fashion brand site built with Astro + Sanity CMS. Zero JS by default, partial hydration only where needed. 100 Lighthouse performance score. Stunning editorial layout.",
+    tags: ["Astro", "Sanity", "Tailwind", "TypeScript", "SEO"],
+    metrics: [
+      { label: "Perf Score", value: "100" },
+      { label: "JS Sent", value: "~0kb" },
+      { label: "FCP", value: "0.4s" },
+    ],
+    accentColor: "#ff006e",
+    liveUrl: "https://www.boutee.co.uk/",
+    githubUrl: "https://github.com/optanwar/boutee-website-upwork",
+  },
+  {
+    id: "04",
+    title: "SchoolDekho",
+    type: "School Discovery Platform",
+    status: "SHIPPED",
+    year: "2023",
+    description:
+      "React + Node.js school discovery and comparison platform. Advanced filtering, map-based search, admin panel for school listings, and SEO-optimized dynamic pages for 1000+ schools.",
+    tags: ["React", "Node.js", "MongoDB", "Tailwind", "SEO", "Maps API"],
+    metrics: [
+      { label: "Schools", value: "1000+" },
+      { label: "Organic", value: "Top 3" },
+      { label: "Stack", value: "MERN" },
+    ],
+    accentColor: "#f7df1e",
+    liveUrl: "https://www.schooldekho.org/",
+    githubUrl: "https://github.com/optanwar/school",
+  },
+];
+
+const statusConfig = {
+  LIVE:    { label: "LIVE",    dot: "#00fff7", bg: "rgba(0,255,247,0.08)",  border: "rgba(0,255,247,0.3)"  },
+  WIP:     { label: "IN DEV", dot: "#f7df1e", bg: "rgba(247,223,30,0.08)", border: "rgba(247,223,30,0.3)" },
+  SHIPPED: { label: "SHIPPED", dot: "#bf00ff", bg: "rgba(191,0,255,0.08)", border: "rgba(191,0,255,0.3)"  },
+};
+---
+
+<section id="projects" class="projects-section relative py-28 overflow-hidden" style="background:#020204;">
+
+  <!-- Scanlines carry-over -->
+  <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,247,0.005) 3px,rgba(0,255,247,0.005) 4px);" aria-hidden="true"></div>
+
+  <!-- Section ambient glow -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[1px] pointer-events-none" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.25),transparent);" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-32 pointer-events-none" style="background:radial-gradient(ellipse,rgba(0,255,247,0.06) 0%,transparent 70%);filter:blur(16px);" aria-hidden="true"></div>
+
+  <!-- Corner accents -->
+  <div class="absolute top-8 left-6 pointer-events-none" aria-hidden="true">
+    <div class="w-12 h-px" style="background:linear-gradient(90deg,#00fff7,transparent);"></div>
+    <div class="w-px h-12" style="background:linear-gradient(180deg,#00fff7,transparent);"></div>
+  </div>
+  <div class="absolute top-8 right-6 pointer-events-none" aria-hidden="true">
+    <div class="w-12 h-px ml-auto" style="background:linear-gradient(270deg,#bf00ff,transparent);"></div>
+    <div class="w-px h-12 ml-auto" style="background:linear-gradient(180deg,#bf00ff,transparent);"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+
+    <!-- ── SECTION HEADER ── -->
+    <div class="section-header mb-16">
+      <p class="text-[10px] font-mono tracking-[0.35em] uppercase mb-3" style="color:rgba(0,255,247,0.45);">// projects.load()</p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h2 class="text-5xl lg:text-6xl font-black leading-none tracking-tight" style="font-family:'Courier New',monospace;">
+            <span style="color:rgba(255,255,255,0.9);">Selected</span>
+            <span class="block" style="background:linear-gradient(90deg,#00fff7,#bf00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+              Work_
+            </span>
+          </h2>
+        </div>
+        <div class="flex items-center gap-3 pb-2">
+          <div class="h-px w-16" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.4));"></div>
+          <span class="text-[10px] font-mono tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.2);">
+            {projects.length} projects · 2023–2025
+          </span>
+        </div>
+      </div>
+      <!-- Divider line -->
+      <div class="mt-8 h-px w-full" style="background:linear-gradient(90deg,rgba(0,255,247,0.3),rgba(191,0,255,0.2),transparent);"></div>
+    </div>
+
+    <!-- ── PROJECT CARDS ── -->
+    <div class="projects-grid grid grid-cols-1 lg:grid-cols-2 gap-5">
+      {projects.map((project, idx) => {
+        const sc = statusConfig[project.status];
+        return (
+          <article
+            class="project-card group relative overflow-hidden transition-all duration-500 cursor-default"
+            style={`
+              background: rgba(255,255,255,0.02);
+              border: 1px solid rgba(255,255,255,0.07);
+              clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+              animation: cardReveal .6s cubic-bezier(.16,1,.3,1) both;
+              animation-delay: ${idx * 0.1 + 0.1}s;
+            `}
+            data-accent={project.accentColor}
+          >
+            <!-- Hover accent border overlay -->
+            <div class="card-border-accent absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={`clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));background:transparent;box-shadow:inset 0 0 0 1px ${project.accentColor}55;`}>
+            </div>
+
+            <!-- Top glow on hover -->
+            <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={`background:linear-gradient(90deg,transparent,${project.accentColor},transparent);`} aria-hidden="true"></div>
+
+            <!-- Ambient bg glow on hover -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              style={`background:radial-gradient(ellipse at 50% 0%,${project.accentColor}08 0%,transparent 60%);`} aria-hidden="true"></div>
+
+            <div class="relative p-6 lg:p-7 flex flex-col gap-5 h-full">
+
+              <!-- Card top row -->
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <!-- Project ID -->
+                  <span class="text-[11px] font-black font-mono" style={`color:${project.accentColor};opacity:0.5;`}>
+                    {project.id}
+                  </span>
+                  <!-- Status badge -->
+                  <div class="inline-flex items-center gap-1.5 px-2 py-1"
+                    style={`background:${sc.bg};border:1px solid ${sc.border};clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}>
+                    <span class="w-1.5 h-1.5 rounded-full" style={`background:${sc.dot};box-shadow:0 0 6px ${sc.dot};${project.status==='LIVE'?'animation:statusPing 1.5s ease-in-out infinite;':''}`}></span>
+                    <span class="text-[9px] font-bold font-mono tracking-[0.2em]" style={`color:${sc.dot};`}>{sc.label}</span>
+                  </div>
+                </div>
+                <!-- Year -->
+                <span class="text-[10px] font-mono opacity-25 text-white">{project.year}</span>
+              </div>
+
+              <!-- Title + type -->
+              <div>
+                <p class="text-[10px] font-mono tracking-[0.25em] uppercase mb-1.5" style="color:rgba(255,255,255,0.25);">
+                  {project.type}
+                </p>
+                <h3 class="text-2xl lg:text-3xl font-black tracking-tight leading-none transition-all duration-300"
+                  style={`font-family:'Courier New',monospace;color:rgba(255,255,255,0.92);`}>
+                  <span class="group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
+                    style={`--accent:${project.accentColor};`}>
+                    {project.title}
+                  </span>
+                  <span class="text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={`color:${project.accentColor};`}>_</span>
+                </h3>
+              </div>
+
+              <!-- Description -->
+              <p class="text-sm leading-relaxed font-mono flex-1" style="color:rgba(255,255,255,0.38);">
+                {project.description}
+              </p>
+
+              <!-- Metrics row -->
+              {project.metrics && (
+                <div class="metrics-row grid grid-cols-3 gap-0 overflow-hidden"
+                  style={`border:1px solid ${project.accentColor}18;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));`}>
+                  {project.metrics.map((m, mi) => (
+                    <div class="flex flex-col items-center py-3 relative"
+                      style={mi < (project.metrics!.length - 1) ? `border-right:1px solid ${project.accentColor}18;` : ""}>
+                      <div class="absolute top-0 left-0 right-0 h-px" style={`background:linear-gradient(90deg,transparent,${project.accentColor}30,transparent);`} aria-hidden="true"></div>
+                      <span class="text-base font-black font-mono leading-none" style={`color:${project.accentColor};text-shadow:0 0 14px ${project.accentColor}66;`}>
+                        {m.value}
+                      </span>
+                      <span class="text-[8px] font-mono tracking-widest uppercase mt-1" style="color:rgba(255,255,255,0.22);">{m.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-1.5">
+                {project.tags.map(tag => (
+                  <span class="px-2 py-0.5 text-[8px] font-mono font-bold tracking-widest uppercase"
+                    style={`color:${project.accentColor}99;border:1px solid ${project.accentColor}22;background:${project.accentColor}08;`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <!-- CTA links -->
+              <div class="flex items-center gap-4 pt-1 border-t" style="border-color:rgba(255,255,255,0.05);">
+                {project.liveUrl && (
+                  <a href={project.liveUrl}
+                    class="inline-flex items-center gap-2 text-[11px] font-bold font-mono tracking-[0.15em] uppercase transition-all duration-200 hover:gap-3"
+                    style={`color:${project.accentColor};`}
+                    target="_blank" rel="noopener noreferrer">
+                    <span class="w-1.5 h-1.5 rounded-full" style={`background:${project.accentColor};box-shadow:0 0 6px ${project.accentColor};`}></span>
+                    Live Site
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a href={project.githubUrl}
+                    class="inline-flex items-center gap-2 text-[11px] font-bold font-mono tracking-[0.15em] uppercase transition-all duration-200 hover:opacity-80"
+                    style="color:rgba(255,255,255,0.3);"
+                    target="_blank" rel="noopener noreferrer">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                )}
+
+                <!-- Spacer + index display -->
+                <div class="ml-auto text-[9px] font-mono opacity-15 text-white">
+                  [{String(idx+1).padStart(2,'0')}/{String(projects.length).padStart(2,'0')}]
+                </div>
+              </div>
+
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <!-- ── BOTTOM CTA ── -->
+    <div class="section-footer mt-16 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <!-- Left: more projects note -->
+      <div class="flex items-center gap-3">
+        <div class="h-px w-8" style="background:rgba(0,255,247,0.3);"></div>
+        <p class="text-[11px] font-mono tracking-widest uppercase" style="color:rgba(255,255,255,0.2);">
+          More on request · NDA work available
+        </p>
+      </div>
+
+      <!-- Right: Upwork CTA -->
+      <a href="https://www.upwork.com/freelancers/~013f75d3791e17fa5d" target="_blank" rel="noopener noreferrer"
+        class="upwork-cta group inline-flex items-center gap-3 px-6 py-3 transition-all duration-300 hover:-translate-y-0.5"
+        style="border:1px solid rgba(0,255,247,0.2);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+        <!-- Upwork green dot -->
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" style="box-shadow:0 0 6px #10b981;"></span>
+        </span>
+        <span class="text-[11px] font-black font-mono tracking-[0.18em] uppercase" style="color:rgba(255,255,255,0.7);">
+          Top Rated · 100% JSS
+        </span>
+        <svg class="w-3 h-3 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#00fff7;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Section bottom divider -->
+  <div class="absolute bottom-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(191,0,255,0.3),rgba(0,255,247,0.2),transparent);" aria-hidden="true"></div>
+
+</section>
+
+<style>
+/* ── CARD REVEAL ON SCROLL ── */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TITLE GRADIENT ON HOVER (per-card accent) ── */
+.project-card:hover h3 span:first-child {
+  background-image: linear-gradient(90deg, var(--accent, #00fff7), color-mix(in srgb, var(--accent, #00fff7) 60%, #fff));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── STATUS PING ── */
+@keyframes statusPing {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ── CARD HOVER LIFT ── */
+.project-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.03) !important;
+}
+
+/* ── METRICS ROW HOVER ── */
+.project-card:hover .metrics-row {
+  background: rgba(255,255,255,0.01);
+}
+
+/* ── SECTION HEADER REVEAL ── */
+.section-header { animation: slideUp .6s cubic-bezier(.16,1,.3,1) both; animation-delay: .05s; }
+.section-footer  { animation: slideUp .6s cubic-bezier(.16,1,.3,1) both; animation-delay: .5s; }
+@keyframes slideUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── UPWORK CTA HOVER ── */
+.upwork-cta:hover {
+  border-color: rgba(0,255,247,0.4) !important;
+  box-shadow: 0 0 24px rgba(0,255,247,0.12);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 640px) {
+  .projects-grid { gap: 1rem; }
+}
+</style>
+
+<script>
+// Intersection Observer — trigger card animations when scrolled into view
+(function () {
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).style.animationPlayState = 'running';
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  cards.forEach(card => {
+    card.style.animationPlayState = 'paused';
+    obs.observe(card);
+  });
+})();
+</script>

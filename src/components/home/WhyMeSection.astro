@@ -1,0 +1,263 @@
+---
+// WhyMe.astro — CYBERPUNK v3 · PERFECT RESPONSIVE
+// Place after ProjectsSection, before SkillsSection
+
+const steps = [
+  {
+    id: "01",
+    title: "Understand",
+    label: "Discovery",
+    desc: "Deep dive into your requirements, business goals, and user needs. I ask the right questions upfront so there are zero surprises later.",
+    color: "#00fff7",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
+  },
+  {
+    id: "02",
+    title: "Plan",
+    label: "Architecture",
+    desc: "Define scalable architecture, optimal tech stack, and a performance strategy before writing a single line. Systems thinking, not just coding.",
+    color: "#bf00ff",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>`,
+  },
+  {
+    id: "03",
+    title: "Build",
+    label: "Execution",
+    desc: "Clean, optimized, and production-ready code with best practices. TypeScript, testing, CI/CD-ready. Every component is built to last.",
+    color: "#ff006e",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`,
+  },
+  {
+    id: "04",
+    title: "Optimize",
+    label: "Polish",
+    desc: "Performance tuning, Core Web Vitals, SEO, accessibility, and final polish. Delivered with documentation and a smooth handoff.",
+    color: "#f7df1e",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+  },
+];
+
+const highlights = [
+  { text: "Pixel-perfect UI — Figma to code with zero deviation",       color: "#00fff7" },
+  { text: "Performance-focused — sub-1s LCP, Lighthouse 100 baseline",  color: "#bf00ff" },
+  { text: "Clean & scalable codebase — built for maintainability",       color: "#ff006e" },
+  { text: "Fast delivery — clear updates, no ghosting, no excuses",      color: "#f7df1e" },
+  { text: "NDA-friendly — your IP stays protected",                      color: "#00fff7" },
+  { text: "Top Rated on Upwork — 100% Job Success Score",                color: "#bf00ff" },
+];
+---
+
+<section id="why-me" class="why-me-section relative py-20 sm:py-28 overflow-hidden" style="background:#020204;">
+
+  <!-- Scanlines -->
+  <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,247,0.005) 3px,rgba(0,255,247,0.005) 4px);" aria-hidden="true"></div>
+
+  <!-- Top separator -->
+  <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(255,0,110,0.25),rgba(0,255,247,0.15),transparent);" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-28 pointer-events-none" style="background:radial-gradient(ellipse,rgba(255,0,110,0.05) 0%,transparent 70%);filter:blur(20px);" aria-hidden="true"></div>
+
+  <!-- Ambient radial glows -->
+  <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(circle at 25% 40%,rgba(0,255,247,0.04) 0%,transparent 40%),radial-gradient(circle at 75% 60%,rgba(255,0,110,0.04) 0%,transparent 40%);" aria-hidden="true"></div>
+
+  <!-- Corner TL -->
+  <div class="absolute top-8 left-4 sm:left-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px" style="background:linear-gradient(90deg,#ff006e,transparent);"></div>
+    <div class="w-px h-10 sm:h-12" style="background:linear-gradient(180deg,#ff006e,transparent);"></div>
+    <div class="absolute top-0 left-0 w-1.5 h-1.5 rounded-full" style="background:#ff006e;box-shadow:0 0 8px #ff006e;"></div>
+  </div>
+  <!-- Corner BR -->
+  <div class="absolute bottom-8 right-4 sm:right-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px ml-auto" style="background:linear-gradient(270deg,#00fff7,transparent);"></div>
+    <div class="w-px h-10 sm:h-12 ml-auto" style="background:linear-gradient(0deg,#00fff7,transparent);"></div>
+    <div class="absolute bottom-0 right-0 w-1.5 h-1.5 rounded-full" style="background:#00fff7;box-shadow:0 0 8px #00fff7;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+
+    <!-- ── HEADER ── -->
+    <div class="why-header mb-10 sm:mb-16">
+      <p class="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase mb-2 sm:mb-3" style="color:rgba(255,0,110,0.5);">// why.hire_me()</p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight" style="font-family:'Courier New',monospace;">
+          <span style="color:rgba(255,255,255,0.9);">Why</span>
+          <span class="block" style="background:linear-gradient(90deg,#ff006e,#00fff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Hire Me_</span>
+        </h2>
+        <div class="flex items-center gap-3 sm:pb-2">
+          <div class="h-px w-10 sm:w-16" style="background:linear-gradient(90deg,transparent,rgba(255,0,110,0.5));"></div>
+          <span class="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase" style="color:rgba(255,255,255,0.2);">4-step process · 0 excuses</span>
+        </div>
+      </div>
+      <div class="mt-6 sm:mt-8 h-px w-full" style="background:linear-gradient(90deg,rgba(255,0,110,0.3),rgba(0,255,247,0.15),transparent);"></div>
+    </div>
+
+    <!-- ── MAIN GRID ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+
+      <!-- LEFT — Process steps (connected timeline on desktop) -->
+      <div class="process-steps relative flex flex-col gap-3 sm:gap-4">
+
+        <!-- Vertical connector line (desktop) -->
+        <div class="absolute left-5 sm:left-[22px] top-10 bottom-10 w-px hidden sm:block pointer-events-none" style="background:linear-gradient(180deg,rgba(0,255,247,0.3),rgba(191,0,255,0.2),rgba(255,0,110,0.15),rgba(247,223,30,0.1),transparent);" aria-hidden="true"></div>
+
+        {steps.map((step, i) => (
+          <div class="process-step group relative flex gap-3 sm:gap-4 transition-all duration-300 hover:-translate-y-0.5"
+            style={`animation:stepReveal .6s cubic-bezier(.16,1,.3,1) both;animation-delay:${i*0.1+0.05}s;animation-play-state:paused;`}
+            data-step>
+
+            <!-- Step dot -->
+            <div class="flex-shrink-0 relative z-10 flex flex-col items-center">
+              <div class="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                style={`background:${step.color}12;border:1px solid ${step.color}35;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}>
+                <div class="w-4 h-4 sm:w-5 sm:h-5" style={`color:${step.color};`} set:html={step.icon}></div>
+              </div>
+            </div>
+
+            <!-- Step content card -->
+            <div class="flex-1 relative p-3.5 sm:p-5 transition-all duration-300"
+              style={`background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));`}>
+
+              <!-- Hover effects -->
+              <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={`background:linear-gradient(90deg,transparent,${step.color},transparent);`} aria-hidden="true"></div>
+              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={`background:radial-gradient(ellipse at 0% 50%,${step.color}07 0%,transparent 60%);`} aria-hidden="true"></div>
+
+              <!-- Step meta row -->
+              <div class="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+                <span class="text-[8px] sm:text-[9px] font-mono font-black" style={`color:${step.color};opacity:0.5;`}>{step.id}</span>
+                <div class="h-px w-6 sm:w-8" style={`background:${step.color}40;`}></div>
+                <span class="text-[8px] sm:text-[9px] font-mono tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.22);">{step.label}</span>
+              </div>
+
+              <h3 class="text-sm sm:text-base font-black font-mono mb-1.5" style={`color:${step.color};`}>{step.title}</h3>
+              <p class="text-[10px] sm:text-[11px] font-mono leading-relaxed" style="color:rgba(255,255,255,0.35);">{step.desc}</p>
+
+              <!-- Step number BG watermark -->
+              <span class="absolute bottom-2 right-3 text-4xl sm:text-5xl font-black font-mono opacity-[0.04] pointer-events-none select-none" style={`color:${step.color};`}>{step.id}</span>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+      <!-- RIGHT — Trust card -->
+      <div class="trust-card relative overflow-hidden"
+        style="background:rgba(255,255,255,0.02);border:1px solid rgba(0,255,247,0.12);backdrop-filter:blur(16px);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));">
+
+        <!-- Top glow -->
+        <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.5),rgba(255,0,110,0.3),transparent);opacity:0.6;" aria-hidden="true"></div>
+        <!-- Ambient -->
+        <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 100% 0%,rgba(255,0,110,0.05) 0%,transparent 50%),radial-gradient(ellipse at 0% 100%,rgba(0,255,247,0.05) 0%,transparent 50%);" aria-hidden="true"></div>
+        <!-- Corner dots -->
+        <div class="absolute top-3 right-4 flex gap-1" aria-hidden="true">
+          <div class="w-1 h-1 rounded-full" style="background:#00fff7;opacity:0.5;box-shadow:0 0 4px #00fff7;"></div>
+          <div class="w-1 h-1 rounded-full" style="background:#bf00ff;opacity:0.4;"></div>
+          <div class="w-1 h-1 rounded-full" style="background:#ff006e;opacity:0.4;"></div>
+        </div>
+
+        <div class="relative p-5 sm:p-7 lg:p-8 flex flex-col gap-5 sm:gap-6">
+
+          <!-- Header -->
+          <div>
+            <p class="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase mb-3" style="color:rgba(0,255,247,0.4);">// strengths.list()</p>
+            <h3 class="text-lg sm:text-xl font-black font-mono leading-tight" style="color:rgba(255,255,255,0.88);">
+              What you get<br/>
+              <span style="background:linear-gradient(90deg,#00fff7,#bf00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">when you hire me_</span>
+            </h3>
+          </div>
+
+          <!-- Highlights list -->
+          <ul class="flex flex-col gap-2.5 sm:gap-3">
+            {highlights.map((item, i) => (
+              <li class="highlight-item group flex items-start gap-3 transition-all duration-200 hover:translate-x-1 cursor-default"
+                style={`animation:highlightIn .5s cubic-bezier(.16,1,.3,1) both;animation-delay:${i*0.07+0.2}s;animation-play-state:paused;`}
+                data-highlight>
+                <!-- Neon bullet -->
+                <div class="flex-shrink-0 mt-1.5">
+                  <div class="w-1.5 h-1.5 rounded-full" style={`background:${item.color};box-shadow:0 0 8px ${item.color};`}></div>
+                </div>
+                <span class="text-[10px] sm:text-xs font-mono leading-relaxed" style="color:rgba(255,255,255,0.4);">{item.text}</span>
+              </li>
+            ))}
+          </ul>
+
+          <!-- Divider -->
+          <div class="h-px w-full" style="background:linear-gradient(90deg,rgba(0,255,247,0.15),rgba(191,0,255,0.1),transparent);" aria-hidden="true"></div>
+
+          <!-- Upwork badge -->
+          <div class="upwork-badge flex items-center gap-3 p-3 sm:p-4"
+            style="background:rgba(20,168,0,0.06);border:1px solid rgba(20,168,0,0.2);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));">
+            <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background:#14a800;"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background:#14a800;box-shadow:0 0 6px #14a800;"></span>
+            </span>
+            <div>
+              <p class="text-[10px] sm:text-xs font-black font-mono" style="color:#14a800;">Top Rated · 100% Job Success Score</p>
+              <p class="text-[8px] sm:text-[9px] font-mono" style="color:rgba(255,255,255,0.25);">Upwork · Verified freelancer</p>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a href="#contact"
+            class="start-cta group flex items-center justify-center gap-2.5 py-3.5 sm:py-4 font-black text-xs sm:text-sm tracking-[0.18em] uppercase font-mono transition-all duration-300 hover:-translate-y-0.5"
+            style="background:linear-gradient(90deg,#00fff7,#bf00ff);color:#020204;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));">
+            <span class="relative flex h-1.5 w-1.5 flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-current"></span>
+              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-current"></span>
+            </span>
+            Start a Project
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom separator -->
+  <div class="absolute bottom-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.2),rgba(255,0,110,0.15),transparent);" aria-hidden="true"></div>
+
+</section>
+
+<style>
+/* ── HEADER REVEAL ── */
+.why-header  { animation:slideUp .6s cubic-bezier(.16,1,.3,1) both; animation-delay:.05s; }
+.trust-card  { animation:fadeScale .7s cubic-bezier(.16,1,.3,1) both; animation-delay:.25s; }
+@keyframes slideUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeScale  { from{opacity:0;transform:scale(.95)}        to{opacity:1;transform:scale(1)} }
+@keyframes stepReveal { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+@keyframes highlightIn{ from{opacity:0;transform:translateX(12px)}  to{opacity:1;transform:translateX(0)} }
+
+/* ── STEP CARD HOVER ── */
+.process-step:hover > div:last-child {
+  border-color:rgba(255,255,255,0.14) !important;
+}
+
+/* ── START CTA HOVER ── */
+.start-cta:hover { box-shadow:0 0 30px rgba(0,255,247,0.3),0 0 12px rgba(191,0,255,0.2); }
+
+/* ── TRUST CARD HOVER ── */
+.trust-card { transition:box-shadow .3s ease; }
+.trust-card:hover { box-shadow:0 0 40px rgba(0,255,247,0.06); }
+
+/* ── UPWORK BADGE ── */
+.upwork-badge { transition:all .3s ease; }
+.upwork-badge:hover { background:rgba(20,168,0,0.1) !important; border-color:rgba(20,168,0,0.35) !important; }
+</style>
+
+<script>
+(function(){
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      el.querySelectorAll<HTMLElement>('[data-step]').forEach(s => { s.style.animationPlayState = 'running'; });
+      el.querySelectorAll<HTMLElement>('[data-highlight]').forEach(h => { h.style.animationPlayState = 'running'; });
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.1 });
+  const section = document.getElementById('why-me');
+  if (section) obs.observe(section);
+})();
+</script>

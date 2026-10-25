@@ -1,0 +1,94 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import BlogListing from "../../../components/blog/BlogListing.astro";
+import {
+  getPublishedPosts,
+  getFeaturedPosts,
+  getCategories,
+  getTags,
+  filterByTag,
+  paginatePosts,
+  POSTS_PER_PAGE,
+  slugify,
+} from "../../../lib/blog";
+import { getSiteUrl } from "../../../lib/site";
+import {
+  buildBreadcrumbSchema,
+  buildCollectionPageSchema,
+  getTagSeo,
+} from "../../../lib/seo";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  const tagList = getTags(posts);
+
+  return tagList.map((tag) => ({
+    params: { tag: slugify(tag) },
+    props: { tagName: tag },
+  }));
+}
+
+const { tagName } = Astro.props;
+const { tag } = Astro.params;
+
+const allPosts = await getPublishedPosts();
+const filtered = filterByTag(allPosts, tag!);
+const pagination = paginatePosts(filtered, 1, POSTS_PER_PAGE);
+const featuredPosts = getFeaturedPosts(allPosts);
+const categories = getCategories(allPosts);
+const tags = getTags(allPosts);
+
+const siteUrl = getSiteUrl(Astro.site);
+const basePath = `/blog/tag/${tag}`;
+const canonical = `${siteUrl}${basePath}`;
+const { title, description } = getTagSeo(tagName!, filtered.length);
+const nextUrl =
+  pagination.hasNext && pagination.nextPage
+    ? `${siteUrl}${basePath}/page/${pagination.nextPage}`
+    : undefined;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={canonical}
+  tags={[tagName!, "Frontend", "Blog", "Omprakash Tanwar"]}
+  nextUrl={nextUrl}
+  jsonLd={[
+    buildCollectionPageSchema({
+      siteUrl,
+      url: canonical,
+      name: title,
+      description,
+      itemUrls: pagination.items.map((post) => `${siteUrl}/blog/${post.id}`),
+    }),
+    buildBreadcrumbSchema([
+      { name: "Home", url: siteUrl },
+      { name: "Blog", url: `${siteUrl}/blog` },
+      { name: `#${tagName}`, url: canonical },
+    ]),
+  ]}
+>
+  <div id="main-content">
+    <BlogListing
+      allPosts={allPosts}
+      listingPosts={pagination.items}
+      featuredPosts={featuredPosts}
+      categories={categories}
+      tags={tags}
+      currentPage={pagination.currentPage}
+      totalPages={pagination.totalPages}
+      hasPrev={pagination.hasPrev}
+      hasNext={pagination.hasNext}
+      prevPage={pagination.prevPage}
+      nextPage={pagination.nextPage}
+      basePath={basePath}
+      activeTag={tag}
+      headerLabel={`// blog.tag("${tagName}")`}
+      titleWhite={`#${tagName}`}
+      titleGradient="Posts_"
+      subtitle={`${filtered.length} article${filtered.length === 1 ? "" : "s"}`}
+      showSearch={true}
+    />
+  </div>
+</Layout>

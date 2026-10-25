@@ -1,0 +1,1106 @@
+---
+// HeroSection.astro — v3 CYBERPUNK · PERFECT RESPONSIVE
+interface Props {
+  name?: string;
+  bio?: string;
+  projectsUrl?: string;
+  contactUrl?: string;
+  keywords?: string;
+}
+
+const {
+  name = "Omprakash",
+  keywords = "Frontend Developer | React.js, Next.js, Astro Expert  ",
+  bio = "Frontend Developer specializing in React.js, Next.js, and Astro. I build fast, SEO-optimized, and scalable web applications with a focus on performance and user experience.",
+  projectsUrl = "#projects",
+  contactUrl = "#contact",
+} = Astro.props;
+import { Image } from "astro:assets";
+import react from "../../assets/icons/react-developer.svg";
+import next from "../../assets/icons/next.js-developer.svg";
+import tailwind from "../../assets/icons/tailwind-expret.svg";
+import html from "../../assets/icons/html.svg";
+import css from "../../assets/icons/css-expret.svg";
+import typescript from "../../assets/icons/typescript-developer.svg";
+import javascript from "../../assets/icons/javaScript-developer.svg";
+import astro from "../../assets/icons/AstroJs-developer.svg";
+import mui from "../../assets/icons/mui.svg";
+import redux from "../../assets/icons/Redux.svg";
+import jwt from "../../assets/icons/jwt.svg";
+import node from "../../assets/icons/node.svg";
+import express from "../../assets/icons/express.svg";
+import mongodb from "../../assets/icons/mongodb.svg";
+import sanity from "../../assets/icons/Sanity.svg";
+import npm from "../../assets/icons/NPM.svg";
+const techIconsOuter = [
+  {
+    label: "React.js Developer",
+    color: "#61DAFB",
+    image: react,
+  },
+  {
+    label: "Next.js Developer",
+    color: "#ffffff",
+    image: next,
+  },
+  {
+    label: "Astro Developer",
+    color: "#FF5D01",
+    image: astro,
+  },
+  {
+    label: "TypeScript Developer",
+    color: "#3178C6",
+    image: typescript,
+  },
+  {
+    label: "JavaScript Developer",
+    color: "#F7DF1E",
+    image: javascript,
+  },
+  {
+    label: "Tailwind CSS Expert",
+    color: "#38BDF8",
+    image: tailwind,
+  },
+  {
+    label: "Material UI Developer",
+    color: "#007FFF",
+    image: mui,
+  },
+  {
+    label: "HTML5 Developer",
+    color: "#E34F26",
+    image: html,
+  },
+  {
+    label: "CSS3 Developer",
+    color: "#1572B6",
+    image: css,
+  },
+  {
+    label: "Redux Toolkit Developer",
+    color: "#764ABC",
+    image: redux,
+  },
+];
+const techIconsInner = [
+  {
+    label: "Node.js Backend Developer",
+    color: "#339933",
+    image: node,
+  },
+  {
+    label: "Express.js Developer",
+    color: "#000000",
+    image: express,
+  },
+  {
+    label: "MongoDB Database Expert",
+    color: "#47A248",
+    image: mongodb,
+  },
+  {
+    label: "Sanity CMS Developer",
+    color: "#F03E2F",
+    image: sanity,
+  },
+  {
+    label: "NPM Package Manager",
+    color: "#CB3837",
+    image: npm,
+  },
+  {
+    label: "JWT Authentication",
+    color: "#bf00ff",
+    image: jwt,
+  },
+];
+---
+
+<section
+  id="hero"
+  aria-label="Frontend Developer Hero Section"
+  class="hero-section relative py-20 sm:py-28 lg:pt-32 overflow-hidden"
+  style="background:#020204;"
+>
+  <p class="sr-only">
+    Hire Frontend Developer for React, Next.js and Astro Projects
+  </p>
+  <!-- PARTICLE CANVAS -->
+  <canvas
+    id="particle-canvas"
+    class="absolute inset-0 w-screen h-screen pointer-events-none z-0"
+    aria-hidden="true"></canvas>
+
+  <!-- SCANLINES -->
+  <div
+    class="scanlines absolute inset-0 pointer-events-none z-[1]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- CORNER TL -->
+  <div
+    class="absolute top-0 left-0 pointer-events-none z-[2]"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute top-[72px] left-0 w-16 sm:w-20 h-px"
+      style="background:linear-gradient(90deg,#00fff7,transparent);"
+    >
+    </div>
+    <div
+      class="absolute top-[72px] left-0 w-px h-16 sm:h-20"
+      style="background:linear-gradient(180deg,#00fff7,transparent);margin-top:-1px;"
+    >
+    </div>
+    <div
+      class="absolute w-1.5 h-1.5 rounded-full"
+      style="top:72px;left:0;background:#00fff7;box-shadow:0 0 10px #00fff7;"
+    >
+    </div>
+  </div>
+  <!-- CORNER BR -->
+  <div
+    class="absolute bottom-0 right-0 pointer-events-none z-[2]"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute bottom-7 right-0 w-16 sm:w-20 h-px"
+      style="background:linear-gradient(270deg,#bf00ff,transparent);"
+    >
+    </div>
+    <div
+      class="absolute bottom-0 right-7 w-px h-16 sm:h-20"
+      style="background:linear-gradient(0deg,#bf00ff,transparent);"
+    >
+    </div>
+    <div
+      class="absolute bottom-7 right-7 w-1.5 h-1.5 rounded-full"
+      style="background:#bf00ff;box-shadow:0 0 10px #bf00ff;"
+    >
+    </div>
+  </div>
+  <!-- CORNER TR -->
+  <div
+    class="absolute top-0 right-0 pointer-events-none z-[2]"
+    aria-hidden="true"
+  >
+    <div
+      class="absolute top-[72px] right-0 w-10 h-px"
+      style="background:linear-gradient(270deg,#ff006e44,transparent);"
+    >
+    </div>
+    <div
+      class="absolute top-[72px] right-0 w-px h-10"
+      style="background:linear-gradient(180deg,#ff006e44,transparent);"
+    >
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div
+    class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-16
+              pt-24 pb-12
+              sm:pt-28 sm:pb-16
+              lg:min-h-full lg:flex lg:items-center lg:py-4 xl:py-0"
+  >
+    <div
+      class="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-8 items-center"
+    >
+      <!-- ══════════ LEFT ══════════ -->
+      <div class="hero-left flex flex-col gap-4 sm:gap-5 order-2 lg:order-1">
+        <!-- STATUS BADGE -->
+        <div
+          class="hero-badge inline-flex w-fit items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2"
+          style="background:rgba(0,255,247,0.04);border:1px solid rgba(0,255,247,0.2);box-shadow:inset 0 0 20px rgba(0,255,247,0.03);clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));"
+        >
+          <span class="relative flex h-2 w-2 flex-shrink-0">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+              style="background:#00fff7;"></span>
+            <span
+              class="relative inline-flex rounded-full h-2 w-2"
+              style="background:#00fff7;box-shadow:0 0 8px #00fff7;"></span>
+          </span>
+          <span
+            class="text-[10px] sm:text-[11px] font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase font-mono whitespace-nowrap"
+            style="color:#00fff7;">Available for hire</span
+          >
+          <span
+            class="hidden sm:inline text-[10px] font-mono opacity-30"
+            style="color:#00fff7;">// US · UK · EU</span
+          >
+        </div>
+
+        <!-- NAME CARD -->
+        <div
+          class="name-card relative lg:min-h-[262px] p-4 sm:p-6 overflow-hidden"
+          style="background:rgba(255,255,255,0.02);border:1px solid rgba(0,255,247,0.1);backdrop-filter:blur(16px);box-shadow:0 0 60px rgba(0,255,247,0.03),inset 0 1px 0 rgba(255,255,255,0.04);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));"
+        >
+          <div class="absolute top-2.5 right-3 flex gap-1" aria-hidden="true">
+            <div
+              class="w-1 h-1 rounded-full"
+              style="background:#00fff7;opacity:0.5;box-shadow:0 0 4px #00fff7;"
+            >
+            </div>
+            <div
+              class="w-1 h-1 rounded-full"
+              style="background:#bf00ff;opacity:0.5;"
+            >
+            </div>
+            <div
+              class="w-1 h-1 rounded-full"
+              style="background:#ff006e;opacity:0.5;"
+            >
+            </div>
+          </div>
+          <div
+            class="absolute bottom-0 left-0 right-0 h-px opacity-20"
+            style="background:linear-gradient(90deg,transparent,#00fff7,transparent);"
+            aria-hidden="true"
+          >
+          </div>
+          <p
+            class="text-[9px] sm:text-[10px] font-mono tracking-[0.25em] sm:tracking-[0.3em] uppercase mb-2 sm:mb-3"
+            style="color:rgba(0,255,247,0.4);"
+          >
+            // identity.init()
+          </p>
+          <h1
+            class="leading-[0.85] tracking-tight font-black"
+            style="font-family:'Courier New',monospace;"
+          >
+            <!-- Name line -->
+            <span
+              class="block text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl"
+              style="color:rgba(255,255,255,0.92);text-shadow:0 0 40px rgba(0,255,247,0.1);"
+              >{name}</span
+            >
+            <span class="sr-only">
+              {keywords}
+            </span>
+            <!-- Typewriter line -->
+            <span class="relative block mt-1">
+              <span
+                id="typewriter"
+                class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl"
+                style="background:linear-gradient(90deg,#00fff7,#bf00ff,#ff006e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;min-height:1.1em;display:inline;"
+                >&nbsp;</span
+              >
+              <span
+                id="tw-cursor"
+                class="inline-block w-0.5 align-middle ml-0.5"
+                style="background:#00fff7;box-shadow:0 0 8px #00fff7;animation:cursorBlink 0.8s step-end infinite;height:0.8em;vertical-align:middle;"
+              ></span>
+            </span>
+          </h1>
+        </div>
+
+        <!-- ROLE TAGS -->
+        <div class="hero-roles flex flex-wrap gap-1.5 sm:gap-2">
+          {
+            [
+              { t: "React", c: "#61DAFB" },
+              { t: "Next.js", c: "#ffffff" },
+              { t: "Astro", c: "#FF5D01" },
+              { t: "TS", c: "#3178C6" },
+              { t: "Tailwind", c: "#38BDF8" },
+              { t: "Stripe", c: "#635BFF" },
+              { t: "Sanity", c: "#F03E2F" },
+            ].map((tag) => (
+              <span
+                class="px-2 sm:px-2.5 py-1 text-[8px] sm:text-[9px] font-bold tracking-[0.15em] sm:tracking-[0.18em] uppercase font-mono transition-all duration-200 hover:scale-105 cursor-default"
+                style={`color:${tag.c};border:1px solid ${tag.c}30;background:${tag.c}0d;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}
+              >
+                {tag.t}
+              </span>
+            ))
+          }
+        </div>
+
+        <!-- BIO -->
+        <p
+          class="hero-bio text-sm sm:text-[0.9rem] lg:text-[0.95rem] leading-relaxed font-mono max-w-md"
+          style="color:rgba(255,255,255,0.35);border-left:2px solid rgba(0,255,247,0.2);padding-left:0.875rem;"
+        >
+          {bio}
+        </p>
+
+        <!-- CTA BUTTONS -->
+        <div class="hero-cta flex flex-wrap gap-2.5 sm:gap-3 pt-1">
+          <a
+            href={projectsUrl}
+            title="View Frontend Developer Projects built with React and Next.js"
+            class="cyber-btn-primary group relative inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-black tracking-[0.12em] sm:tracking-[0.15em] uppercase font-mono overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
+            style="color:#020204;background:#00fff7;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+          >
+            <span class="relative z-10">Explore My Work</span>
+            <svg
+              class="relative z-10 w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-1 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="3"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+          <a
+            href={contactUrl}
+            title="Hire Frontend Developer Omprakash"
+            class="cyber-btn-secondary group inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-black tracking-[0.12em] sm:tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5"
+            style="color:#00fff7;border:1px solid rgba(0,255,247,0.35);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+          >
+            Let's Talk
+            <svg
+              class="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-50 group-hover:opacity-100 transition-opacity"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- STATS -->
+        <div
+          class="hero-stats grid grid-cols-3 gap-0 overflow-hidden"
+          style="border:1px solid rgba(0,255,247,0.1);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));"
+        >
+          {
+            [
+              { end: 3, suffix: "+", label: "Years Exp", color: "#00fff7" },
+              { end: 100, suffix: "%", label: "JSS Upwork", color: "#bf00ff" },
+              { end: 15, suffix: "+", label: "Projects", color: "#ff006e" },
+            ].map((s, i) => (
+              <div
+                class="stat-item flex flex-col items-center justify-center py-4 sm:py-5 relative"
+                style={`background:${s.color}05;${i < 2 ? "border-right:1px solid rgba(0,255,247,0.1);" : ""}`}
+              >
+                <div
+                  class="absolute top-0 left-0 right-0 h-px"
+                  style={`background:linear-gradient(90deg,transparent,${s.color}55,transparent);`}
+                  aria-hidden="true"
+                />
+                <span
+                  class="stat-number text-xl sm:text-2xl font-black font-mono"
+                  style={`color:${s.color};text-shadow:0 0 20px ${s.color}88;`}
+                  data-end={s.end}
+                  data-suffix={s.suffix}
+                >
+                  {s.suffix}
+                </span>
+                <span
+                  class="text-[7px] sm:text-[8px] font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase mt-1"
+                  style="color:rgba(255,255,255,0.25);"
+                >
+                  {s.label}
+                </span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- ══════════ RIGHT — GLOBE ══════════ -->
+      <div
+        class="hero-right flex items-center justify-center order-1 lg:order-2 py-4 lg:py-0"
+      >
+        <div
+          id="globe-wrapper"
+          class="globe-wrapper relative flex items-center justify-center select-none"
+        >
+          <!-- Bloom glow -->
+          <div
+            class="absolute rounded-full pointer-events-none globe-bloom-outer"
+            aria-hidden="true"
+          >
+          </div>
+          <div
+            class="absolute rounded-full pointer-events-none globe-bloom-inner"
+            aria-hidden="true"
+          >
+          </div>
+
+          <!-- GLOBE 3D container — size controlled via CSS var -->
+          <div
+            id="globe-3d"
+            class="globe-3d relative"
+            style="transform-style:preserve-3d;"
+          >
+            <!-- Outer ring -->
+            <div
+              class="absolute inset-0 rounded-full globe-ring-outer"
+              style="padding:1.5px;"
+            >
+              <div
+                class="w-full h-full rounded-full"
+                style="background:#020204;"
+              >
+              </div>
+            </div>
+            <!-- Inner ring -->
+            <div
+              class="absolute rounded-full globe-ring-inner globe-inner-inset"
+              style="padding:1px;"
+            >
+              <div
+                class="w-full h-full rounded-full"
+                style="background:#020204;"
+              >
+              </div>
+            </div>
+
+            <!-- Crosshairs -->
+            <div
+              class="absolute inset-0 flex items-center justify-center pointer-events-none"
+              aria-hidden="true"
+            >
+              <div
+                class="w-full h-px"
+                style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.07),transparent);"
+              >
+              </div>
+            </div>
+            <div
+              class="absolute inset-0 flex items-center justify-center pointer-events-none"
+              aria-hidden="true"
+            >
+              <div
+                class="h-full w-px"
+                style="background:linear-gradient(180deg,transparent,rgba(0,255,247,0.07),transparent);"
+              >
+              </div>
+            </div>
+
+            <!-- CENTER CORE -->
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center gap-1.5 z-20"
+            >
+              <div
+                class="core-pulse relative flex items-center justify-center"
+                style="background:rgba(0,255,247,0.07);border:1px solid rgba(0,255,247,0.3);clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));width:clamp(42px,10vw,56px);height:clamp(42px,10vw,56px);"
+              >
+                <div
+                  class="absolute inset-[3px] opacity-20"
+                  style="background:linear-gradient(135deg,#00fff7,#bf00ff);clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));"
+                >
+                </div>
+                <svg
+                  class="relative z-10"
+                  style="width:clamp(18px,4vw,24px);height:clamp(18px,4vw,24px);"
+                  fill="none"
+                  stroke="#00fff7"
+                  viewBox="0 0 24 24"
+                  style="filter:drop-shadow(0 0 8px #00fff7);"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <span
+                class="text-[6px] sm:text-[7px] font-mono tracking-[0.3em] uppercase"
+                style="
+              color:#00fff7;
+              opacity:0.65;
+              text-shadow:
+                0 0 4px rgba(0,255,247,0.6),
+                0 0 10px rgba(0,255,247,0.25);
+            "
+                >stack.exe</span
+              >
+            </div>
+
+            <!-- OUTER ORBIT — clockwise -->
+            <div
+              class="orbit-outer absolute inset-0"
+              style="animation:orbitCW 22s linear infinite;"
+            >
+              {
+                techIconsOuter.map((icon, i) => {
+                  const angle = (360 / techIconsOuter.length) * i;
+                  const rad = (angle * Math.PI) / 180;
+                  const x = 50 + 50 * Math.cos(rad);
+                  const y = 50 + 50 * Math.sin(rad);
+                  return (
+                    <div
+                      class="absolute group"
+                      style={`left:${x}%;top:${y}%;transform:translate(-50%,-50%);`}
+                      role="img"
+                      aria-label={icon.label}
+                    >
+                      <div
+                        class="outer-icon flex items-center justify-center relative transition-all duration-300 hover:scale-125 cursor-default"
+                        style={`background:rgba(2,2,4,0.9);border:1px solid ${icon.color}30;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));animation:counterCW 22s linear infinite;width:var(--icon-outer);height:var(--icon-outer);`}
+                      >
+                        <Image
+                          src={icon.image}
+                          alt={icon.label}
+                          width={64}
+                          height={64}
+                          loading="lazy"
+                          style={`width:var(--icon-inner);height:var(--icon-inner);flex-shrink:0;`}
+                        />
+                        <div
+                          class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                          style={`box-shadow:0 0 20px ${icon.color}88,inset 0 0 10px ${icon.color}22;border:1px solid ${icon.color};clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}
+                        />
+                        <div
+                          class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-[8px] font-bold font-mono tracking-widest uppercase whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-50"
+                          style={`color:${icon.color};background:rgba(2,2,4,0.97);border:1px solid ${icon.color}44;clip-path:polygon(0 0,calc(100% - 3px) 0,100% 3px,100% 100%,3px 100%,0 calc(100% - 3px));`}
+                        >
+                          {icon.label}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              }
+            </div>
+
+            <!-- INNER ORBIT — counter-clockwise -->
+            <div
+              class="orbit-inner absolute globe-inner-inset"
+              style="animation:orbitCCW 14s linear infinite;"
+            >
+              {
+                techIconsInner.map((icon, i) => {
+                  const angle = (360 / techIconsInner.length) * i;
+                  const rad = (angle * Math.PI) / 180;
+                  const x = 50 + 50 * Math.cos(rad);
+                  const y = 50 + 50 * Math.sin(rad);
+                  return (
+                    <div
+                      class="absolute group"
+                      style={`left:${x}%;top:${y}%;transform:translate(-50%,-50%);`}
+                      role="img"
+                      aria-label={icon.label}
+                    >
+                      <div
+                        class="inner-icon flex items-center justify-center relative transition-all duration-300 hover:scale-125 cursor-default"
+                        style={`background:rgba(2,2,4,0.9);border:1px solid ${icon.color}44;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));animation:counterCCW 14s linear infinite;width:var(--icon-sm-outer);height:var(--icon-sm-outer);`}
+                      >
+                        <Image
+                          src={icon.image}
+                          alt={icon.label}
+                          width={64}
+                          height={64}
+                          loading="lazy"
+                          style={`width:var(--icon-inner);height:var(--icon-inner);flex-shrink:0;`}
+                        />
+                        <div
+                          class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                          style={`box-shadow:0 0 14px ${icon.color}77;border:1px solid ${icon.color};clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              }
+            </div>
+          </div><!-- /globe-3d -->
+
+          <!-- HUD labels -->
+          <div
+            class="absolute top-3 left-1/2 -translate-x-1/2 font-mono tracking-widest uppercase pointer-events-none hud-label"
+            style="color:rgba(0,255,247,0.2);"
+          >
+            SYS_ONLINE
+          </div>
+          <div
+            class="absolute bottom-3 left-1/2 -translate-x-1/2 font-mono tracking-widest uppercase pointer-events-none hud-label"
+            style="color:rgba(0,255,247,0.2);"
+          >
+            13 MODULES LOADED
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:inline>
+  /* ── SCANLINES ── */
+  .scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 255, 247, 0.006) 3px,
+      rgba(0, 255, 247, 0.006) 4px
+    );
+  }
+
+  /* ══════════════════════════════════════════
+   RESPONSIVE GLOBE — CSS custom properties
+   All size tokens live here, no JS needed
+   ══════════════════════════════════════════ */
+
+  /* Mobile: 260px globe */
+  :root {
+    --globe-size: 260px;
+    --globe-inset: 52px; /* inner ring offset */
+    --icon-outer: 34px;
+    --icon-inner: 16px;
+    --icon-sm-outer: 26px;
+    --icon-sm-inner: 12px;
+    --bloom-outer: 340px;
+    --bloom-inner: 180px;
+    --hud-font: 7px;
+  }
+  /* sm: 300px */
+  @media (min-width: 640px) {
+    :root {
+      --globe-size: 300px;
+      --globe-inset: 58px;
+      --icon-outer: 38px;
+      --icon-inner: 18px;
+      --icon-sm-outer: 30px;
+      --icon-sm-inner: 14px;
+      --bloom-outer: 400px;
+      --bloom-inner: 220px;
+      --hud-font: 7px;
+    }
+  }
+  /* md: 340px */
+  @media (min-width: 768px) {
+    :root {
+      --globe-size: 340px;
+      --globe-inset: 64px;
+      --icon-outer: 40px;
+      --icon-inner: 20px;
+      --icon-sm-outer: 32px;
+      --icon-sm-inner: 15px;
+      --bloom-outer: 460px;
+      --bloom-inner: 250px;
+      --hud-font: 8px;
+    }
+  }
+  /* lg+: 400px */
+  @media (min-width: 1024px) {
+    :root {
+      --globe-size: 400px;
+      --globe-inset: 72px;
+      --icon-outer: 42px;
+      --icon-inner: 21px;
+      --icon-sm-outer: 34px;
+      --icon-sm-inner: 16px;
+      --bloom-outer: 540px;
+      --bloom-inner: 290px;
+      --hud-font: 8px;
+    }
+  }
+  /* xl: 440px */
+  @media (min-width: 1280px) {
+    :root {
+      --globe-size: 440px;
+      --globe-inset: 80px;
+      --icon-outer: 44px;
+      --icon-inner: 22px;
+      --icon-sm-outer: 36px;
+      --icon-sm-inner: 17px;
+      --bloom-outer: 580px;
+      --bloom-inner: 310px;
+    }
+  }
+
+  /* Apply tokens */
+  .globe-3d {
+    width: var(--globe-size);
+    height: var(--globe-size);
+  }
+  .globe-inner-inset {
+    inset: var(--globe-inset);
+  }
+  .globe-bloom-outer {
+    width: var(--bloom-outer);
+    height: var(--bloom-outer);
+    background: radial-gradient(
+      ellipse,
+      rgba(0, 255, 247, 0.07) 0%,
+      rgba(191, 0, 255, 0.04) 45%,
+      transparent 68%
+    );
+    filter: blur(32px);
+  }
+  .globe-bloom-inner {
+    width: var(--bloom-inner);
+    height: var(--bloom-inner);
+    background: radial-gradient(
+      ellipse,
+      rgba(191, 0, 255, 0.09) 0%,
+      transparent 65%
+    );
+    filter: blur(16px);
+  }
+  .hud-label {
+    font-size: var(--hud-font);
+  }
+
+  /* ── GLOBE RINGS ── */
+  .globe-ring-outer {
+    background: conic-gradient(
+      #00fff7 0deg,
+      #bf00ff 120deg,
+      #ff006e 240deg,
+      #00fff7 360deg
+    );
+    animation:
+      ringHue 8s linear infinite,
+      ringGlow 3s ease-in-out infinite alternate;
+  }
+  .globe-ring-inner {
+    background: conic-gradient(#bf00ff 0deg, #00fff7 180deg, #bf00ff 360deg);
+    animation:
+      ringHue 5s linear infinite reverse,
+      ringGlow 2s ease-in-out infinite alternate;
+  }
+  @keyframes ringHue {
+    to {
+      filter: hue-rotate(360deg);
+    }
+  }
+  @keyframes ringGlow {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ── ORBITS ── */
+  @keyframes orbitCW {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes orbitCCW {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes counterCW {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes counterCCW {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── CORE PULSE ── */
+  @keyframes corePulse {
+    0%,
+    100% {
+      box-shadow:
+        0 0 12px rgba(0, 255, 247, 0.35),
+        inset 0 0 12px rgba(0, 255, 247, 0.06);
+    }
+    50% {
+      box-shadow:
+        0 0 35px rgba(0, 255, 247, 0.7),
+        inset 0 0 20px rgba(0, 255, 247, 0.12);
+    }
+  }
+  .core-pulse {
+    animation: corePulse 2.5s ease-in-out infinite;
+  }
+
+  /* ── CURSOR ── */
+  @keyframes cursorBlink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* ── PAGE REVEAL ── */
+  .hero-badge {
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.05s;
+  }
+  .name-card {
+    animation: slideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.15s;
+  }
+  .hero-roles {
+    animation: slideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.25s;
+  }
+  .hero-bio {
+    animation: slideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.32s;
+  }
+  .hero-cta {
+    animation: slideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.4s;
+  }
+  .hero-stats {
+    animation: slideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.48s;
+  }
+  .hero-right {
+    animation: fadeScale 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 0.2s;
+  }
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeScale {
+    from {
+      opacity: 0;
+      transform: scale(0.93);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* ── BUTTONS ── */
+  .cyber-btn-primary:hover {
+    box-shadow:
+      0 0 30px rgba(0, 255, 247, 0.55),
+      0 0 10px rgba(0, 255, 247, 0.3);
+  }
+  .cyber-btn-secondary:hover {
+    background: rgba(0, 255, 247, 0.07) !important;
+    box-shadow: 0 0 24px rgba(0, 255, 247, 0.18);
+  }
+
+  /* ── PAUSE ORBIT ON HOVER ── */
+  #globe-wrapper:hover .orbit-outer,
+  #globe-wrapper:hover .orbit-inner,
+  #globe-wrapper:hover .outer-icon,
+  #globe-wrapper:hover .inner-icon {
+    animation-play-state: paused;
+  }
+
+  /* ── REDUCE MOTION ── */
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-outer,
+    .orbit-inner,
+    .outer-icon,
+    .inner-icon,
+    .globe-ring-outer,
+    .globe-ring-inner,
+    .core-pulse,
+    .hero-badge,
+    .name-card,
+    .hero-roles,
+    .hero-bio,
+    .hero-cta,
+    .hero-stats,
+    .hero-right {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  // ═══════════════════════════════════
+  // 1. PARTICLES
+  // ═══════════════════════════════════
+  (function () {
+    const canvas = document.getElementById(
+      "particle-canvas",
+    ) as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+    let W = 0,
+      H = 0;
+    type P = {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      r: number;
+      a: number;
+      c: string;
+    };
+    const ps: P[] = [];
+    const COLS = [
+      "rgba(0,255,247,",
+      "rgba(191,0,255,",
+      "rgba(255,0,110,",
+      "rgba(255,255,255,",
+    ];
+    const resize = () => {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    };
+    const spawn = () => {
+      // Fewer particles on mobile for perf
+      const count = window.innerWidth < 768 ? 45 : 90;
+      for (let i = 0; i < count; i++)
+        ps.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: Math.random() * 1.1 + 0.2,
+          a: Math.random() * 0.7 + 0.1,
+          c: COLS[Math.floor(Math.random() * COLS.length)],
+        });
+    };
+    const connDist = window.innerWidth < 768 ? 70 : 90;
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of ps) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;
+        if (p.y > H) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.c + p.a + ")";
+        ctx.fill();
+      }
+      for (let i = 0; i < ps.length; i++)
+        for (let j = i + 1; j < ps.length; j++) {
+          const dx = ps[i].x - ps[j].x,
+            dy = ps[i].y - ps[j].y,
+            d = Math.sqrt(dx * dx + dy * dy);
+          if (d < connDist) {
+            ctx.beginPath();
+            ctx.moveTo(ps[i].x, ps[i].y);
+            ctx.lineTo(ps[j].x, ps[j].y);
+            ctx.strokeStyle = `rgba(0,255,247,${0.035 * (1 - d / connDist)})`;
+            ctx.lineWidth = 0.4;
+            ctx.stroke();
+          }
+        }
+      requestAnimationFrame(draw);
+    };
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+    spawn();
+    draw();
+  })();
+
+  // ═══════════════════════════════════
+  // 2. TYPEWRITER
+  // ═══════════════════════════════════
+  (function () {
+    const el = document.getElementById("typewriter") as HTMLElement | null;
+    if (!el) return;
+    const words = [
+      "Frontend Engineer.",
+      "Next.js & Astro Expert.",
+      "Performance-Focused Dev.",
+      "Pixel-Perfect UI Builder.",
+      "Scalable Web Apps.",
+    ];
+    let wi = 0,
+      ci = 0,
+      del = false;
+    const type = () => {
+      const w = words[wi];
+      if (!del) {
+        el.textContent = w.slice(0, ++ci);
+        if (ci === w.length) {
+          del = true;
+          setTimeout(type, 1800);
+          return;
+        }
+      } else {
+        el.textContent = w.slice(0, --ci);
+        if (ci === 0) {
+          del = false;
+          wi = (wi + 1) % words.length;
+        }
+      }
+      setTimeout(type, del ? 40 : 85);
+    };
+    setTimeout(type, 300);
+  })();
+
+  // ═══════════════════════════════════
+  // 3. STAT COUNTERS
+  // ═══════════════════════════════════
+  (function () {
+    const nums = document.querySelectorAll<HTMLElement>(".stat-number");
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const el = e.target as HTMLElement;
+          const end = parseInt(el.dataset.end!);
+          const suf = el.dataset.suffix!;
+          let cur = 0;
+          const step = Math.max(1, Math.round(end / 45));
+          const iv = setInterval(() => {
+            cur = Math.min(cur + step, end);
+            el.textContent = cur + suf;
+            if (cur >= end) clearInterval(iv);
+          }, 30);
+          obs.unobserve(el);
+        });
+      },
+      { threshold: 0.5 },
+    );
+    nums.forEach((n) => obs.observe(n));
+  })();
+
+  // ═══════════════════════════════════
+  // 4. 3D TILT (desktop only)
+  // ═══════════════════════════════════
+  (function () {
+    // Skip tilt on touch devices
+    if (window.matchMedia("(hover:none)").matches) return;
+    const wrapper = document.getElementById(
+      "globe-wrapper",
+    ) as HTMLElement | null;
+    const globe = document.getElementById("globe-3d") as HTMLElement | null;
+    if (!wrapper || !globe) return;
+    let raf = 0;
+    wrapper.addEventListener(
+      "mousemove",
+      (e: MouseEvent) => {
+        const r = wrapper.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          globe.style.transform = `perspective(1000px) rotateX(${-dy * 16}deg) rotateY(${dx * 16}deg)`;
+          globe.style.transition = "transform 0.06s linear";
+        });
+      },
+      { passive: true },
+    );
+    wrapper.addEventListener("mouseleave", () => {
+      cancelAnimationFrame(raf);
+      globe.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+      globe.style.transition = "transform 0.7s cubic-bezier(.16,1,.3,1)";
+    });
+  })();
+</script>

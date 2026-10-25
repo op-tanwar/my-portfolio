@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "./blog-prose.css";
+
+/* =========================
+   Theme Extensions
+========================= */
+@theme {
+  --animate-rotate: rotate 20s linear infinite;
+  --animate-fade-up: fadeUp 0.8s ease-out forwards;
+}
+
+/* =========================
+   Keyframes
+========================= */
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   Base Styles
+========================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100%;
+}

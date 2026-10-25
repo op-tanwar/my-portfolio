@@ -1,0 +1,124 @@
+---
+import Layout from "../../../../../layouts/Layout.astro";
+import BlogListing from "../../../../../components/blog/BlogListing.astro";
+import {
+  getPublishedPosts,
+  getFeaturedPosts,
+  getCategories,
+  getTags,
+  filterByCategory,
+  paginatePosts,
+  POSTS_PER_PAGE,
+  slugify,
+  getPaginationPath,
+} from "../../../../../lib/blog";
+import { getSiteUrl } from "../../../../../lib/site";
+
+export async function getStaticPaths() {
+  const allPosts = await getPublishedPosts();
+  const categories = getCategories(allPosts);
+  const paths: {
+    params: { category: string; page: string };
+    props: {
+      categoryName: string;
+      currentPage: number;
+      pageItems: Awaited<ReturnType<typeof getPublishedPosts>>;
+      totalPages: number;
+      hasPrev: boolean;
+      hasNext: boolean;
+      prevPage: number | null;
+      nextPage: number | null;
+    };
+  }[] = [];
+
+  for (const categoryName of categories) {
+    const categorySlug = slugify(categoryName);
+    const filtered = filterByCategory(allPosts, categorySlug);
+    const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
+
+    if (totalPages <= 1) continue;
+
+    for (let currentPage = 2; currentPage <= totalPages; currentPage++) {
+      const pagination = paginatePosts(filtered, currentPage, POSTS_PER_PAGE);
+      paths.push({
+        params: { category: categorySlug, page: String(currentPage) },
+        props: {
+          categoryName,
+          currentPage,
+          pageItems: pagination.items,
+          totalPages: pagination.totalPages,
+          hasPrev: pagination.hasPrev,
+          hasNext: pagination.hasNext,
+          prevPage: pagination.prevPage,
+          nextPage: pagination.nextPage,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+interface Props {
+  categoryName: string;
+  currentPage: number;
+  pageItems: Awaited<ReturnType<typeof getPublishedPosts>>;
+  totalPages: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
+
+const { categoryName, currentPage, pageItems, totalPages, hasPrev, hasNext, prevPage, nextPage } = Astro.props;
+const { category } = Astro.params;
+
+const allPosts = await getPublishedPosts();
+const featuredPosts = getFeaturedPosts(allPosts);
+const categories = getCategories(allPosts);
+const tags = getTags(allPosts);
+const filtered = filterByCategory(allPosts, category!);
+
+const siteUrl = getSiteUrl(Astro.site);
+const basePath = `/blog/category/${category}`;
+const canonical = `${siteUrl}${basePath}/page/${currentPage}`;
+const prevUrl = prevPage
+  ? `${siteUrl}${getPaginationPath(basePath, prevPage)}`
+  : undefined;
+const nextUrl = nextPage
+  ? `${siteUrl}${getPaginationPath(basePath, nextPage)}`
+  : undefined;
+---
+
+<Layout
+  title={`${categoryName} Articles — Page ${currentPage} | Omprakash Tanwar Blog`}
+  description={`Page ${currentPage} of articles about ${categoryName} — frontend development insights by Omprakash Tanwar.`}
+  canonical={canonical}
+  tags={[categoryName, "Frontend", "Blog"]}
+  noindex={true}
+  prevUrl={prevUrl}
+  nextUrl={nextUrl}
+>
+  <div id="main-content">
+    <BlogListing
+      allPosts={allPosts}
+      listingPosts={pageItems}
+      featuredPosts={featuredPosts}
+      categories={categories}
+      tags={tags}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      hasPrev={hasPrev}
+      hasNext={hasNext}
+      prevPage={prevPage}
+      nextPage={nextPage}
+      basePath={basePath}
+      activeCategory={category}
+      headerLabel={`// blog.category("${categoryName}")`}
+      titleWhite={categoryName}
+      titleGradient="Articles_"
+      subtitle={`Page ${currentPage} of ${totalPages} · ${filtered.length} articles`}
+      showSearch={true}
+    />
+  </div>
+</Layout>

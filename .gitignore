@@ -1,0 +1,153 @@
+# build output
+dist/
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# ==============================
+# SYSTEM FILES
+# ==============================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ==============================
+# NODE / PACKAGE MANAGERS
+# ==============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==============================
+# ENVIRONMENT VARIABLES (CRITICAL)
+# ==============================
+.env
+.env.*
+!.env.example
+
+# ==============================
+# BUILD OUTPUTS
+# ==============================
+.next/
+out/
+dist/
+build/
+.astro/
+.vercel/
+.netlify/
+
+# ==============================
+# LOGS
+# ==============================
+logs/
+*.log
+
+# ==============================
+# CACHE
+# ==============================
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# ==============================
+# TEST COVERAGE
+# ==============================
+coverage/
+.nyc_output/
+
+# ==============================
+# TYPESCRIPT
+# ==============================
+*.tsbuildinfo
+
+# ==============================
+# IDE / EDITOR
+# ==============================
+.vscode/
+.idea/
+*.code-workspace
+
+# ==============================
+# OS / TEMP FILES
+# ==============================
+tmp/
+temp/
+*.tmp
+
+# ==============================
+# DATABASE / MONGODB
+# ==============================
+*.db
+*.sqlite
+*.sqlite3
+mongodb-data/
+dump/
+
+# ==============================
+# UPLOADS / USER FILES
+# ==============================
+uploads/
+public/uploads/
+storage/
+
+# ==============================
+# SECURITY / SECRETS
+# ==============================
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# ==============================
+# DOCKER
+# ==============================
+docker-compose.override.yml
+
+# ==============================
+# CI/CD
+# ==============================
+.github/workflows/*.local.yml
+
+# ==============================
+# MISC
+# ==============================
+*.tgz
+*.zip
+*.tar
+*.gz
+*.bak
+*.old
+

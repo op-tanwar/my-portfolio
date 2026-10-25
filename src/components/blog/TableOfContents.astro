@@ -1,0 +1,75 @@
+---
+import type { TocHeading } from "../../lib/blog";
+
+interface Props {
+  headings: TocHeading[];
+  accent?: string;
+}
+
+const { headings, accent = "#00fff7" } = Astro.props;
+const hasHeadings = headings.length > 0;
+---
+
+{hasHeadings && (
+  <nav class="toc-nav" aria-label="Table of contents">
+    <p
+      class="text-[8px] font-mono tracking-[0.25em] uppercase mb-3"
+      style="color:rgba(0,255,247,0.4);"
+    >
+      // toc.index()
+    </p>
+    <ul class="flex flex-col gap-1.5">
+      {headings.map((heading) => (
+        <li class:list={[heading.level === 3 && "pl-3"]}>
+          <a
+            href={`#${heading.id}`}
+            class="toc-link block text-[10px] font-mono leading-snug py-1 transition-all duration-200 no-underline"
+            style="color:rgba(255,255,255,0.35);"
+            data-toc-link={heading.id}
+          >
+            {heading.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<script define:vars={{ accent }}>
+  const links = document.querySelectorAll("[data-toc-link]");
+  const headings = Array.from(links).map((link) => ({
+    id: link.getAttribute("data-toc-link"),
+    el: document.getElementById(link.getAttribute("data-toc-link")),
+    link,
+  }));
+
+  if (headings.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const match = headings.find((h) => h.el === entry.target);
+          if (!match) return;
+          if (entry.isIntersecting) {
+            links.forEach((l) => {
+              l.style.color = "rgba(255,255,255,0.35)";
+              l.style.borderLeft = "none";
+              l.style.paddingLeft = "0";
+            });
+            match.link.style.color = accent;
+            match.link.style.borderLeft = `2px solid ${accent}`;
+            match.link.style.paddingLeft = "0.5rem";
+          }
+        });
+      },
+      { rootMargin: "-80px 0px -60% 0px", threshold: 0 },
+    );
+
+    headings.forEach((h) => h.el && observer.observe(h.el));
+  }
+</script>
+
+<style>
+  .toc-link:hover {
+    color: #00fff7 !important;
+  }
+</style>

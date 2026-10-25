@@ -1,0 +1,158 @@
+---
+import BlogCard from "./BlogCard.astro";
+import BlogSearch from "./BlogSearch.astro";
+import BlogFilters from "./BlogFilters.astro";
+import FeaturedPostsGrid from "./FeaturedPostsGrid.astro";
+import Pagination from "./Pagination.astro";
+import SectionHeader from "./SectionHeader.astro";
+import CyberSection from "./CyberSection.astro";
+import {
+  getPostAccent,
+  type BlogPost,
+} from "../../lib/blog";
+
+interface Props {
+  allPosts: BlogPost[];
+  listingPosts: BlogPost[];
+  featuredPosts: BlogPost[];
+  categories: string[];
+  tags: string[];
+  currentPage: number;
+  totalPages: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+  basePath: string;
+  activeCategory?: string;
+  activeTag?: string;
+  headerLabel: string;
+  titleWhite: string;
+  titleGradient: string;
+  subtitle: string;
+  showFeatured?: boolean;
+  showSearch?: boolean;
+}
+
+const {
+  allPosts,
+  listingPosts,
+  featuredPosts,
+  categories,
+  tags,
+  currentPage,
+  totalPages,
+  hasPrev,
+  hasNext,
+  prevPage,
+  nextPage,
+  basePath,
+  activeCategory,
+  activeTag,
+  headerLabel,
+  titleWhite,
+  titleGradient,
+  subtitle,
+  showFeatured = false,
+  showSearch = false,
+} = Astro.props;
+
+const pageItems = listingPosts;
+---
+
+<CyberSection paddingTop={true}>
+  <SectionHeader
+    label={headerLabel}
+    titleWhite={titleWhite}
+    titleGradient={titleGradient}
+    subtitle={subtitle}
+  />
+
+  {showSearch && (
+    <div class="mb-8 sm:mb-10 max-w-xl">
+      <BlogSearch posts={allPosts} />
+    </div>
+  )}
+
+  <BlogFilters
+    categories={categories}
+    tags={tags}
+    activeCategory={activeCategory}
+    activeTag={activeTag}
+  />
+
+  {showFeatured && featuredPosts.length > 0 && currentPage === 1 && (
+    <FeaturedPostsGrid posts={featuredPosts} allPosts={allPosts} />
+  )}
+
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+    data-blog-grid
+  >
+    {pageItems.map((post, i) => {
+      const globalIndex = allPosts.indexOf(post);
+      return (
+        <BlogCard
+          post={post}
+          index={i}
+          accent={getPostAccent(post, globalIndex)}
+        />
+      );
+    })}
+  </div>
+
+  {pageItems.length === 0 && (
+    <p class="text-center text-sm font-mono py-16" style="color:rgba(255,255,255,0.3);">
+      No articles found.
+    </p>
+  )}
+
+  <Pagination
+    basePath={basePath}
+    currentPage={currentPage}
+    totalPages={totalPages}
+    hasPrev={hasPrev}
+    hasNext={hasNext}
+    prevPage={prevPage}
+    nextPage={nextPage}
+  />
+
+  <div class="flex justify-center mt-10 sm:mt-12">
+    <a
+      href={basePath === "/blog" ? "/" : "/blog"}
+      class="blog-cta group inline-flex items-center gap-2.5 px-7 py-3.5 text-xs font-black tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5 no-underline"
+      style="color:#00fff7;border:1px solid rgba(0,255,247,0.25);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+    >
+      {basePath === "/blog" ? "Back to Portfolio" : "All Articles"}
+      <svg class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+    </a>
+  </div>
+</CyberSection>
+
+<style>
+  .blog-cta:hover {
+    border-color: rgba(0, 255, 247, 0.4) !important;
+    box-shadow: 0 0 24px rgba(0, 255, 247, 0.15);
+  }
+</style>
+
+<script>
+  (function () {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.querySelectorAll<HTMLElement>("[data-blog-card]").forEach((card) => {
+            card.style.animationPlayState = "running";
+          });
+          obs.unobserve(e.target);
+        });
+      },
+      { threshold: 0.08 },
+    );
+    const grid = document.querySelector("[data-blog-grid]");
+    if (grid) obs.observe(grid);
+  })();
+</script>

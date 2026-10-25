@@ -1,0 +1,61 @@
+---
+import type { BlogPost } from "../../lib/blog";
+
+interface Props {
+  prev: BlogPost | null;
+  next: BlogPost | null;
+  accent: string;
+}
+
+const { prev, next, accent } = Astro.props;
+---
+
+{(prev || next) && (
+  <nav
+    class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 sm:mt-12"
+    aria-label="Article navigation"
+  >
+    {prev ? (
+      <a
+        href={`/blog/${prev.id}`}
+        class="post-nav group p-5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
+        style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+        rel="prev"
+      >
+        <span class="text-[8px] font-mono tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.25);">
+          ← Previous
+        </span>
+        <p class="text-sm font-mono font-bold mt-2 leading-snug group-hover:text-white transition-colors" style="color:rgba(255,255,255,0.75);">
+          {prev.data.title}
+        </p>
+      </a>
+    ) : (
+      <div aria-hidden="true"></div>
+    )}
+
+    {next ? (
+      <a
+        href={`/blog/${next.id}`}
+        class="post-nav group p-5 text-right transition-all duration-200 hover:-translate-y-0.5 no-underline sm:col-start-2"
+        style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+        rel="next"
+      >
+        <span class="text-[8px] font-mono tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.25);">
+          Next →
+        </span>
+        <p class="text-sm font-mono font-bold mt-2 leading-snug group-hover:text-white transition-colors" style="color:rgba(255,255,255,0.75);">
+          {next.data.title}
+        </p>
+      </a>
+    ) : (
+      <div aria-hidden="true"></div>
+    )}
+  </nav>
+)}
+
+<style>
+  .post-nav:hover {
+    border-color: rgba(0, 255, 247, 0.2) !important;
+    box-shadow: 0 0 24px rgba(0, 255, 247, 0.06);
+  }
+</style>

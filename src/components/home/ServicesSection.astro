@@ -1,0 +1,360 @@
+---
+// ServicesSection.astro — CYBERPUNK v3 · CONVERSION-FOCUSED
+// Same design system · Stronger copy · Social proof · Urgency
+
+const services = [
+  {
+    id: "01",
+    title: "Landing Page & Marketing Sites",
+    short: "Turn visitors into paying clients",
+    desc: "Most landing pages lose 70% of visitors in 3 seconds. I build Astro/Next.js sites that load in under 1s, score Lighthouse 100, and are engineered to convert — not just look good.",
+    tags: ["Astro", "Next.js", "Tailwind", "SEO"],
+    accent: "#00fff7",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>`,
+    highlight: "sub-1s LCP",
+    proof: "Boutee.co.uk — client said code quality exceeded expectations",
+  },
+  {
+    id: "02",
+    title: "React & Next.js Web Apps",
+    short: "Apps that scale without breaking",
+    desc: "Sloppy React code costs you in bugs, rewrites, and lost clients. I write TypeScript-first, component-driven apps with SSR/ISR, clean state management, and zero tech debt from day one.",
+    tags: ["React", "Next.js", "TypeScript", "Redux"],
+    accent: "#bf00ff",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`,
+    highlight: "Zero tech debt",
+    proof: "GoQuant real-time orderbook — 60fps, sub-10ms latency",
+  },
+  {
+    id: "03",
+    title: "E-Commerce Development",
+    short: "Storefronts built to sell",
+    desc: "A slow or broken checkout costs real money every hour. I build full e-commerce systems — Stripe payments, cart merge, auth, admin dashboards — tested under load before going live.",
+    tags: ["Next.js", "Stripe", "Sanity", "Node.js", "MongoDB"],
+    accent: "#ff006e",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`,
+    highlight: "Stripe · Tested",
+    proof: "YummyGummies — full eCommerce with guest-to-server cart merge",
+  },
+  {
+    id: "04",
+    title: "Figma → Production Code",
+    short: "Pixel-perfect. No excuses.",
+    desc: "Developers who eyeball designs waste your revision cycles and your budget. I implement every spacing value, color token, and interaction exactly as designed — you review, not redesign.",
+    tags: ["Figma", "React", "Tailwind", "CSS"],
+    accent: "#f7df1e",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`,
+    highlight: "100% fidelity",
+    proof: "Boutee.co.uk — Figma to full site, built nearly solo",
+  },
+  {
+    id: "05",
+    title: "Performance Audit & Fix",
+    short: "Speed = revenue. I fix the gap.",
+    desc: "Google penalizes slow sites. Users leave in 3 seconds. I audit your Core Web Vitals, find exactly what's killing your score, fix it, and hand you a Lighthouse 100 report with proof.",
+    tags: ["Core Web Vitals", "SEO", "Lighthouse", "Next.js"],
+    accent: "#38BDF8",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+    highlight: "Lighthouse 100",
+    proof: "GrowthProtocol.xyz — full perf build, 100 score delivered",
+  },
+  {
+    id: "06",
+    title: "Real-Time & API Integrations",
+    short: "Live data. Zero jank.",
+    desc: "WebSocket dashboards, live feeds, and third-party API integrations that hold up under real traffic. No flicker, no stale data, no broken states — built for production from day one.",
+    tags: ["WebSockets", "REST API", "Node.js", "React"],
+    accent: "#00D4AA",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>`,
+    highlight: "60fps · Real-time",
+    proof: "GoQuant — live crypto orderbook, enterprise-grade",
+  },
+];
+
+const processSteps = [
+  {
+    num: "01",
+    title: "Discuss",
+    desc: "15-min call or async chat. I ask the right questions — goals, deadline, budget. No fluff, no sales pitch.",
+    color: "#00fff7",
+  },
+  {
+    num: "02",
+    title: "Plan",
+    desc: "Clear scope document, tech stack recommendation, and fixed timeline. You approve before I write a single line.",
+    color: "#bf00ff",
+  },
+  {
+    num: "03",
+    title: "Build",
+    desc: "Staging previews every few days. You see progress, not promises. Daily updates on async projects.",
+    color: "#ff006e",
+  },
+  {
+    num: "04",
+    title: "Deliver",
+    desc: "Clean handoff with docs, source code, and 2-week post-launch support. No disappearing after payment.",
+    color: "#f7df1e",
+  },
+];
+
+const trustBadges = [
+  { label: "Top Rated",   sub: "Upwork",         color: "#14a800" },
+  { label: "100% JSS",    sub: "Job Success",     color: "#00fff7" },
+  { label: "< 24h",       sub: "Response time",   color: "#bf00ff" },
+  { label: "3+ Years",    sub: "Production exp.", color: "#ff006e" },
+];
+---
+
+<section id="services" class="services-section relative py-20 sm:py-28 overflow-hidden" style="background:#020204;">
+
+  <!-- Scanlines -->
+  <div class="absolute inset-0 pointer-events-none" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,247,0.005) 3px,rgba(0,255,247,0.005) 4px);" aria-hidden="true"></div>
+
+  <!-- Top separator + glow -->
+  <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.2),rgba(191,0,255,0.15),transparent);" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[600px] h-40 pointer-events-none" style="background:radial-gradient(ellipse,rgba(0,255,247,0.06) 0%,transparent 70%);filter:blur(24px);" aria-hidden="true"></div>
+
+  <!-- Corner TL -->
+  <div class="absolute top-8 left-4 sm:left-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px" style="background:linear-gradient(90deg,#00fff7,transparent);"></div>
+    <div class="w-px h-10 sm:h-12" style="background:linear-gradient(180deg,#00fff7,transparent);"></div>
+    <div class="absolute top-0 left-0 w-1.5 h-1.5 rounded-full" style="background:#00fff7;box-shadow:0 0 8px #00fff7;"></div>
+  </div>
+  <!-- Corner BR -->
+  <div class="absolute bottom-8 right-4 sm:right-6 pointer-events-none" aria-hidden="true">
+    <div class="w-10 sm:w-12 h-px ml-auto" style="background:linear-gradient(270deg,#bf00ff,transparent);"></div>
+    <div class="w-px h-10 sm:h-12 ml-auto" style="background:linear-gradient(0deg,#bf00ff,transparent);"></div>
+    <div class="absolute bottom-0 right-0 w-1.5 h-1.5 rounded-full" style="background:#bf00ff;box-shadow:0 0 8px #bf00ff;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+
+    <!-- ── HEADER ── -->
+    <div class="services-header mb-10 sm:mb-16">
+      <p class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3" style="color:rgba(0,255,247,0.45);">// services.list()</p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight" style="font-family:'Courier New',monospace;">
+            <span style="color:rgba(255,255,255,0.9);">What I</span>
+            <span class="block" style="background:linear-gradient(90deg,#00fff7,#bf00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Build_</span>
+          </h2>
+          <p class="mt-3 text-xs sm:text-sm font-mono max-w-md" style="color:rgba(255,255,255,0.3);">
+            Every service is backed by real shipped projects — not just theory.
+          </p>
+        </div>
+        <!-- Trust badges -->
+        <div class="flex flex-wrap gap-2 sm:pb-2">
+          {trustBadges.map(b => (
+            <div class="flex flex-col items-center px-3 py-2"
+              style={`background:${b.color}08;border:1px solid ${b.color}20;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}>
+              <span class="text-[11px] sm:text-xs font-black font-mono" style={`color:${b.color};`}>{b.label}</span>
+              <span class="text-[8px] font-mono tracking-widest uppercase" style="color:rgba(255,255,255,0.2);">{b.sub}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="mt-6 sm:mt-8 h-px w-full" style="background:linear-gradient(90deg,rgba(0,255,247,0.25),rgba(191,0,255,0.15),transparent);"></div>
+    </div>
+
+    <!-- ── SERVICE CARDS GRID ── -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-16 sm:mb-20">
+      {services.map((svc, i) => (
+        <article
+          class="service-card group relative flex flex-col gap-4 p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 cursor-default"
+          style={`background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));animation:cardReveal .55s cubic-bezier(.16,1,.3,1) both;animation-delay:${i*0.07+0.05}s;animation-play-state:paused;`}
+          data-card-observe
+        >
+          <!-- Hover effects -->
+          <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={`background:linear-gradient(90deg,transparent,${svc.accent},transparent);`} aria-hidden="true"></div>
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={`background:radial-gradient(ellipse at 50% 0%,${svc.accent}09 0%,transparent 65%);`} aria-hidden="true"></div>
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+            style={`box-shadow:inset 0 0 0 1px ${svc.accent}28;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));`} aria-hidden="true"></div>
+
+          <!-- Top row -->
+          <div class="flex items-start justify-between gap-3">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+              style={`color:${svc.accent};background:${svc.accent}10;border:1px solid ${svc.accent}25;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}>
+              <div class="w-5 h-5" set:html={svc.icon}></div>
+            </div>
+            <div class="flex flex-col items-end gap-1 flex-shrink-0">
+              <span class="text-[7px] sm:text-[8px] font-mono font-bold tracking-widest uppercase px-2 py-0.5"
+                style={`color:${svc.accent};background:${svc.accent}0f;border:1px solid ${svc.accent}25;clip-path:polygon(0 0,calc(100% - 3px) 0,100% 3px,100% 100%,3px 100%,0 calc(100% - 3px));`}>
+                {svc.highlight}
+              </span>
+              <span class="text-[9px] font-mono" style={`color:${svc.accent};opacity:0.3;`}>{svc.id}</span>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <div>
+            <p class="text-[9px] font-mono tracking-[0.2em] uppercase mb-1" style={`color:${svc.accent};opacity:0.55;`}>{svc.short}</p>
+            <h3 class="text-sm sm:text-base font-black font-mono leading-tight" style="color:rgba(255,255,255,0.9);">{svc.title}</h3>
+          </div>
+
+          <!-- Description -->
+          <p class="text-[10px] sm:text-[11px] font-mono leading-relaxed flex-1" style="color:rgba(255,255,255,0.38);">{svc.desc}</p>
+
+          <!-- Social proof line -->
+          <div class="flex items-start gap-2 py-2.5 px-3"
+            style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));">
+            <svg class="w-3 h-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24" style={`color:${svc.accent};opacity:0.7;`}>
+              <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-[8px] sm:text-[9px] font-mono leading-relaxed" style="color:rgba(255,255,255,0.25);">{svc.proof}</span>
+          </div>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-1.5 pt-1 border-t" style="border-color:rgba(255,255,255,0.05);">
+            {svc.tags.map(tag => (
+              <span class="text-[8px] font-mono font-bold tracking-widest uppercase px-1.5 py-0.5"
+                style={`color:${svc.accent}88;border:1px solid ${svc.accent}1a;background:${svc.accent}08;`}>
+                {tag}
+              </span>
+            ))}
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+    <!-- ── PROCESS STRIP ── -->
+    <div class="process-section mb-10 sm:mb-14" data-process-observe>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-5 sm:mb-6">
+        <p class="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase" style="color:rgba(191,0,255,0.45);">// process.steps()</p>
+        <p class="text-[9px] font-mono" style="color:rgba(255,255,255,0.2);">No surprises. No scope creep. Just results.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {processSteps.map((step, i) => (
+          <div class="process-step group relative flex gap-3 sm:gap-4 p-4 sm:p-5 transition-all duration-300 hover:-translate-y-0.5 cursor-default"
+            style={`background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));animation:stepReveal .5s cubic-bezier(.16,1,.3,1) both;animation-delay:${i*0.08}s;animation-play-state:paused;`}
+            data-step>
+            <div class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={`background:linear-gradient(90deg,transparent,${step.color},transparent);`} aria-hidden="true"></div>
+            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[10px] font-black font-mono"
+              style={`color:${step.color};background:${step.color}0f;border:1px solid ${step.color}30;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}>
+              {step.num}
+            </div>
+            <div class="min-w-0">
+              <h4 class="text-xs sm:text-sm font-black font-mono mb-1" style={`color:${step.color};`}>{step.title}</h4>
+              <p class="text-[9px] sm:text-[10px] font-mono leading-relaxed" style="color:rgba(255,255,255,0.3);">{step.desc}</p>
+            </div>
+            {i < processSteps.length - 1 && (
+              <div class="hidden lg:block absolute -right-2 top-1/2 -translate-y-1/2 z-10" aria-hidden="true">
+                <svg class="w-4 h-4" fill="none" stroke="rgba(255,255,255,0.1)" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ── CONVERSION CTA ── -->
+    <div class="services-cta relative overflow-hidden p-6 sm:p-8"
+      style="background:rgba(0,255,247,0.03);border:1px solid rgba(0,255,247,0.12);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));"
+      data-cta-observe>
+
+      <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse at 25% 50%,rgba(0,255,247,0.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(191,0,255,0.03) 0%,transparent 60%);" aria-hidden="true"></div>
+      <div class="absolute top-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(0,255,247,0.4),rgba(191,0,255,0.2),transparent);" aria-hidden="true"></div>
+
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 sm:gap-8">
+
+        <div class="flex-1">
+          <div class="flex items-center gap-2.5 mb-3">
+            <span class="relative flex h-2.5 w-2.5 flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background:#00fff7;"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background:#00fff7;box-shadow:0 0 8px #00fff7;"></span>
+            </span>
+            <span class="text-[9px] sm:text-[10px] font-mono font-bold tracking-[0.25em] uppercase" style="color:#00fff7;">Currently accepting projects</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl lg:text-3xl font-black font-mono leading-tight mb-2" style="color:rgba(255,255,255,0.92);">
+            Not sure which service fits?
+          </h3>
+          <p class="text-xs sm:text-sm font-mono" style="color:rgba(255,255,255,0.35);">
+            Tell me your goal — I'll recommend the right approach and give you a clear estimate. No obligation, no sales pressure.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-4">
+            {["✓ Response within 24h", "✓ NDA available", "✓ Fixed-price or hourly"].map(t => (
+              <span class="text-[9px] font-mono" style="color:rgba(0,255,247,0.55);">{t}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-3 flex-shrink-0">
+          <a href="#contact"
+            class="cta-primary group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-xs font-black tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
+            style="color:#020204;background:#00fff7;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+            Start a Project
+            <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+          <a href="#projects"
+            class="cta-secondary group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-xs font-black tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
+            style="color:#00fff7;border:1px solid rgba(0,255,247,0.3);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
+            See Real Projects
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom separator -->
+  <div class="absolute bottom-0 left-0 right-0 h-px" style="background:linear-gradient(90deg,transparent,rgba(191,0,255,0.2),rgba(0,255,247,0.15),transparent);" aria-hidden="true"></div>
+
+</section>
+
+<style>
+.services-header { animation:slideUp .6s cubic-bezier(.16,1,.3,1) both; animation-delay:.05s; }
+@keyframes slideUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes cardReveal { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes stepReveal { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+.service-card:hover  { background:rgba(255,255,255,0.035)!important; }
+.process-step:hover  { border-color:rgba(255,255,255,0.12)!important; }
+.cta-primary:hover   { box-shadow:0 0 32px rgba(0,255,247,.55),0 0 10px rgba(0,255,247,.3); }
+.cta-secondary:hover { background:rgba(0,255,247,.07)!important; box-shadow:0 0 22px rgba(0,255,247,.15); }
+</style>
+
+<script>
+(function(){
+  const cardObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll<HTMLElement>('[data-card-observe]').forEach(card => {
+        card.style.animationPlayState = 'running';
+      });
+      cardObs.unobserve(e.target);
+    });
+  }, { threshold: 0.05 });
+
+  const processObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll<HTMLElement>('[data-step]').forEach(s => {
+        s.style.animationPlayState = 'running';
+      });
+      processObs.unobserve(e.target);
+    });
+  }, { threshold: 0.1 });
+
+  const ctaObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      (e.target as HTMLElement).style.animation = 'slideUp .65s cubic-bezier(.16,1,.3,1) both';
+      ctaObs.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+
+  const section = document.getElementById('services');
+  if (section) cardObs.observe(section);
+  document.querySelectorAll<HTMLElement>('[data-process-observe]').forEach(el => processObs.observe(el));
+  document.querySelectorAll<HTMLElement>('[data-cta-observe]').forEach(el => ctaObs.observe(el));
+})();
+</script>

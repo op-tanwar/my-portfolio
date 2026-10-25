@@ -1,0 +1,88 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogListing from "../../components/blog/BlogListing.astro";
+import {
+  getPublishedPosts,
+  getFeaturedPosts,
+  getListingPosts,
+  getCategories,
+  getTags,
+  paginatePosts,
+  POSTS_PER_PAGE,
+} from "../../lib/blog";
+import { getSiteUrl } from "../../lib/site";
+import {
+  AUTHOR_NAME,
+  buildBlogSchema,
+  buildBreadcrumbSchema,
+  buildCollectionPageSchema,
+} from "../../lib/seo";
+
+const allPosts = await getPublishedPosts();
+const featuredPosts = getFeaturedPosts(allPosts);
+const listingPosts = getListingPosts(allPosts);
+const categories = getCategories(allPosts);
+const tags = getTags(allPosts);
+const pagination = paginatePosts(listingPosts, 1, POSTS_PER_PAGE);
+const pageItems = pagination.items;
+
+const siteUrl = getSiteUrl(Astro.site);
+const basePath = "/blog";
+const canonical = `${siteUrl}${basePath}`;
+const title = `Blog | Frontend Development Articles | ${AUTHOR_NAME}`;
+const description = `Articles on React, Next.js, Astro, TypeScript, Tailwind CSS, Core Web Vitals, and modern frontend development by ${AUTHOR_NAME}.`;
+const nextUrl =
+  pagination.hasNext && pagination.nextPage
+    ? `${siteUrl}${basePath}/page/${pagination.nextPage}`
+    : undefined;
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical={canonical}
+  tags={["React", "Next.js", "Astro", "Frontend", "Performance", "Tailwind CSS", "SEO"]}
+  nextUrl={nextUrl}
+  jsonLd={[
+    buildBlogSchema({
+      siteUrl,
+      url: canonical,
+      name: `${AUTHOR_NAME} Blog`,
+      description,
+    }),
+    buildCollectionPageSchema({
+      siteUrl,
+      url: canonical,
+      name: title,
+      description,
+      itemUrls: pageItems.map((post) => `${siteUrl}/blog/${post.id}`),
+    }),
+    buildBreadcrumbSchema([
+      { name: "Home", url: siteUrl },
+      { name: "Blog", url: canonical },
+    ]),
+  ]}
+>
+  <div id="main-content">
+    <BlogListing
+      allPosts={allPosts}
+      listingPosts={pageItems}
+      featuredPosts={featuredPosts}
+      categories={categories}
+      tags={tags}
+      currentPage={pagination.currentPage}
+      totalPages={pagination.totalPages}
+      hasPrev={pagination.hasPrev}
+      hasNext={pagination.hasNext}
+      prevPage={pagination.prevPage}
+      nextPage={pagination.nextPage}
+      basePath={basePath}
+      headerLabel="// blog.index()"
+      titleWhite="Writing"
+      titleGradient="& Thoughts_"
+      subtitle={`${allPosts.length} articles`}
+      showFeatured={true}
+      showSearch={true}
+    />
+  </div>
+</Layout>
