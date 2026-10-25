@@ -69,7 +69,7 @@ public/                 # Static assets, robots.txt, favicon
 ## Tech stack
 
 - [Astro](https://astro.build/) — site framework and content collections
-- [Tailwind CSS](https://tailwindcss.com/) v4 via `@tailwindcss/vite`
+- [Tailwind CSS](https://tailwindcss.com/) v4 via `@tailwindcss/postcss`
 - `@astrojs/sitemap` — XML sitemap
 - `@astrojs/rss` — blog RSS feed
 - `@vercel/analytics` — analytics
