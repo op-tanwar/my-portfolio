@@ -16,12 +16,11 @@ const searchIndex = posts.map((post) => ({
 }));
 ---
 
-<div class="blog-search relative">
-  <label for="blog-search-input" class="sr-only">Search articles</label>
+<div class="blog-search relative w-full">
+  <label for="blog-search-input" class="sr-only">Search technical articles</label>
   <div class="relative">
     <svg
-      class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-      style="color:rgba(0,255,247,0.4);"
+      class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -32,17 +31,15 @@ const searchIndex = posts.map((post) => ({
     <input
       type="search"
       id="blog-search-input"
-      placeholder="Search articles..."
+      placeholder="Search articles on Astro, Next.js, CWV, commerce..."
       autocomplete="off"
-      class="w-full pl-11 pr-4 py-3 text-xs font-mono tracking-wide outline-none transition-all duration-200"
-      style="color:rgba(255,255,255,0.75);background:rgba(255,255,255,0.02);border:1px solid rgba(0,255,247,0.15);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+      class="w-full pl-11 pr-4 py-3 text-sm text-white placeholder-zinc-500 bg-[#111114]/90 border border-white/[0.08] focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 rounded-xl outline-none transition-all"
     />
   </div>
 
   <div
     id="blog-search-results"
-    class="hidden absolute top-full left-0 right-0 mt-2 z-50 max-h-80 overflow-y-auto"
-    style="background:rgba(2,2,4,0.97);border:1px solid rgba(0,255,247,0.15);backdrop-filter:blur(14px);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+    class="hidden absolute top-full left-0 right-0 mt-2 z-50 max-h-80 overflow-y-auto rounded-2xl bg-[#111114]/95 border border-white/[0.12] backdrop-blur-xl shadow-2xl divide-y divide-white/[0.06]"
     role="listbox"
     aria-label="Search results"
   ></div>
@@ -55,7 +52,7 @@ const searchIndex = posts.map((post) => ({
   function renderResults(matches) {
     if (!results) return;
     if (!matches.length) {
-      results.innerHTML = `<p class="p-4 text-[10px] font-mono" style="color:rgba(255,255,255,0.3);">No articles found.</p>`;
+      results.innerHTML = `<p class="p-4 text-xs font-mono text-zinc-500 text-center">No articles found matching query.</p>`;
       results.classList.remove("hidden");
       return;
     }
@@ -64,9 +61,12 @@ const searchIndex = posts.map((post) => ({
       .slice(0, 8)
       .map(
         (item) => `
-        <a href="/blog/${item.slug}" class="block px-4 py-3 transition-colors duration-200 hover:bg-white/[0.03] no-underline border-b" style="border-color:rgba(255,255,255,0.05);" role="option">
-          <p class="text-xs font-mono font-bold mb-1" style="color:rgba(255,255,255,0.85);">${item.title}</p>
-          <p class="text-[9px] font-mono line-clamp-1" style="color:rgba(255,255,255,0.3);">${item.description}</p>
+        <a href="/blog/${item.slug}" class="block p-4 transition-colors hover:bg-white/[0.04] no-underline" role="option">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${item.category}</span>
+          </div>
+          <p class="text-sm font-bold text-white mb-0.5">${item.title}</p>
+          <p class="text-xs text-zinc-400 line-clamp-1">${item.description}</p>
         </a>
       `,
       )
@@ -81,10 +81,13 @@ const searchIndex = posts.map((post) => ({
       return;
     }
 
-    const matches = searchIndex.filter((item) => {
-      const haystack = `${item.title} ${item.description} ${item.category} ${item.tags}`.toLowerCase();
-      return haystack.includes(query);
-    });
+    const matches = searchIndex.filter(
+      (item) =>
+        item.title.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query) ||
+        item.tags.toLowerCase().includes(query),
+    );
 
     renderResults(matches);
   });
@@ -94,28 +97,4 @@ const searchIndex = posts.map((post) => ({
       results?.classList.add("hidden");
     }
   });
-
-  input?.addEventListener("focus", () => {
-    if (input.value.trim()) {
-      input.dispatchEvent(new Event("input"));
-    }
-  });
 </script>
-
-<style>
-  #blog-search-input:focus {
-    border-color: rgba(0, 255, 247, 0.35) !important;
-    box-shadow: 0 0 20px rgba(0, 255, 247, 0.08);
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-</style>

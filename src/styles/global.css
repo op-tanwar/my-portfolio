@@ -1,37 +1,35 @@
 @import "tailwindcss";
 @import "./blog-prose.css";
 
-/* =========================
-   Theme Extensions
-========================= */
+/* ==========================================================================
+   Design Tokens & Modern Typography for High-Converting Portfolio
+   ========================================================================== */
 @theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-canvas: #09090b;
+  --color-surface: #111114;
+  --color-surface-hover: #18181b;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.16);
+
   --animate-rotate: rotate 20s linear infinite;
-  --animate-fade-up: fadeUp 0.8s ease-out forwards;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* =========================
+/* ==========================================================================
    Keyframes
-========================= */
+   ========================================================================== */
 @keyframes rotate {
   to {
     transform: rotate(360deg);
   }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
+/* ==========================================================================
    Base Styles
-========================= */
+   ========================================================================== */
 *,
 *::before,
 *::after {
@@ -40,6 +38,8 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: #09090b;
 }
 
 body {
@@ -48,4 +48,33 @@ body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100%;
+  background-color: #09090b;
+  color: #fafafa;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hairline Glassmorphism Surface utility */
+.glass-panel {
+  background: rgba(17, 17, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.glass-panel-subtle {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel-subtle:hover {
+  border-color: rgba(255, 255, 255, 0.14);
 }

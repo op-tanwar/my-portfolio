@@ -1,0 +1,80 @@
+---
+// FaqSection.astro — High-Intent Technical FAQ Section with Accessible Accordion
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export const faqs: FaqItem[] = [
+  {
+    question: "Why hire an Astro.js developer for marketing & e-commerce sites?",
+    answer:
+      "Astro v5's zero-JS island architecture renders pure semantic HTML and CSS by default, hydrating interactive components only when they scroll into view. This eliminates monolithic JavaScript bundles, delivering instant 0.4s First Contentful Paint (FCP), 98–100 Google Lighthouse scores, and superior search indexation compared to standard React or WordPress sites.",
+  },
+  {
+    question: "How do you handle timezone overlap with UK and European clients?",
+    answer:
+      "I maintain 40 hours/week dedicated engineering availability with consistent working hour overlap across London (GMT), Central Europe (CET/CEST), and the US East Coast (EST). Communication is async-first via Linear, GitHub PRs, and Slack, supplemented by daily automated staging previews so you verify tangible progress every day without calendar friction.",
+  },
+  {
+    question: "What tech stack do you recommend for custom multi-vendor marketplaces?",
+    answer:
+      "For high-volume marketplaces like Urban Nursery, I architect with Next.js 15 (App Router) for streaming server rendering, Node.js/Express with MongoDB 2dsphere for sub-50ms geospatial radius queries, Redis for atomic multi-vendor cart locking, and Stripe Connect or Razorpay with double-entry integer-paise ledgers to eliminate rounding errors on vendor payouts.",
+  },
+  {
+    question: "Can you migrate an existing WordPress or slow React site without losing SEO rankings?",
+    answer:
+      "Yes. I conduct a rigorous pre-migration SEO audit preserving all legacy URL slugs, canonical links, schema markup, and image alts with automated 301 redirect maps. By replacing bloat with modern Astro or Next.js code, Core Web Vitals typically jump to 98–100, driving an immediate 20–40% improvement in organic search visibility.",
+  },
+  {
+    question: "Do you sign NDAs and provide complete code ownership?",
+    answer:
+      "Yes. All client engagements are NDA-protected from the initial discovery call. Upon milestone approval, you receive 100% intellectual property ownership of the source code, repositories, and environment configurations. Everything is written in strict TypeScript with comprehensive architectural handover documentation.",
+  },
+];
+---
+
+<section id="faq" class="py-24 sm:py-32 relative scroll-mt-20">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- SECTION HEADER -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        Frequently Asked Questions
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.03em] mb-4">
+        Clear answers on engineering & delivery.
+      </h2>
+      <p class="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
+        Key details on technical architecture, European timezone overlap, code ownership, and migration strategies.
+      </p>
+    </div>
+
+    <!-- ACCORDION LIST -->
+    <div class="space-y-4">
+      {
+        faqs.map((faq, index) => (
+          <details
+            class="group rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.16] transition-all p-5 sm:p-6 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.5)] open:border-emerald-500/30"
+            open={index === 0}
+          >
+            <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-base sm:text-lg text-white group-hover:text-emerald-300 transition-colors">
+              <span class="tracking-tight">{faq.question}</span>
+              <span class="w-6 h-6 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center flex-shrink-0 text-zinc-400 group-open:rotate-180 group-open:text-emerald-400 transition-transform duration-300">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            </summary>
+            <div class="pt-4 mt-4 border-t border-white/[0.06] text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
+              {faq.answer}
+            </div>
+          </details>
+        ))
+      }
+    </div>
+
+  </div>
+</section>

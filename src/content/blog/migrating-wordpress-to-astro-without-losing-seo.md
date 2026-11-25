@@ -1,16 +1,19 @@
 ---
-title: "Migrating WordPress to Astro Without Losing SEO"
-description: "A step-by-step migration playbook from a freelancer who's moved 15+ WordPress sites to Astro — redirects, metadata, structured data, and the mistakes that tank rankings."
+title: "WordPress to Astro Migration Guide: How We Cut Load Times Under 0.5s and Hit 100 Lighthouse"
+description: "A step-by-step migration playbook from a senior engineer who has moved 15+ WordPress sites to Astro — redirects, metadata parity, structured data, and the mistakes that tank Google rankings."
 publishDate: 2025-09-20
+updatedDate: 2026-03-15
 category: "Astro"
 tags: ["Astro", "WordPress", "SEO", "Migration", "Performance"]
 featured: true
-accent: "#00fff7"
+accent: "#10B981"
 image: "../../assets/blog/migrating-wordpress-to-astro-without-losing-seo.jpg"
-imageAlt: "Website migration and SEO analytics on screen"
+imageAlt: "WordPress to Astro Migration Guide and SEO Performance Analytics"
 ---
 
-Six months after migrating a UK accounting firm's WordPress site to Astro, their marketing director emailed me a screenshot from Google Search Console. Impressions were up 41%. Average position improved across their top twenty keywords. Organic traffic hadn't just held — it had grown.
+> **Engineering Rule of Thumb:** A CMS migration is an infrastructure and URL-preserving upgrade, not an aesthetic redesign. If you touch URL slugs, drop 301 redirects, or break canonical parity, Google will demote your organic rankings before it ever notices your 100 Lighthouse score.
+
+Six months after migrating a UK client's WordPress site to Astro and Sanity CMS (similar to our [Boutee.co.uk UK marketplace case study](/work/boutee)), their marketing director emailed me a screenshot from Google Search Console. Impressions were up 41%. Average position improved across their top twenty keywords. Organic traffic hadn't just held — it had grown substantially.
 
 She asked the question every client asks during a migration: "Are we sure we didn't break SEO?"
 

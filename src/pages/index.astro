@@ -1,12 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/home/Welcome.astro";
-import ServicesSection from "../components/home/ServicesSection.astro";
 import ProjectsSection from "../components/home/ProjectsSection.astro";
-import SkillsSection from "../components/home/Skills.astro";
-import AboutMe from "../components/home/AboutSection.astro";
-import WhyMe from "../components/home/WhyMeSection.astro";
+import ServicesSection from "../components/home/ServicesSection.astro";
 import TestimonialsSection from "../components/home/TestimonialsSection.astro";
+import TechAndProcessSection from "../components/home/TechAndProcessSection.astro";
+import FaqSection, { faqs } from "../components/home/FaqSection.astro";
 import ContactSection from "../components/home/ContactSection.astro";
 import { getSiteUrl } from "../lib/site";
 import {
@@ -17,10 +16,54 @@ import {
 
 const siteUrl = getSiteUrl(Astro.site);
 const title =
-  "Frontend Developer | Hire React, Next.js & Astro Expert | Omprakash Tanwar";
+  "Senior Frontend & Full-Stack Engineer | Hire Astro.js, Next.js & Custom E-Commerce Expert | Omprakash Tanwar";
 const description =
-  "Hire Omprakash Tanwar — Frontend Developer specializing in React, Next.js, Astro, TypeScript, and Tailwind CSS. High-performance, SEO-optimized websites for US, UK, EU, Canada & Australia clients.";
+  "Hire Omprakash Tanwar — Senior Frontend & Full-Stack Engineer specializing in Astro v5, Next.js 15, React, TypeScript, and Custom Multi-Vendor E-Commerce marketplaces. Serving European, UK & US tech founders with 98–100 Lighthouse speed and seamless CET/GMT overlap.";
 const canonical = `${siteUrl}/`;
+
+// FAQPage JSON-LD Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
+// Detailed Professional Person Schema
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Omprakash Tanwar",
+  jobTitle: "Senior Frontend & Full-Stack Engineer",
+  url: siteUrl,
+  sameAs: [
+    "https://github.com/optanwar",
+    "https://www.linkedin.com/in/optanwar/",
+    "https://www.upwork.com/freelancers/~013f75d3791e17fa5d",
+  ],
+  knowsAbout: [
+    "Astro.js",
+    "Next.js App Router",
+    "React.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Custom E-Commerce",
+    "Multi-Vendor Marketplaces",
+    "Core Web Vitals Optimization",
+    "Technical SEO",
+    "Sanity.io CMS",
+    "MongoDB Geospatial 2dsphere",
+    "Redis Caching",
+    "Stripe API",
+  ],
+  areaServed: ["United Kingdom", "Switzerland", "Germany", "Netherlands", "European Union", "United States", "Worldwide"],
+};
 ---
 
 <Layout
@@ -28,17 +71,20 @@ const canonical = `${siteUrl}/`;
   description={description}
   canonical={canonical}
   tags={[
-    "Frontend Developer",
+    "Astro Developer",
     "Hire Astro Developer",
     "Next.js Developer",
-    "React Developer",
-    "TypeScript Developer",
-    "Tailwind CSS",
-    "Core Web Vitals",
-    "White Label Frontend",
+    "React Frontend Engineer",
+    "Custom E-Commerce Developer",
+    "Multi-Vendor Marketplace Developer",
+    "Core Web Vitals Consultant",
+    "Figma to Code Specialist",
+    "UK and European Timezone",
   ]}
   jsonLd={[
+    personSchema,
     buildProfessionalServiceSchema(siteUrl),
+    faqSchema,
     buildWebPageSchema({
       siteUrl,
       url: canonical,
@@ -49,43 +95,42 @@ const canonical = `${siteUrl}/`;
     buildBreadcrumbSchema([{ name: "Home", url: canonical }]),
   ]}
 >
-  <div id="main-content">
-    <!-- 1. HERO — First impression, above the fold -->
+  <div id="main-content" class="relative">
+    
+    <!-- 1. HERO SECTION + EUROPEAN / GLOBAL TRUST STRIP -->
     <section id="hire-frontend-developer">
-      <HeroSection />
+      <HeroSection projectsUrl="/#projects" contactUrl="/#contact" />
     </section>
 
-    <!-- 2. ABOUT — Who I am (builds personal connection) -->
-    <section id="about-frontend-developer">
-      <AboutMe />
-    </section>
-
-    <!-- 3. SERVICES — What I offer (visitor's first question after hero) -->
-    <section id="frontend-development-services">
-      <ServicesSection />
-    </section>
-
-    <!-- 4. PROJECTS — Proof of work (show before asking to trust you) -->
+    <!-- 2. SELECTED WORK (FLAGSHIP CASE STUDIES) -->
     <section id="frontend-developer-projects">
       <ProjectsSection />
     </section>
 
-    <!-- 5. SKILLS — Stack details (after seeing real project) -->
-    <section id="react-nextjs-astro-skills">
-      <SkillsSection />
+    <!-- 3. CORE SERVICES (4-PILLAR BENTO GRID ALIGNED WITH HIGH-INTENT KEYWORDS) -->
+    <section id="frontend-development-services">
+      <ServicesSection />
     </section>
 
-    <!-- 6. WHY ME — Final push before CTA (objection handling) -->
-    <section id="why-hire-frontend-developer">
-      <WhyMe />
+    <!-- 4. VERIFIED CLIENT REVIEWS (2x2 UPWORK UK, SWISS & US REVIEWS) -->
+    <section id="client-testimonials">
+      <TestimonialsSection />
     </section>
 
-    <!-- 7. TESTIMONIALS — Real client proof before final CTA -->
-    <TestimonialsSection />
+    <!-- 5. TECH ARSENAL & 4-STEP ENGINEERING WORKFLOW (SPLIT BENTO) -->
+    <section id="engineering-process">
+      <TechAndProcessSection />
+    </section>
 
-    <!-- 8. CONTACT — CTA last, after full trust is built -->
+    <!-- 6. HIGH-INTENT TECHNICAL FAQ (SEO FAQP奋GE) -->
+    <section id="technical-faq">
+      <FaqSection />
+    </section>
+
+    <!-- 7. CONVERSION CONTACT SECTION -->
     <section id="contact-frontend-developer">
       <ContactSection />
     </section>
+
   </div>
 </Layout>

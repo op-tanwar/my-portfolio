@@ -1,21 +1,23 @@
 ---
-title: "Building Multi-Vendor E-Commerce Frontends"
-description: "Marketplace UIs are harder than single-store e-commerce. Learn how I architect vendor dashboards, product discovery, split checkout flows, and the frontend patterns that keep multi-vendor platforms fast and maintainable."
+title: "Architecting a Multi-Vendor E-Commerce Marketplace: Geo-Search, Redis Caching & Ledger Math"
+description: "How to engineer custom multi-vendor marketplaces: Next.js 15 App Router, MongoDB 2dsphere geospatial search, Redis multi-vendor carts, and double-entry vendor ledgers."
 publishDate: 2026-02-03
 updatedDate: 2026-06-10
 category: "E-Commerce"
-tags: ["E-Commerce", "React", "Architecture", "Marketplace"]
+tags: ["E-Commerce", "React", "Architecture", "Marketplace", "Next.js", "Redis"]
 featured: true
-accent: "#ff006e"
+accent: "#10B981"
 image: "../../assets/blog/building-multi-vendor-ecommerce-frontends.jpg"
-imageAlt: "Online shopping and e-commerce marketplace concept"
+imageAlt: "Multi-Vendor Marketplace Architecture and Geospatial E-Commerce Systems"
 ---
 
-Single-store e-commerce is a solved problem. You have products, a cart, checkout, and an order confirmation page. Multi-vendor marketplaces — think Etsy, Amazon third-party sellers, or the B2B platforms I've built for clients — add an entirely different layer of frontend complexity. Every product belongs to a vendor. Shipping rules differ per seller. Commission structures affect displayed prices. Vendor dashboards run alongside customer storefronts. Search must rank across independent catalogs with inconsistent data quality.
+> **Engineering Rule of Thumb:** In a multi-vendor marketplace, checkout is not a flat list calculation — it is an atomic multi-party financial transaction. If you don't enforce Redis optimistic locking on inventory and strict double-entry ledger bookkeeping, flash sales will cause overselling and commission discrepancies that permanently damage vendor trust.
 
-I've spent the last three years building and refactoring multi-vendor frontends for clients who underestimated the gap between "Shopify clone" and "marketplace." The backend team usually has the hard problems — payout splits, vendor onboarding, dispute resolution. But the frontend is where complexity becomes visible, and where users abandon carts because the UI couldn't communicate split shipments or variable delivery times.
+Single-store e-commerce is a solved problem. You have products, a cart, checkout, and an order confirmation page. Multi-vendor marketplaces — such as our live production build for [Urban Nursery](/work/urban-nursery) or bespoke craft platforms like [Boutee London](/work/boutee) — introduce an entirely different order of magnitude in architectural complexity. 
 
-This article covers the architecture, component patterns, and hard-won lessons from production marketplace projects.
+Every product belongs to an independent vendor. Delivery radius rules differ based on geospatial distance (e.g. 12km radius queries in MongoDB). Orders containing items from multiple sellers must be split cleanly into independent fulfillment streams. Commission structures require automated escrow hold periods and cent/paise-safe payout reconciliation.
+
+If you are planning to build or migrate to a custom marketplace, explore our specialized [Custom E-Commerce Developer service](/custom-ecommerce-developer) or review the production patterns below.
 
 ## How Multi-Vendor Differs from Single-Store E-Commerce
 

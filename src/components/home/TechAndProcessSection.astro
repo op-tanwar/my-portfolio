@@ -1,0 +1,218 @@
+---
+// TechAndProcessSection.astro — Tech Arsenal & 4-Step Engineering Workflow (Split Bento)
+
+import { Image } from "astro:assets";
+import reactIcon from "../../assets/icons/react-developer.svg";
+import nextIcon from "../../assets/icons/next.js-developer.svg";
+import astroIcon from "../../assets/icons/AstroJs-developer.svg";
+import tsIcon from "../../assets/icons/typescript-developer.svg";
+import jsIcon from "../../assets/icons/javaScript-developer.svg";
+import tailwindIcon from "../../assets/icons/tailwind-expret.svg";
+import reduxIcon from "../../assets/icons/Redux.svg";
+import sanityIcon from "../../assets/icons/Sanity.svg";
+import nodeIcon from "../../assets/icons/node.svg";
+import expressIcon from "../../assets/icons/express.svg";
+import mongoIcon from "../../assets/icons/mongodb.svg";
+import jwtIcon from "../../assets/icons/jwt.svg";
+import apiIcon from "../../assets/icons/rest-api.svg";
+import figmaIcon from "../../assets/icons/figma-to-code.svg";
+
+const techCategories = [
+  {
+    title: "Frontend & UI",
+    badge: "Islands & Components",
+    skills: [
+      { name: "Astro v5 (Islands)", icon: astroIcon },
+      { name: "Next.js 15 (App Router)", icon: nextIcon },
+      { name: "React 19", icon: reactIcon },
+      { name: "TypeScript (Strict)", icon: tsIcon },
+      { name: "Tailwind CSS v4", icon: tailwindIcon },
+      { name: "JavaScript (ES6+)", icon: jsIcon },
+    ],
+  },
+  {
+    title: "State & Real-Time",
+    badge: "Data Streaming",
+    skills: [
+      { name: "Redux Toolkit", icon: reduxIcon },
+      { name: "WebSockets API", icon: apiIcon },
+      { name: "TanStack Query", icon: reactIcon },
+      { name: "RESTful Endpoints", icon: apiIcon },
+      { name: "Context & Hooks", icon: reactIcon },
+    ],
+  },
+  {
+    title: "Full-Stack & E-Commerce",
+    badge: "Backends & Ledgers",
+    skills: [
+      { name: "Node.js & Express", icon: nodeIcon },
+      { name: "MongoDB (2dsphere)", icon: mongoIcon },
+      { name: "Redis Caching", icon: apiIcon },
+      { name: "Stripe Connect API", icon: apiIcon },
+      { name: "Razorpay Webhooks", icon: jwtIcon },
+    ],
+  },
+  {
+    title: "CMS, SEO & Cloud",
+    badge: "Delivery & Privacy",
+    skills: [
+      { name: "Sanity.io Headless", icon: sanityIcon },
+      { name: "Figma Design Tokens", icon: figmaIcon },
+      { name: "Technical & Programmatic SEO", icon: astroIcon },
+      { name: "Vercel Edge Networks", icon: nextIcon },
+      { name: "Git, CI/CD & Postman", icon: tsIcon },
+    ],
+  },
+];
+
+const workflowSteps = [
+  {
+    step: "01",
+    title: "Scope & Architecture",
+    desc: "Unpack business requirements, map user flows, model database schemas, and define sub-1s performance budgets before writing code.",
+  },
+  {
+    step: "02",
+    title: "Sprint Execution",
+    desc: "Rapid iterative development in modular TypeScript. Async updates via Linear, GitHub PRs, or Slack with complete transparency.",
+  },
+  {
+    step: "03",
+    title: "Staging & QA",
+    desc: "Deploy automated preview URLs on every branch. Rigorous cross-device testing across mobile, tablet, and desktop viewports.",
+  },
+  {
+    step: "04",
+    title: "Clean Handoff & Support",
+    desc: "Production deployment, Core Web Vitals audit verification, clean documentation handoff, and 14 days of dedicated post-launch warranty.",
+  },
+];
+---
+
+<section id="process" class="py-24 sm:py-32 relative scroll-mt-20">
+  <!-- Anchor alias for skills and about -->
+  <div id="about" class="sr-only">About</div>
+  <div id="skills" class="sr-only">Skills</div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- SECTION HEADER -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Engineering Stack & 4-Step Delivery Framework
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.03em]">
+          Modern stack. Disciplined execution.
+        </h2>
+      </div>
+      <p class="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed">
+        From architectural blueprint to production deployment. No bloat, no percentage gimmicks—only battle-tested tools and dependable delivery.
+      </p>
+    </div>
+
+    <!-- SPLIT BENTO GRID: ARSENAL (LEFT) + WORKFLOW & BIO (RIGHT) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- ════════════ LEFT: CATEGORIZED 4-BOX TECH ARSENAL ════════════ -->
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {
+          techCategories.map((cat) => (
+            <div class="rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 p-5 sm:p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+              
+              <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-white/[0.06]">
+                <h3 class="text-base font-bold text-white tracking-tight">
+                  {cat.title}
+                </h3>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-zinc-400">
+                  {cat.badge}
+                </span>
+              </div>
+
+              <div class="space-y-2">
+                {cat.skills.map((skill) => (
+                  <div class="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.05] transition-colors">
+                    <div class="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src={skill.icon}
+                        alt={`${skill.name} icon`}
+                        width={20}
+                        height={20}
+                        class="w-4 h-4 object-contain opacity-85"
+                        loading="lazy"
+                      />
+                    </div>
+                    <span class="text-xs font-medium text-zinc-300 font-sans">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- ════════════ RIGHT: 4-STEP PROCESS WORKFLOW & BIO ════════════ -->
+      <div class="lg:col-span-5 flex flex-col gap-6">
+        
+        <!-- 4-STEP WORKFLOW CARD -->
+        <div class="rounded-2xl bg-[#111114]/90 border border-white/[0.08] p-6 sm:p-7 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+          <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/[0.06]">
+            <h3 class="text-lg font-bold text-white tracking-tight">
+              4-Step Production Process
+            </h3>
+            <span class="text-xs font-mono text-emerald-400 font-semibold">Zero Surprises</span>
+          </div>
+
+          <div class="space-y-5">
+            {
+              workflowSteps.map((item) => (
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs font-bold flex items-center justify-center">
+                    {item.step}
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-white tracking-tight mb-1">
+                      {item.title}
+                    </h4>
+                    <p class="text-xs text-zinc-400 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- FOUNDER BIO & EUROPEAN COLLABORATION CARD -->
+        <div class="rounded-2xl bg-gradient-to-br from-[#111114] to-zinc-950 border border-white/[0.08] p-6 sm:p-7 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-sm font-bold font-mono text-emerald-400">
+              OP
+            </div>
+            <div>
+              <div class="text-sm font-bold text-white">Omprakash Tanwar</div>
+              <div class="text-xs text-zinc-400">Indore, India · Working with UK, EU & US Teams</div>
+            </div>
+          </div>
+
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4">
+            Master of Computer Applications (MCA, 2024) with 3+ years of professional engineering experience. Seamless CET / GMT / EST timezone overlap, async-first workflows via Linear & Slack, NDA-ready contracts, and zero-tech-debt TypeScript handoffs.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/[0.06] text-xs font-mono text-zinc-400">
+            <span class="text-emerald-400 font-semibold">● 40 hrs/week Availability</span>
+            <span>GDPR & WCAG 2.1 AA Standards</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>

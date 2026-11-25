@@ -6,25 +6,25 @@ interface Props {
   accent?: string;
 }
 
-const { headings, accent = "#00fff7" } = Astro.props;
+const { headings } = Astro.props;
 const hasHeadings = headings.length > 0;
 ---
 
 {hasHeadings && (
-  <nav class="toc-nav" aria-label="Table of contents">
-    <p
-      class="text-[8px] font-mono tracking-[0.25em] uppercase mb-3"
-      style="color:rgba(0,255,247,0.4);"
-    >
-      // toc.index()
-    </p>
-    <ul class="flex flex-col gap-1.5">
+  <nav class="toc-nav text-xs" aria-label="Table of contents">
+    <div class="flex items-center gap-2 mb-4 pb-2 border-b border-white/[0.06]">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+      <span class="font-mono text-[11px] font-bold uppercase tracking-wider text-zinc-300">
+        Table of Contents
+      </span>
+    </div>
+
+    <ul class="flex flex-col gap-1 max-h-[calc(100vh-22rem)] overflow-y-auto pr-2 scrollbar-thin">
       {headings.map((heading) => (
-        <li class:list={[heading.level === 3 && "pl-3"]}>
+        <li class:list={[heading.level === 3 ? "pl-3.5" : "pl-0"]}>
           <a
             href={`#${heading.id}`}
-            class="toc-link block text-[10px] font-mono leading-snug py-1 transition-all duration-200 no-underline"
-            style="color:rgba(255,255,255,0.35);"
+            class="toc-link block py-1.5 px-2.5 rounded-lg text-xs leading-snug text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-all no-underline border-l border-transparent"
             data-toc-link={heading.id}
           >
             {heading.text}
@@ -35,41 +35,57 @@ const hasHeadings = headings.length > 0;
   </nav>
 )}
 
-<script define:vars={{ accent }}>
-  const links = document.querySelectorAll("[data-toc-link]");
-  const headings = Array.from(links).map((link) => ({
-    id: link.getAttribute("data-toc-link"),
-    el: document.getElementById(link.getAttribute("data-toc-link")),
-    link,
-  }));
+<script>
+  function setupTocHighlight() {
+    const links = document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]");
+    if (!links.length) return;
 
-  if (headings.length) {
+    const headings = Array.from(links)
+      .map((link) => {
+        const id = link.getAttribute("data-toc-link");
+        return {
+          id,
+          el: id ? document.getElementById(id) : null,
+          link,
+        };
+      })
+      .filter((h) => h.el !== null);
+
+    if (!headings.length) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const match = headings.find((h) => h.el === entry.target);
-          if (!match) return;
           if (entry.isIntersecting) {
             links.forEach((l) => {
-              l.style.color = "rgba(255,255,255,0.35)";
-              l.style.borderLeft = "none";
-              l.style.paddingLeft = "0";
+              l.classList.remove(
+                "text-emerald-400",
+                "bg-emerald-500/10",
+                "border-emerald-400",
+                "font-semibold"
+              );
+              l.classList.add("text-zinc-400", "border-transparent");
             });
-            match.link.style.color = accent;
-            match.link.style.borderLeft = `2px solid ${accent}`;
-            match.link.style.paddingLeft = "0.5rem";
+
+            const match = headings.find((h) => h.el === entry.target);
+            if (match) {
+              match.link.classList.remove("text-zinc-400", "border-transparent");
+              match.link.classList.add(
+                "text-emerald-400",
+                "bg-emerald-500/10",
+                "border-emerald-400",
+                "font-semibold"
+              );
+            }
           }
         });
       },
-      { rootMargin: "-80px 0px -60% 0px", threshold: 0 },
+      { rootMargin: "-80px 0px -65% 0px", threshold: 0 }
     );
 
     headings.forEach((h) => h.el && observer.observe(h.el));
   }
-</script>
 
-<style>
-  .toc-link:hover {
-    color: #00fff7 !important;
-  }
-</style>
+  setupTocHighlight();
+  document.addEventListener("astro:page-load", setupTocHighlight);
+</script>

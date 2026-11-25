@@ -1,19 +1,21 @@
 ---
-title: "Next.js Performance Optimization: How I Hit Lighthouse 100"
-description: "Core Web Vitals, image optimization, bundle splitting, caching, and font loading — a complete playbook for squeezing every millisecond out of Next.js in production."
+title: "Core Web Vitals Checklist for React & Next.js Apps: Fixing LCP, CLS, and INP in Production"
+description: "A complete production engineering checklist for diagnosing and fixing slow LCP, layout shift (CLS), and interaction lag (INP) in Next.js 15 and React applications."
 publishDate: 2025-05-18
 updatedDate: 2026-06-10
 category: "Next.js"
-tags: ["Next.js", "Performance", "Core Web Vitals", "Lighthouse", "Optimization"]
+tags: ["Next.js", "Performance", "Core Web Vitals", "Lighthouse", "Optimization", "React"]
 featured: true
-accent: "#00fff7"
+accent: "#10B981"
 image: "../../assets/blog/nextjs-performance-optimization.jpg"
-imageAlt: "Analytics dashboard showing performance metrics and Lighthouse scores"
+imageAlt: "Core Web Vitals Checklist for React and Next.js Performance"
 ---
 
-Hitting Lighthouse 100 on mobile isn't luck, and it isn't a vanity metric I chase for screenshots. I've had clients lose Upwork contracts because their Next.js app's mobile performance score was 42. I've also had clients win enterprise deals because their dashboard loaded in under a second on a throttled connection. The difference is systematic optimization applied before launch — and maintained after.
+> **Engineering Rule of Thumb:** Google ranks real-user field data (CrUX), not isolated localhost Lighthouse runs. If your marketing pages force clients to download 800KB of React framework JavaScript before rendering hero text, your mobile LCP will exceed 2.5s and your search rankings will steadily bleed to competitors.
 
-This is my complete Next.js performance playbook. It covers measurement, images, fonts, caching, bundle splitting, third-party scripts, and the deployment configuration I use on production client projects. Everything here has been validated on real sites serving US, UK, and EU traffic — not just localhost benchmarks.
+Hitting Lighthouse 100 and passing Core Web Vitals on mobile isn't luck, and it isn't a vanity metric to chase for screenshots. In my client work across the US, UK, and Europe, I've seen venture-backed startups lose thousands in paid ad conversions because their Next.js app had a mobile performance score of 42. Conversely, engineering systematic sub-second load times (as demonstrated in our [Urban Nursery Next.js case study](/work/urban-nursery) and [GoQuant real-time React orderbook](/work/goquant-orderbook)) consistently increases organic impressions and conversion velocity.
+
+If you need a dedicated performance pass on your product, explore our [Hire Next.js Developer service](/hire-nextjs-developer) or [Hire React Developer service](/hire-react-developer). Below is the comprehensive checklist I run on production audits.
 
 ## Start With Measurement, Not Optimization
 

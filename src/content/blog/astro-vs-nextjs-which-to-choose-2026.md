@@ -1,17 +1,19 @@
 ---
-title: "Astro vs Next.js in 2026: Which Framework Should You Choose?"
-description: "An honest comparison from a freelancer who ships both. Learn when Astro wins on performance and when Next.js is the right call for your project in 2026."
+title: "Astro vs. Next.js in 2026: Which Framework Should You Choose for SEO, SaaS, or E-Commerce?"
+description: "An honest architectural decision matrix from a senior consultant who ships both in production. Learn when Astro wins on Core Web Vitals and when Next.js 15 is the necessary choice."
 publishDate: 2025-12-03
 updatedDate: 2026-06-10
 category: "Astro"
 tags: ["Astro", "Next.js", "Framework Comparison", "Architecture"]
 featured: true
-accent: "#bf00ff"
+accent: "#10B981"
 image: "../../assets/blog/astro-vs-nextjs-which-to-choose-2026.jpg"
-imageAlt: "Split screen showing code editor with web framework syntax"
+imageAlt: "Astro vs Next.js Architectural Decision Matrix in 2026"
 ---
 
-I get this question on almost every discovery call: "Should we use Astro or Next.js?" The honest answer is that both are excellent frameworks built by smart teams — but they optimize for different problems. I've shipped production sites with both for US, UK, and EU clients. Astro handles my content-heavy builds. Next.js handles my authenticated SaaS dashboards and e-commerce flows. Choosing wrong costs you weeks of refactoring and a performance bill you'll pay every month.
+> **Engineering Decision Matrix:** If your primary revenue metric is organic SEO, low bounce rate, and fast editorial publishing (e.g. [Boutee London](/work/boutee)), choose **Astro**. If your platform requires authenticated dashboards, complex multi-vendor cart sessions, or high-concurrency payment streams (e.g. [Urban Nursery](/work/urban-nursery)), choose **Next.js 15**.
+
+I get this question on almost every discovery call with UK, European, and US tech founders: *"Should we build our upcoming release in Astro or Next.js?"* The honest answer is that both are world-class frameworks — but they solve completely different engineering problems. Choosing wrong costs you weeks of refactoring and a Core Web Vitals penalty you'll pay every month in Google rankings and ad spend.
 
 This isn't a benchmark shootout where one framework "wins." It's a decision framework based on what your product actually does, who maintains it, and what your users experience on a 4G phone in Manchester or a fiber connection in San Francisco.
 

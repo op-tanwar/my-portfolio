@@ -86,4 +86,15 @@ export interface ServiceLandingConfig {
   relatedReads: LandingLink[];
   midCtaHeading: string;
   midCtaBody: string;
+  defaultService?: string;
+  featuredCaseStudies?: string[];
+  benchmarkMetrics?: { label: string; value: string; desc: string }[];
+  testimonial?: {
+    quote: string;
+    author: string;
+    role: string;
+    company: string;
+    location: string;
+    metric?: string;
+  };
 }

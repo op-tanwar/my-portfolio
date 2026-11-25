@@ -1,5 +1,5 @@
 ---
-// Layout.astro - CYBERPUNK PORTFOLIO LAYOUT
+// Layout.astro - MODERN EXECUTIVE PORTFOLIO LAYOUT
 
 import "../styles/global.css";
 
@@ -42,7 +42,7 @@ const siteUrl = getSiteUrl(Astro.site);
 
 const {
   title = "Frontend Developer | Hire React, Next.js & Astro Expert | Omprakash Tanwar",
-  description = "Hire Omprakash Tanwar — Frontend Developer specializing in React, Next.js, Astro, TypeScript, and Tailwind CSS. High-performance, SEO-optimized websites for US, UK, EU, Canada & Australia clients.",
+  description = "Hire Omprakash Tanwar — Senior Frontend Consultant specializing in React, Next.js, Astro, TypeScript, and Tailwind CSS. High-performance, SEO-optimized web applications for US, UK & European clients.",
   canonical,
   ogType = "website",
   ogImage = absoluteImageUrl(DEFAULT_OG_IMAGE, siteUrl),
@@ -91,7 +91,7 @@ const structuredData =
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -99,6 +99,7 @@ const structuredData =
       name="google-site-verification"
       content="BvhspkTjlLomtVx352jX7jaNc33hgCYSlca74BcNCKA"
     />
+
     <!-- Google Search Favicon Guidelines Optimization -->
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -106,6 +107,14 @@ const structuredData =
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Typography: Plus Jakarta Sans, Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="canonical" href={canonicalUrl} />
     <meta name="generator" content={Astro.generator} />
@@ -117,7 +126,7 @@ const structuredData =
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#020204" />
+    <meta name="theme-color" content="#09090b" />
 
     {tags.length > 0 && <meta name="keywords" content={tags.join(", ")} />}
 
@@ -179,7 +188,7 @@ const structuredData =
     }
   </head>
 
-  <body>
+  <body class="bg-[#09090b] text-[#fafafa] selection:bg-emerald-500/20 selection:text-emerald-300">
     <CustomCursor />
 
     <Navbar />
@@ -206,33 +215,29 @@ const structuredData =
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
-  }
-
-  ::selection {
-    background: rgba(0, 255, 247, 0.2);
-    color: #00fff7;
+    background-color: #09090b;
   }
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #020204;
+    background: #09090b;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #00fff7, #bf00ff);
-    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #00fff7;
+    background: rgba(255, 255, 255, 0.22);
   }
 
   :focus-visible {
-    outline: 1.5px solid rgba(0, 255, 247, 0.6);
-    outline-offset: 3px;
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
   }
 
   main {

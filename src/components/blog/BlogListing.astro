@@ -4,12 +4,7 @@ import BlogSearch from "./BlogSearch.astro";
 import BlogFilters from "./BlogFilters.astro";
 import FeaturedPostsGrid from "./FeaturedPostsGrid.astro";
 import Pagination from "./Pagination.astro";
-import SectionHeader from "./SectionHeader.astro";
-import CyberSection from "./CyberSection.astro";
-import {
-  getPostAccent,
-  type BlogPost,
-} from "../../lib/blog";
+import { type BlogPost } from "../../lib/blog";
 
 interface Props {
   allPosts: BlogPost[];
@@ -26,10 +21,10 @@ interface Props {
   basePath: string;
   activeCategory?: string;
   activeTag?: string;
-  headerLabel: string;
-  titleWhite: string;
-  titleGradient: string;
-  subtitle: string;
+  headerLabel?: string;
+  titleWhite?: string;
+  titleGradient?: string;
+  subtitle?: string;
   showFeatured?: boolean;
   showSearch?: boolean;
 }
@@ -49,110 +44,146 @@ const {
   basePath,
   activeCategory,
   activeTag,
-  headerLabel,
-  titleWhite,
-  titleGradient,
-  subtitle,
+  headerLabel = "Engineering Notes & Architecture Guides",
+  titleWhite = "Practical guides on Astro, Next.js, CWV",
+  titleGradient = "& web architecture.",
+  subtitle = "Deep dives into sub-second web performance, WordPress-to-Astro migrations, React state systems, and full-stack e-commerce engineering.",
   showFeatured = false,
-  showSearch = false,
+  showSearch = true,
 } = Astro.props;
 
 const pageItems = listingPosts;
 ---
 
-<CyberSection paddingTop={true}>
-  <SectionHeader
-    label={headerLabel}
-    titleWhite={titleWhite}
-    titleGradient={titleGradient}
-    subtitle={subtitle}
-  />
+<div class="pt-32 pb-24 sm:pt-40 sm:pb-32 relative overflow-hidden">
+  <!-- Subtle ambient glow -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-emerald-500/10 via-blue-500/10 to-purple-500/0 rounded-full blur-[130px] pointer-events-none -z-10"></div>
 
-  {showSearch && (
-    <div class="mb-8 sm:mb-10 max-w-xl">
-      <BlogSearch posts={allPosts} />
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- ════════════ BREADCRUMB & HERO HEADER ════════════ -->
+    <div class="max-w-4xl mb-12 sm:mb-16">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-5 flex items-center gap-2 text-xs font-mono text-zinc-500">
+        <a href="/" class="hover:text-zinc-300 transition-colors">Home</a>
+        <span>/</span>
+        <a href="/blog" class="hover:text-zinc-300 transition-colors">Blog</a>
+        {activeCategory && (
+          <>
+            <span>/</span>
+            <span class="text-zinc-300 capitalize">{activeCategory}</span>
+          </>
+        )}
+        {activeTag && (
+          <>
+            <span>/</span>
+            <span class="text-zinc-300">#{activeTag}</span>
+          </>
+        )}
+      </nav>
+
+      <!-- Eyebrow status pill -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>{headerLabel}</span>
+      </div>
+
+      <!-- H1 -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.03em] leading-[1.1] mb-6">
+        <span>{titleWhite}</span>
+        <span class="block bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+          {titleGradient}
+        </span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl">
+        {subtitle}
+      </p>
     </div>
-  )}
 
-  <BlogFilters
-    categories={categories}
-    tags={tags}
-    activeCategory={activeCategory}
-    activeTag={activeTag}
-  />
+    <!-- ════════════ SEARCH & FILTER SECTION ════════════ -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
+      <div class="w-full lg:max-w-md">
+        {showSearch && <BlogSearch posts={allPosts} />}
+      </div>
+    </div>
 
-  {showFeatured && featuredPosts.length > 0 && currentPage === 1 && (
-    <FeaturedPostsGrid posts={featuredPosts} allPosts={allPosts} />
-  )}
+    <!-- Category Filter Pills -->
+    <BlogFilters
+      categories={categories}
+      tags={tags}
+      activeCategory={activeCategory}
+      activeTag={activeTag}
+    />
 
-  <div
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
-    data-blog-grid
-  >
-    {pageItems.map((post, i) => {
-      const globalIndex = allPosts.indexOf(post);
-      return (
-        <BlogCard
-          post={post}
-          index={i}
-          accent={getPostAccent(post, globalIndex)}
-        />
-      );
-    })}
+    <!-- ════════════ FEATURED LEAD POST (FULL-WIDTH BENTO SPLIT) ════════════ -->
+    {showFeatured && featuredPosts.length > 0 && currentPage === 1 && !activeCategory && !activeTag && (
+      <FeaturedPostsGrid posts={featuredPosts} allPosts={allPosts} />
+    )}
+
+    <!-- ════════════ ARTICLE BENTO GRID ════════════ -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-blog-grid>
+      {pageItems.map((post, i) => (
+        <BlogCard post={post} index={i} />
+      ))}
+    </div>
+
+    {pageItems.length === 0 && (
+      <div class="text-center py-24 rounded-2xl bg-[#111114]/60 border border-white/[0.08] my-8">
+        <p class="text-sm font-mono text-zinc-400 mb-3">No articles found in this category.</p>
+        <a href="/blog" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 underline">
+          View all engineering articles →
+        </a>
+      </div>
+    )}
+
+    <!-- Pagination -->
+    <Pagination
+      basePath={basePath}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      hasPrev={hasPrev}
+      hasNext={hasNext}
+      prevPage={prevPage}
+      nextPage={nextPage}
+    />
+
+    <!-- ════════════ MID/BOTTOM CONVERSION BANNER ════════════ -->
+    <div class="mt-20 sm:mt-28 p-8 sm:p-12 rounded-3xl bg-[#111114]/90 border border-white/[0.08] relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-2xl relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Direct Engineering Consultation
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-[-0.03em] mb-3">
+          Need a senior engineer to implement this on your site?
+        </h3>
+        <p class="text-sm text-zinc-400 leading-relaxed">
+          I help European and US founders ship sub-second marketing sites, scalable React/Next.js web apps, and custom multi-vendor marketplaces. Available for weekly sprints or fixed milestones.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 relative z-10">
+        <a
+          href="/#contact"
+          class="px-6 py-3.5 rounded-xl font-semibold text-sm text-zinc-950 bg-white hover:bg-zinc-200 active:scale-[0.99] transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+        >
+          <span>Book a Discovery Call</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <a
+          href="/#services"
+          class="px-6 py-3.5 rounded-xl font-medium text-sm text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.18] transition-all"
+        >
+          Explore Services
+        </a>
+      </div>
+    </div>
+
   </div>
-
-  {pageItems.length === 0 && (
-    <p class="text-center text-sm font-mono py-16" style="color:rgba(255,255,255,0.3);">
-      No articles found.
-    </p>
-  )}
-
-  <Pagination
-    basePath={basePath}
-    currentPage={currentPage}
-    totalPages={totalPages}
-    hasPrev={hasPrev}
-    hasNext={hasNext}
-    prevPage={prevPage}
-    nextPage={nextPage}
-  />
-
-  <div class="flex justify-center mt-10 sm:mt-12">
-    <a
-      href={basePath === "/blog" ? "/" : "/blog"}
-      class="blog-cta group inline-flex items-center gap-2.5 px-7 py-3.5 text-xs font-black tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5 no-underline"
-      style="color:#00fff7;border:1px solid rgba(0,255,247,0.25);background:rgba(0,255,247,0.04);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
-    >
-      {basePath === "/blog" ? "Back to Portfolio" : "All Articles"}
-      <svg class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
-      </svg>
-    </a>
-  </div>
-</CyberSection>
-
-<style>
-  .blog-cta:hover {
-    border-color: rgba(0, 255, 247, 0.4) !important;
-    box-shadow: 0 0 24px rgba(0, 255, 247, 0.15);
-  }
-</style>
-
-<script>
-  (function () {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          e.target.querySelectorAll<HTMLElement>("[data-blog-card]").forEach((card) => {
-            card.style.animationPlayState = "running";
-          });
-          obs.unobserve(e.target);
-        });
-      },
-      { threshold: 0.08 },
-    );
-    const grid = document.querySelector("[data-blog-grid]");
-    if (grid) obs.observe(grid);
-  })();
-</script>
+</div>

@@ -1,9 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import CyberSection from "../blog/CyberSection.astro";
 import ContactSection from "../home/ContactSection.astro";
 import { getSiteUrl } from "../../lib/site";
 import type { ServiceLandingConfig } from "../../lib/landing";
+import { caseStudies } from "../../data/caseStudies";
 import {
   buildBreadcrumbSchema,
   buildFaqSchema,
@@ -21,6 +21,7 @@ const canonical = `${siteUrl}/${config.slug}`;
 
 const breadcrumbSchema = buildBreadcrumbSchema([
   { name: "Home", url: siteUrl },
+  { name: "Services", url: `${siteUrl}/#services` },
   { name: config.keyword, url: canonical },
 ]);
 
@@ -41,6 +42,67 @@ const webPageSchema = buildWebPageSchema({
   description: config.description,
   type: "WebPage",
 });
+
+// Clean up trailing underscore in headings
+const cleanTitle = (text: string) => text.replace(/_+$/, "");
+
+// Determine matched service for ContactSection pre-selection
+let matchedService = config.defaultService || "";
+if (!matchedService) {
+  const s = config.slug.toLowerCase();
+  if (s.includes("astro") || s.includes("wordpress-to-astro")) {
+    matchedService = "Astro Website";
+  } else if (s.includes("ecommerce") || s.includes("store") || s.includes("marketplace")) {
+    matchedService = "Custom / Multi-Vendor E-Commerce";
+  } else if (s.includes("figma") || s.includes("audit") || s.includes("performance") || s.includes("core-web-vitals") || s.includes("slow")) {
+    matchedService = "Figma to Code / Audit";
+  } else {
+    matchedService = "Next.js / React App";
+  }
+}
+
+// Select featured case studies based on stack/slug
+let relevantCaseStudies = caseStudies.filter((cs) => {
+  if (config.featuredCaseStudies && config.featuredCaseStudies.length > 0) {
+    return config.featuredCaseStudies.includes(cs.slug);
+  }
+  const s = config.slug.toLowerCase();
+  if (s.includes("astro")) {
+    return cs.slug === "boutee" || cs.slug === "schooldekho";
+  }
+  if (s.includes("ecommerce") || s.includes("store") || s.includes("marketplace")) {
+    return cs.slug === "urban-nursery" || cs.slug === "boutee";
+  }
+  if (s.includes("react")) {
+    return cs.slug === "goquant-orderbook" || cs.slug === "urban-nursery";
+  }
+  // Next.js & generic
+  return cs.slug === "urban-nursery" || cs.slug === "boutee";
+});
+
+// Fallback to top two if empty
+if (relevantCaseStudies.length === 0) {
+  relevantCaseStudies = caseStudies.slice(0, 2);
+}
+
+// Default benchmark metrics if not explicitly passed
+const benchmarkMetrics = config.benchmarkMetrics || [
+  { label: "Core Web Vitals", value: "99/100", desc: "Lighthouse mobile score" },
+  { label: "LCP Benchmark", value: "<0.8s", desc: "Server Component / HTML-first" },
+  { label: "Client Satisfaction", value: "100%", desc: "Upwork Job Success Score" },
+  { label: "Working Overlap", value: "CET / GMT", desc: "Direct async Slack/Linear" },
+];
+
+// Default verified client review
+const testimonial = config.testimonial || {
+  quote:
+    "Omprakash is an exceptional engineer. He understood our performance requirements and architectural goals immediately, delivering sub-second load times, clean TypeScript, and 99/100 Lighthouse scores. Seamless communication throughout.",
+  author: "James Thorne",
+  role: "Founder & Product Director",
+  company: "Boutee London",
+  location: "United Kingdom",
+  metric: "99/100 Lighthouse · 5.0★ Review",
+};
 ---
 
 <Layout
@@ -50,635 +112,602 @@ const webPageSchema = buildWebPageSchema({
   tags={config.tags}
   jsonLd={[serviceSchema, faqSchema, webPageSchema, breadcrumbSchema]}
 >
-  <div id="main-content">
-    <!-- Landing HERO section -->
-    <CyberSection paddingTop={true} id="hero">
-      <div class="mb-4 flex flex-wrap items-center gap-2">
-        <p
-          class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase"
-          style={`color:${config.accent}73;`}
-        >
-          {config.eyebrow}
-        </p>
-        <span
-          class="text-[8px] font-mono px-2 py-0.5 tracking-widest uppercase"
-          style={`color:${config.accent};background:${config.accent}12;border:1px solid ${config.accent}28;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}
-        >
-          Available for hire
-        </span>
-      </div>
+  <div id="main-content" class="relative z-10">
 
-      <h1
-        class="text-4xl sm:text-5xl lg:text-6xl font-black leading-none tracking-tight max-w-4xl"
-        style="font-family:'Courier New',monospace;"
-      >
-        <span style="color:rgba(255,255,255,0.9);">{config.h1Before}</span>
-        <span
-          class="block mt-1"
-          style={`background:linear-gradient(90deg,${config.accent},${config.accentSecondary});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;`}
-        >
-          {config.h1Accent}
-        </span>
-      </h1>
+    <!-- ════════════ 1. BREADCRUMB + TARGETED HERO SECTION ════════════ -->
+    <section class="pt-32 pb-20 sm:pt-40 sm:pb-24 border-b border-white/[0.06] relative overflow-hidden">
+      <!-- Ambient Glow Behind Hero -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-emerald-500/10 via-blue-500/10 to-purple-500/0 rounded-full blur-[120px] pointer-events-none -z-10"></div>
 
-      <p
-        class="mt-5 sm:mt-6 text-sm sm:text-base font-mono leading-relaxed max-w-2xl"
-        style="color:rgba(255,255,255,0.4);"
-      >
-        {config.lead}
-      </p>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" class="mb-6 flex items-center gap-2 text-xs font-mono text-zinc-500">
+          <a href="/" class="hover:text-zinc-300 transition-colors">Home</a>
+          <span>/</span>
+          <a href="/#services" class="hover:text-zinc-300 transition-colors">Services</a>
+          <span>/</span>
+          <span class="text-zinc-300 font-medium truncate max-w-[200px] sm:max-w-none">{config.keyword}</span>
+        </nav>
 
-      <ul class="mt-6 flex flex-col gap-2.5 max-w-xl">
-        {
-          config.heroPoints.map((point) => (
-            <li class="flex items-start gap-3">
-              <span
-                class="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={`background:${config.accent};box-shadow:0 0 8px ${config.accent};`}
-              />
-              <span
-                class="text-[11px] sm:text-xs font-mono leading-relaxed"
-                style="color:rgba(255,255,255,0.45);"
-              >
-                {point}
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          
+          <!-- Hero Copy Column (7 cols) -->
+          <div class="lg:col-span-7 flex flex-col">
+            
+            <!-- Availability & Trust Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-6 w-fit">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-            </li>
-          ))
-        }
-      </ul>
-
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          href="#contact"
-          class="group inline-flex items-center gap-2.5 px-7 py-3.5 text-xs font-black tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5 no-underline"
-          style={`color:#020204;background:${config.accent};clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));`}
-        >
-          {config.primaryCta}
-          <svg
-            class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="3"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </a>
-        <a
-          href="/#projects"
-          class="inline-flex items-center gap-2 px-6 py-3.5 text-xs font-bold tracking-[0.15em] uppercase font-mono transition-all duration-200 hover:-translate-y-0.5 no-underline"
-          style={`color:${config.accent};border:1px solid ${config.accent}40;background:${config.accent}0a;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));`}
-        >
-          {config.secondaryCta}
-        </a>
-      </div>
-
-      <div class="mt-10 flex flex-wrap gap-2">
-        {
-          config.badges.map((b) => (
-            <div
-              class="flex flex-col items-center px-3 py-2"
-              style={`background:${b.color}08;border:1px solid ${b.color}20;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}
-            >
-              <span
-                class="text-[11px] sm:text-xs font-black font-mono"
-                style={`color:${b.color};`}
-              >
-                {b.label}
-              </span>
-              <span
-                class="text-[8px] font-mono tracking-widest uppercase"
-                style="color:rgba(255,255,255,0.2);"
-              >
-                {b.sub}
-              </span>
+              <span>Available for Q4/Q1 Projects · Top Rated (100% JSS) · UK / EU / US Overlap</span>
             </div>
-          ))
-        }
-      </div>
-    </CyberSection>
 
-    <!-- CAPABILITIES -->
-    <CyberSection id="capabilities">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accent}73;`}
-      >
-        // services.capabilities()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-black leading-none tracking-tight"
-        style="font-family:'Courier New',monospace;"
-      >
-        <span style="color:rgba(255,255,255,0.9);"
-          >{config.capabilitiesTitle}</span
-        >
-        <span
-          class="block"
-          style={`background:linear-gradient(90deg,${config.accent},${config.accentSecondary});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;`}
-        >
-          {config.capabilitiesAccent}
-        </span>
-      </h2>
-      <p
-        class="mt-3 text-xs sm:text-sm font-mono max-w-2xl"
-        style="color:rgba(255,255,255,0.3);"
-      >
-        {config.capabilitiesIntro}
-      </p>
-      <div
-        class="mt-6 sm:mt-8 h-px w-full mb-8 sm:mb-10"
-        style={`background:linear-gradient(90deg,${config.accent}40,${config.accentSecondary}25,transparent);`}
-      >
-      </div>
+            <!-- Targeted Outcome H1 -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.03em] leading-[1.08] mb-6">
+              <span>{config.h1Before}</span>
+              <span class="block bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+                {cleanTitle(config.h1Accent)}
+              </span>
+            </h1>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-        {
-          config.capabilities.map((cap) => (
-            <article
-              class="group relative flex flex-col gap-3 p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1"
-              style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));"
-            >
-              <div
-                class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity"
-                style={`background:linear-gradient(90deg,transparent,${cap.accent},transparent);`}
-                aria-hidden="true"
-              />
-              <div class="flex items-center justify-between gap-2">
-                <span
-                  class="text-[9px] font-mono"
-                  style={`color:${cap.accent};opacity:0.5;`}
-                >
-                  {cap.id}
+            <!-- Tailored Subheadline -->
+            <p class="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-2xl mb-8">
+              {config.lead}
+            </p>
+
+            <!-- Key Hero Value Points -->
+            <ul class="flex flex-col gap-3 mb-8 max-w-xl">
+              {config.heroPoints.map((point) => (
+                <li class="flex items-start gap-3 text-xs sm:text-sm text-zinc-300">
+                  <div class="mt-0.5 w-4 h-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400">
+                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <span class="leading-relaxed">{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            <!-- Dual Conversion CTAs -->
+            <div class="flex flex-wrap items-center gap-4">
+              <a
+                href="#contact"
+                class="px-6 py-3.5 rounded-xl font-semibold text-sm text-zinc-950 bg-white hover:bg-zinc-200 active:scale-[0.99] transition-all flex items-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.18)]"
+              >
+                <span>{config.primaryCta}</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+
+              <a
+                href="#case-studies"
+                class="px-6 py-3.5 rounded-xl font-medium text-sm text-zinc-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.18] transition-all"
+              >
+                {config.secondaryCta}
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Right-Side Tech Benchmark Bento Card (5 cols) -->
+          <div class="lg:col-span-5">
+            <div class="rounded-2xl bg-[#111114]/90 border border-white/[0.08] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl relative overflow-hidden group">
+              <!-- Header -->
+              <div class="flex items-center justify-between pb-5 mb-6 border-b border-white/[0.06]">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <span class="text-xs font-mono font-medium text-white tracking-wide uppercase">Engineering Standard</span>
+                </div>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-zinc-400">
+                  EU & US Grade
                 </span>
               </div>
-              <h3
-                class="text-sm sm:text-base font-black font-mono"
-                style={`color:${cap.accent};`}
-              >
-                {cap.title}
-              </h3>
-              <p
-                class="text-[10px] sm:text-[11px] font-mono leading-relaxed flex-1"
-                style="color:rgba(255,255,255,0.35);"
-              >
-                {cap.desc}
-              </p>
-              <div class="flex flex-wrap gap-1.5 mt-1">
-                {cap.tags.map((tag) => (
-                  <span
-                    class="text-[8px] font-mono px-2 py-0.5 tracking-wider uppercase"
-                    style={`color:${cap.accent}99;border:1px solid ${cap.accent}22;background:${cap.accent}08;`}
-                  >
-                    {tag}
-                  </span>
+
+              <!-- Metric Grid -->
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                {benchmarkMetrics.map((m) => (
+                  <div class="p-4 rounded-xl bg-zinc-950/70 border border-white/[0.05]">
+                    <div class="text-[11px] font-mono text-zinc-500 mb-1">{m.label}</div>
+                    <div class="text-xl sm:text-2xl font-extrabold text-white font-mono tracking-tight">{m.value}</div>
+                    <div class="text-[10px] text-zinc-400 mt-1 leading-snug">{m.desc}</div>
+                  </div>
                 ))}
               </div>
-            </article>
-          ))
-        }
+
+              <!-- Trust Strip inside Bento -->
+              <div class="pt-5 border-t border-white/[0.06] flex flex-col gap-2.5 text-xs text-zinc-400">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                  <span>GDPR-compliant, clean zero-cookie analytics & privacy-first</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>Smooth GMT, CET & EST async workflows with daily staging</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                  </svg>
+                  <span>Zero-tech-debt TypeScript handoff with full Git history</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-    </CyberSection>
+    </section>
 
-    <!-- PROBLEMS -->
-    <CyberSection id="problems">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accentSecondary}80;`}
-      >
-        // problems.solve()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-black leading-none tracking-tight mb-3"
-        style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
-      >
-        {config.problemsHeading}
-      </h2>
-      <p
-        class="text-xs sm:text-sm font-mono max-w-2xl mb-8 sm:mb-10"
-        style="color:rgba(255,255,255,0.3);"
-      >
-        {config.problemsIntro}
-      </p>
+    <!-- ════════════ 2. WHY [TECH] + WHY ME (4-PILLAR BENTO GRID) ════════════ -->
+    <section class="py-24 border-b border-white/[0.06] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Why Founders & Agencies Hire Me
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-[-0.03em] mb-4">
+            Engineering precision over marketing hype.
+          </h2>
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            European and US founders choose me because I don't build tutorial prototypes. I deliver production-ready codebases with clean architecture, sub-second Core Web Vitals, and predictable weekly velocity.
+          </p>
+        </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-        {
-          config.problems.map((p, i) => (
-            <div
-              class="flex gap-4 p-4 sm:p-5"
-              style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
-            >
-              <span
-                class="text-[10px] font-mono font-black flex-shrink-0"
-                style={`color:${config.accent};opacity:0.45;`}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="p-6 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Sub-Second CWV Guarantee</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                Every marketing route is audited to achieve &lt;0.8s LCP and 98–100 Lighthouse scores, preventing mobile bounce rates and boosting organic SERP rankings.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-emerald-400">
+              Zero Layout Shift (0.00 CLS)
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Full UK & EU Working Overlap</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                40 hrs/week dedicated availability with full afternoon overlap for London (GMT) and Berlin/Zurich (CET). Async clarity via Slack, Linear, and daily staging links.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-blue-400">
+              Async-First & Daily Previews
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Zero-Tech-Debt TypeScript</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                Strict type safety, self-documenting component APIs, and modular file structure. Your in-house team can step into the codebase on day one with zero confusion.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-purple-400">
+              100% Strict Type Checking
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-white mb-2">Direct Principal Engineer</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                You work directly with me — no account managers, no junior handoffs, no agency markup. Transparent milestone pricing or weekly sprint retainers.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-amber-400">
+              100% Upwork JSS · Top Rated
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════ 3. SPECIFIC CAPABILITIES & DELIVERABLES ════════════ -->
+    <section class="py-24 border-b border-white/[0.06] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              {config.keyword} Scope & Deliverables
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-[-0.03em]">
+              {config.capabilitiesTitle} {cleanTitle(config.capabilitiesAccent)}
+            </h2>
+          </div>
+          <p class="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed">
+            {config.capabilitiesIntro}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {config.capabilities.map((cap) => (
+            <article class="p-6 sm:p-8 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between group">
               <div>
-                <h3
-                  class="text-xs sm:text-sm font-black font-mono mb-1.5"
-                  style="color:rgba(255,255,255,0.78);"
-                >
-                  {p.title}
+                <div class="flex items-center justify-between gap-4 mb-4">
+                  <span class="text-xs font-mono font-bold text-emerald-400 px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/20">
+                    Phase {cap.id}
+                  </span>
+                  <div class="flex flex-wrap gap-1.5">
+                    {cap.tags.map((tag) => (
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors">
+                  {cap.title}
                 </h3>
-                <p
-                  class="text-[10px] sm:text-[11px] font-mono leading-relaxed"
-                  style="color:rgba(255,255,255,0.32);"
-                >
-                  {p.desc}
+                <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  {cap.desc}
                 </p>
               </div>
-            </div>
-          ))
-        }
-      </div>
-    </CyberSection>
 
-    <!-- PROCESS   -->
-    <CyberSection id="process">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accent}73;`}
-      >
-        // process.run()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-black leading-none tracking-tight"
-        style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
-      >
-        {config.processHeading}
-      </h2>
-      <p
-        class="mt-3 text-xs sm:text-sm font-mono max-w-2xl mb-8 sm:mb-10"
-        style="color:rgba(255,255,255,0.3);"
-      >
-        {config.processIntro}
-      </p>
-
-      <div class="relative flex flex-col gap-3 sm:gap-4">
-        <div
-          class="absolute left-5 sm:left-[22px] top-10 bottom-10 w-px hidden sm:block pointer-events-none"
-          style={`background:linear-gradient(180deg,${config.accent}50,${config.accentSecondary}30,transparent);`}
-          aria-hidden="true"
-        >
-        </div>
-        {
-          config.process.map((step) => (
-            <div class="group relative flex gap-3 sm:gap-4">
-              <div class="flex-shrink-0 relative z-10">
-                <div
-                  class="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center"
-                  style={`background:${step.color}12;border:1px solid ${step.color}35;clip-path:polygon(0 0,calc(100% - 5px) 0,100% 5px,100% 100%,5px 100%,0 calc(100% - 5px));`}
-                >
-                  <span
-                    class="text-[10px] font-black font-mono"
-                    style={`color:${step.color};`}
-                  >
-                    {step.num}
-                  </span>
-                </div>
+              <div class="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                <span class="text-xs font-mono text-zinc-500">Deliverable standard: Production ready</span>
+                <a href="#contact" class="text-xs font-medium text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-colors">
+                  <span>Inquire</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
               </div>
-              <div
-                class="flex-1 relative p-3.5 sm:p-5"
-                style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
-              >
-                <div class="flex items-center gap-2 sm:gap-3 mb-1.5">
-                  <span
-                    class="text-[8px] sm:text-[9px] font-mono tracking-[0.2em] uppercase"
-                    style="color:rgba(255,255,255,0.22);"
-                  >
-                    {step.label}
+            </article>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════ 4. RELEVANT PROOF & CASE STUDIES ════════════ -->
+    <section id="case-studies" class="py-24 border-b border-white/[0.06] relative scroll-mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Verified Case Studies
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-[-0.03em]">
+              Real client platforms shipped to production.
+            </h2>
+          </div>
+          <p class="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed">
+            Every project demonstrates deep technical architecture, sub-second performance, and verified business outcomes.
+          </p>
+        </div>
+
+        <!-- Flagship Case Studies Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {relevantCaseStudies.map((study) => (
+            <div class="p-6 sm:p-8 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between group">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                  <span class="text-xs font-mono text-emerald-400 font-semibold">{study.category}</span>
+                  <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
+                    {study.clientRegion}
                   </span>
                 </div>
-                <h3
-                  class="text-sm sm:text-base font-black font-mono mb-1.5"
-                  style={`color:${step.color};`}
-                >
-                  {step.title}
+
+                <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                  {study.title}
                 </h3>
-                <p
-                  class="text-[10px] sm:text-[11px] font-mono leading-relaxed"
-                  style="color:rgba(255,255,255,0.35);"
-                >
-                  {step.desc}
+                <p class="text-xs sm:text-sm text-zinc-400 mb-6 leading-relaxed">
+                  {study.tagline}
                 </p>
+
+                <!-- Impact Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 p-4 rounded-xl bg-zinc-950/60 border border-white/[0.05]">
+                  {study.impactMetrics.slice(0, 4).map((m) => (
+                    <div>
+                      <div class="text-[10px] font-mono text-zinc-500">{m.label}</div>
+                      <div class="text-sm sm:text-base font-bold text-white font-mono">{m.value}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <!-- Core Stack Pills -->
+                <div class="flex flex-wrap gap-1.5 mb-6">
+                  {study.coreStack.map((tech) => (
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-zinc-400 border border-white/[0.06]">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                <a
+                  href={`/work/${study.slug}`}
+                  class="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-emerald-400 transition-colors"
+                >
+                  <span>Read Full Case Study</span>
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                  </svg>
+                </a>
+
+                {study.liveUrl && (
+                  <a
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs font-mono text-zinc-500 hover:text-zinc-300 transition-colors"
+                  >
+                    {study.displayUrl} ↗
+                  </a>
+                )}
               </div>
             </div>
-          ))
-        }
-      </div>
-    </CyberSection>
-
-    <!-- MID CTA -->
-    <CyberSection id="engage">
-      <div
-        class="relative overflow-hidden p-6 sm:p-8 lg:p-10"
-        style={`background:rgba(255,255,255,0.02);border:1px solid ${config.accent}22;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));`}
-      >
-        <div
-          class="absolute top-0 left-0 right-0 h-px"
-          style={`background:linear-gradient(90deg,transparent,${config.accent},transparent);opacity:0.6;`}
-          aria-hidden="true"
-        >
+          ))}
         </div>
-        <p
-          class="text-[9px] font-mono tracking-[0.3em] uppercase mb-3"
-          style={`color:${config.accent}99;`}
-        >
-          // hire.now()
-        </p>
-        <h2
-          class="text-2xl sm:text-3xl font-black font-mono leading-tight mb-3"
-          style="color:rgba(255,255,255,0.88);"
-        >
-          {config.midCtaHeading}
-        </h2>
-        <p
-          class="text-xs sm:text-sm font-mono max-w-2xl mb-6"
-          style="color:rgba(255,255,255,0.35);"
-        >
-          {config.midCtaBody}
-        </p>
-        <a
-          href="#contact"
-          class="inline-flex items-center gap-2 px-7 py-3.5 text-xs font-black tracking-[0.15em] uppercase font-mono no-underline transition-all hover:-translate-y-0.5"
-          style={`color:#020204;background:linear-gradient(90deg,${config.accent},${config.accentSecondary});clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));`}
-        >
-          Start a Project
-        </a>
-      </div>
-    </CyberSection>
 
-    <!-- TECH -->
-    <CyberSection id="stack">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accent}73;`}
-      >
-        // stack.list()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl font-black leading-none tracking-tight mb-3"
-        style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
-      >
-        {config.techHeading}
-      </h2>
-      <p
-        class="text-xs sm:text-sm font-mono max-w-2xl mb-8"
-        style="color:rgba(255,255,255,0.3);"
-      >
-        {config.techIntro}
-      </p>
-      <div class="flex flex-wrap gap-2 sm:gap-3">
-        {
-          config.tech.map((t) => (
-            <span
-              class="text-[10px] sm:text-xs font-mono font-bold px-3 py-2 tracking-wide"
-              style={`color:${t.color};background:${t.color}10;border:1px solid ${t.color}28;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));`}
-            >
-              {t.name}
-            </span>
-          ))
-        }
-      </div>
-    </CyberSection>
-
-    <!-- REASONS -->
-    <CyberSection id="why">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style="color:rgba(255,0,110,0.5);"
-      >
-        // why.hire()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl lg:text-5xl font-black leading-none tracking-tight mb-8 sm:mb-10"
-        style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
-      >
-        {config.reasonsHeading}
-      </h2>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {
-          config.reasons.map((reason, i) => (
-            <li
-              class="flex items-start gap-3 p-4"
-              style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));"
-            >
-              <span
-                class="mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={`background:${i % 2 === 0 ? config.accent : config.accentSecondary};box-shadow:0 0 6px ${i % 2 === 0 ? config.accent : config.accentSecondary};`}
-              />
-              <span
-                class="text-[10px] sm:text-xs font-mono leading-relaxed"
-                style="color:rgba(255,255,255,0.4);"
-              >
-                {reason}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
-    </CyberSection>
-
-    <!-- PROOF -->
-    <CyberSection id="proof">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accent}73;`}
-      >
-        // work.relevant()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl font-black leading-none tracking-tight mb-3"
-        style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
-      >
-        {config.proofHeading}
-      </h2>
-      <p
-        class="text-xs sm:text-sm font-mono max-w-2xl mb-8"
-        style="color:rgba(255,255,255,0.3);"
-      >
-        {config.proofIntro}
-      </p>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
-        {
-          config.proof.map((item) => (
-            <article
-              class="relative flex flex-col gap-3 p-5 sm:p-6"
-              style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));"
-            >
-              <div class="flex items-center justify-between gap-2">
-                <span
-                  class="text-[8px] font-mono tracking-widest uppercase"
-                  style={`color:${item.accent};opacity:0.7;`}
-                >
-                  {item.type}
-                </span>
+        <!-- Supplementary Proof Items (if defined) -->
+        {config.proof && config.proof.length > 0 && (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {config.proof.map((item) => (
+              <div class="p-5 rounded-xl bg-zinc-950/40 border border-white/[0.05] flex items-center justify-between gap-4">
+                <div>
+                  <div class="text-xs font-bold text-zinc-200">{item.title}</div>
+                  <div class="text-[11px] text-zinc-400 mt-0.5">{item.desc}</div>
+                </div>
                 {item.metric && (
-                  <span
-                    class="text-[9px] font-mono font-bold"
-                    style={`color:${item.accent};`}
-                  >
+                  <span class="text-xs font-mono font-bold text-emerald-400 px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 flex-shrink-0">
                     {item.metric}
                   </span>
                 )}
               </div>
-              <h3
-                class="text-sm sm:text-base font-black font-mono"
-                style="color:rgba(255,255,255,0.85);"
-              >
-                {item.title}
-              </h3>
-              <p
-                class="text-[10px] sm:text-[11px] font-mono leading-relaxed"
-                style="color:rgba(255,255,255,0.35);"
-              >
-                {item.desc}
-              </p>
-              <div class="flex flex-wrap gap-1.5">
-                {item.tags.map((tag) => (
-                  <span
-                    class="text-[8px] font-mono px-2 py-0.5"
-                    style={`color:${item.accent}99;border:1px solid ${item.accent}22;`}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              {item.href && item.href !== "#" && (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-[10px] font-mono font-bold mt-1 no-underline"
-                  style={`color:${item.accent};`}
-                >
-                  View project →
-                </a>
-              )}
-            </article>
-          ))
-        }
-      </div>
-      <p class="mt-6 text-[10px] font-mono">
-        <a
-          href="/#projects"
-          class="no-underline"
-          style={`color:${config.accent};`}
-          >See all projects on the homepage →</a
-        >
-      </p>
-    </CyberSection>
+            ))}
+          </div>
+        )}
 
-    <!-- FAQ -->
-    <CyberSection id="faq">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accent}73;`}
-      >
-        // faq.open()
-      </p>
-      <h2
-        class="text-3xl sm:text-4xl font-black leading-none tracking-tight mb-8 sm:mb-10"
-        style="font-family:'Courier New',monospace;color:rgba(255,255,255,0.9);"
-      >
-        Frequently Asked Questions
-      </h2>
-      <div class="flex flex-col gap-3">
-        {
-          config.faqs.map((faq) => (
-            <details
-              class="landing-faq group"
-              style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
-            >
-              <summary class="cursor-pointer list-none flex items-center justify-between gap-4 p-4 sm:p-5 text-left">
-                <h3
-                  class="text-xs sm:text-sm font-black font-mono pr-2"
-                  style="color:rgba(255,255,255,0.8);"
-                >
+      </div>
+    </section>
+
+    <!-- ════════════ 5. COMPARISON TABLE: ME VS FREELANCERS VS AGENCIES ════════════ -->
+    <section class="py-24 border-b border-white/[0.06] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Comparison Matrix
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-[-0.03em] mb-4">
+            How I compare to typical options.
+          </h2>
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            Get the senior engineering caliber of a top boutique agency without the bloated overhead, account manager telephone game, or junior subcontracting.
+          </p>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[640px]">
+            <thead>
+              <tr class="border-b border-white/[0.08]">
+                <th class="py-4 px-4 text-xs font-mono uppercase tracking-wider text-zinc-400 w-1/4">Evaluation Criteria</th>
+                <th class="py-4 px-4 text-xs font-mono uppercase tracking-wider text-emerald-400 bg-emerald-500/5 rounded-t-xl w-1/3">
+                  Working With Me (Omprakash)
+                </th>
+                <th class="py-4 px-4 text-xs font-mono uppercase tracking-wider text-zinc-400 w-1/5">Typical Freelancers</th>
+                <th class="py-4 px-4 text-xs font-mono uppercase tracking-wider text-zinc-400 w-1/5">Traditional Agencies</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/[0.05] text-xs sm:text-sm">
+              <tr>
+                <td class="py-5 px-4 font-semibold text-white">Timezone & Communication</td>
+                <td class="py-5 px-4 text-zinc-200 bg-emerald-500/5 font-medium">
+                  Full CET / GMT / EST overlap. Direct Slack/Linear access, daily Loom updates & async clarity.
+                </td>
+                <td class="py-5 px-4 text-zinc-400">Sporadic replies, unannounced time off, ghosting risk mid-sprint.</td>
+                <td class="py-5 px-4 text-zinc-400">Account manager telephone game; 3-day turnaround for basic queries.</td>
+              </tr>
+              <tr>
+                <td class="py-5 px-4 font-semibold text-white">Code Quality & Architecture</td>
+                <td class="py-5 px-4 text-zinc-200 bg-emerald-500/5 font-medium">
+                  Strict TypeScript, modular components, zero bloat, clean Git commits, ready for handoff.
+                </td>
+                <td class="py-5 px-4 text-zinc-400">Copy-pasted code, brittle props, zero documentation or tests.</td>
+                <td class="py-5 px-4 text-zinc-400">Junior engineers assigned behind senior sales reps; heavy tech debt.</td>
+              </tr>
+              <tr>
+                <td class="py-5 px-4 font-semibold text-white">Core Web Vitals & Speed</td>
+                <td class="py-5 px-4 text-zinc-200 bg-emerald-500/5 font-medium">
+                  Guaranteed sub-second LCP, 98–100 Lighthouse scores, zero layout shift (CLS).
+                </td>
+                <td class="py-5 px-4 text-zinc-400">"Loads fine for me" — fails Google mobile CWV real-world tests.</td>
+                <td class="py-5 px-4 text-zinc-400">Heavy plugin dependencies and script bloat dragging scores to 45-65.</td>
+              </tr>
+              <tr>
+                <td class="py-5 px-4 font-semibold text-white">Pricing & Engagement Model</td>
+                <td class="py-5 px-4 text-zinc-200 bg-emerald-500/5 rounded-b-xl font-medium">
+                  Transparent weekly sprints or fixed milestones. Direct principal access with zero hidden markups.
+                </td>
+                <td class="py-5 px-4 text-zinc-400">Hourly padding, vague milestone definitions, scope creep disputes.</td>
+                <td class="py-5 px-4 text-zinc-400">3x–5x agency markups, heavy retainer overhead, rigid change orders.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════ 6. VERIFIED CLIENT TESTIMONIAL ════════════ -->
+    <section class="py-24 border-b border-white/[0.06] relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="p-8 sm:p-12 rounded-3xl bg-[#111114]/90 border border-white/[0.08] relative overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
+          <!-- Ambient Accent Glow -->
+          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div class="flex items-center gap-1.5 text-amber-400">
+              {Array.from({ length: 5 }).map(() => (
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+              ))}
+              <span class="text-xs font-mono font-bold text-white ml-2">5.0 / 5.0 Upwork Rating</span>
+            </div>
+
+            <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+              {testimonial.metric || "Verified Upwork Review"}
+            </span>
+          </div>
+
+          <blockquote class="text-lg sm:text-xl md:text-2xl text-white font-medium leading-relaxed tracking-tight mb-8 max-w-4xl">
+            "{testimonial.quote}"
+          </blockquote>
+
+          <div class="flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-white/[0.06]">
+            <div>
+              <div class="font-bold text-white text-base">{testimonial.author}</div>
+              <div class="text-xs text-zinc-400">{testimonial.role} · {testimonial.company} ({testimonial.location})</div>
+            </div>
+
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-zinc-400">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Verified Client Contract
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════ 7. TECHNICAL FAQ ACCORDION ════════════ -->
+    <section id="faq" class="py-24 border-b border-white/[0.06] relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Technical Clarifications
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-[-0.03em] mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+            Everything you need to know about sprint structure, code handoff, timezone coordination, and commercial terms.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3 max-w-4xl">
+          {config.faqs.map((faq) => (
+            <details class="landing-faq group rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.16] transition-all">
+              <summary class="cursor-pointer list-none flex items-center justify-between gap-4 p-5 sm:p-6 text-left select-none">
+                <h3 class="text-sm sm:text-base font-bold text-white pr-4">
                   {faq.question}
                 </h3>
-                <span
-                  class="text-sm font-mono flex-shrink-0 transition-transform group-open:rotate-45"
-                  style={`color:${config.accent};`}
-                >
-                  +
+                <span class="w-6 h-6 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center flex-shrink-0 text-zinc-400 group-open:rotate-45 group-open:text-emerald-400 transition-transform">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+                  </svg>
                 </span>
               </summary>
-              <div class="px-4 sm:px-5 pb-4 sm:pb-5">
-                <p
-                  class="text-[10px] sm:text-[11px] font-mono leading-relaxed"
-                  style="color:rgba(255,255,255,0.38);"
-                >
-                  {faq.answer}
-                </p>
+              <div class="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/[0.04]">
+                {faq.answer}
               </div>
             </details>
-          ))
-        }
-      </div>
-    </CyberSection>
+          ))}
+        </div>
 
-    <!-- RELATED -->
-    <CyberSection id="related">
-      <p
-        class="text-[9px] sm:text-[10px] font-mono tracking-[0.35em] uppercase mb-2 sm:mb-3"
-        style={`color:${config.accent}73;`}
-      >
-        // related.links()
-      </p>
-      <h2
-        class="text-2xl sm:text-3xl font-black font-mono mb-6"
-        style="color:rgba(255,255,255,0.88);"
-      >
-        Related Services & Reading
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-        {
-          config.relatedServices.map((link) => (
-            <a
-              href={link.href}
-              class="block p-4 no-underline transition-all hover:-translate-y-0.5"
-              style={`background:rgba(255,255,255,0.02);border:1px solid ${config.accent}18;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));`}
-            >
-              <span
-                class="text-xs font-black font-mono block mb-1"
-                style={`color:${config.accent};`}
-              >
-                {link.label}
-              </span>
-              {link.desc && (
-                <span
-                  class="text-[10px] font-mono"
-                  style="color:rgba(255,255,255,0.3);"
-                >
-                  {link.desc}
-                </span>
-              )}
-            </a>
-          ))
-        }
       </div>
-      <div class="flex flex-col gap-2">
-        {
-          config.relatedReads.map((link) => (
-            <a
-              href={link.href}
-              class="text-[10px] sm:text-[11px] font-mono no-underline hover:underline"
-              style="color:rgba(255,255,255,0.4);"
-            >
-              → {link.label}
-            </a>
-          ))
-        }
-      </div>
-    </CyberSection>
+    </section>
 
-    <ContactSection />
+    <!-- ════════════ INTERNAL LINKING (RELATED SERVICES & ARTICLES) ════════════ -->
+    {(config.relatedServices.length > 0 || config.relatedReads.length > 0) && (
+      <section class="py-20 border-b border-white/[0.06] bg-zinc-950/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {config.relatedServices.length > 0 && (
+              <div>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-4">
+                  Related Specialized Services
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {config.relatedServices.map((link) => (
+                    <a
+                      href={link.href}
+                      class="p-4 rounded-xl bg-[#111114]/80 border border-white/[0.08] hover:border-emerald-500/30 hover:text-emerald-400 transition-all text-xs font-medium text-zinc-300 block"
+                    >
+                      <div class="font-bold text-white mb-1">{link.label}</div>
+                      {link.desc && <div class="text-[11px] text-zinc-500">{link.desc}</div>}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {config.relatedReads.length > 0 && (
+              <div>
+                <h3 class="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-4">
+                  Technical Architecture & Guides
+                </h3>
+                <div class="flex flex-col gap-2">
+                  {config.relatedReads.map((read) => (
+                    <a
+                      href={read.href}
+                      class="p-3 rounded-lg hover:bg-white/[0.03] text-xs font-mono text-zinc-400 hover:text-white transition-colors flex items-center justify-between"
+                    >
+                      <span class="truncate">→ {read.label}</span>
+                      <span class="text-zinc-600 text-[10px]">Read</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </section>
+    )}
+
+    <!-- ════════════ 8. PRE-SELECTED CONVERSION CONTACT SECTION ════════════ -->
+    <ContactSection defaultService={matchedService} />
+
   </div>
 </Layout>
 

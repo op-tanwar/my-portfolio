@@ -1,0 +1,389 @@
+---
+// [slug].astro — Deep-Dive Case Study Page (Linear/Raycast Editorial Style)
+
+import Layout from "../../layouts/Layout.astro";
+import { caseStudies, type CaseStudy } from "../../data/caseStudies";
+import { getSiteUrl } from "../../lib/site";
+
+export async function getStaticPaths() {
+  return caseStudies.map((study, index) => {
+    const nextStudy = caseStudies[(index + 1) % caseStudies.length];
+    return {
+      params: { slug: study.slug },
+      props: { study, nextStudy },
+    };
+  });
+}
+
+interface Props {
+  study: CaseStudy;
+  nextStudy: CaseStudy;
+}
+
+const { study, nextStudy } = Astro.props;
+const siteUrl = getSiteUrl(Astro.site);
+const canonical = `${siteUrl}/work/${study.slug}`;
+
+// Structured Data for CreativeWork & Breadcrumbs
+const caseStudySchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: study.seoTitle,
+    description: study.seoDescription,
+    url: canonical,
+    inLanguage: "en-US",
+    author: {
+      "@type": "Person",
+      name: "Omprakash Tanwar",
+      jobTitle: "Senior Frontend & Full-Stack Engineer",
+      url: `${siteUrl}/#person`,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Omprakash Tanwar",
+    },
+    about: study.category,
+    keywords: study.coreStack.join(", "),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Work",
+        item: `${siteUrl}/#projects`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: study.title,
+        item: canonical,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={`${study.seoTitle} | Omprakash Tanwar`}
+  description={study.seoDescription}
+  canonical={canonical}
+  ogType="article"
+  tags={study.coreStack}
+  jsonLd={caseStudySchema}
+>
+  <article class="pt-28 sm:pt-36 pb-24 relative overflow-hidden">
+    
+    <!-- SUBTLE AMBIENT RADIAL GLOW -->
+    <div
+      class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] pointer-events-none -z-10"
+      style="background: radial-gradient(ellipse at 50% 30%, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%); filter: blur(60px);"
+      aria-hidden="true"
+    ></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- ════════════ 1. CASE STUDY HERO ════════════ -->
+      <header class="mb-14 sm:mb-18">
+        
+        <!-- BREADCRUMBS -->
+        <nav aria-label="Breadcrumb" class="mb-6">
+          <ol class="flex items-center gap-2 text-xs font-mono text-zinc-400">
+            <li>
+              <a href="/" class="hover:text-white transition-colors">Home</a>
+            </li>
+            <li class="text-zinc-600">/</li>
+            <li>
+              <a href="/#projects" class="hover:text-white transition-colors">Work</a>
+            </li>
+            <li class="text-zinc-600">/</li>
+            <li class="text-emerald-400 font-medium">{study.title}</li>
+          </ol>
+        </nav>
+
+        <!-- CATEGORY BADGE & STATUS -->
+        <div class="flex flex-wrap items-center gap-2.5 mb-4">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            {study.category}
+          </span>
+          <span class="text-zinc-500 text-xs font-mono">·</span>
+          <span class="text-xs font-mono text-zinc-400">{study.clientRegion}</span>
+        </div>
+
+        <!-- H1 TITLE & EXECUTIVE SUBTITLE -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.035em] leading-[1.12] mb-4">
+          {study.title} — {study.subtitle}
+        </h1>
+
+        <p class="text-base sm:text-lg text-zinc-300 leading-relaxed max-w-3xl mb-8">
+          {study.tagline}
+        </p>
+
+        <!-- ACTION BUTTONS -->
+        <div class="flex flex-wrap items-center gap-4">
+          {study.liveUrl && (
+            <a
+              href={study.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 active:scale-95 transition-all shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+            >
+              <span>Visit Live Platform</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          )}
+
+          {study.githubUrl && (
+            <a
+              href={study.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium text-zinc-300 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"></path>
+              </svg>
+              <span>Repository</span>
+            </a>
+          )}
+        </div>
+
+        <!-- 4-METRIC IMPACT BAR -->
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-[#111114]/90 border border-white/[0.08] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+          {study.impactMetrics.map((metric) => (
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+              <div class="text-xl sm:text-2xl font-extrabold font-mono text-emerald-400">
+                {metric.value}
+              </div>
+              <div class="text-xs font-semibold text-white mt-1">
+                {metric.label}
+              </div>
+              <div class="text-[11px] text-zinc-400 mt-0.5 font-mono truncate">
+                {metric.detail}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </header>
+
+      <!-- ════════════ 2. PROJECT OVERVIEW & ROLE ════════════ -->
+      <section class="mb-16 pb-12 border-b border-white/[0.08]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <div class="lg:col-span-8">
+            <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mb-4">
+              Project Overview
+            </h2>
+            <p class="text-sm sm:text-base text-zinc-300 leading-relaxed mb-6">
+              {study.executiveSummary}
+            </p>
+
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-zinc-400 mb-3 font-mono">
+              Core Deliverables
+            </h3>
+            <ul class="space-y-2.5">
+              {study.deliverables.map((item) => (
+                <li class="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-300">
+                  <svg class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="lg:col-span-4 p-5 rounded-2xl bg-[#111114]/80 border border-white/[0.08] space-y-4">
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1">Role</div>
+              <div class="text-sm font-semibold text-white">{study.role}</div>
+            </div>
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1">Timeline</div>
+              <div class="text-sm font-semibold text-white">{study.timeline}</div>
+            </div>
+            <div>
+              <div class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1">Status</div>
+              <div class="text-sm font-semibold text-emerald-400">{study.clientStatus}</div>
+            </div>
+            <div class="pt-3 border-t border-white/[0.06]">
+              <div class="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-2">Core Tech Stack</div>
+              <div class="flex flex-wrap gap-1.5">
+                {study.coreStack.map((tech) => (
+                  <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white/[0.04] text-zinc-300 border border-white/[0.06]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════ 3. THE BUSINESS & TECHNICAL CHALLENGE ════════════ -->
+      <section class="mb-16 pb-12 border-b border-white/[0.08]">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-400 mb-3">
+          Problem Space & Constraints
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-8">
+          {study.challenge.headline}
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {study.challenge.points.map((pt, idx) => (
+            <div class="p-5 sm:p-6 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.16] transition-all">
+              <div class="text-xs font-mono font-bold text-emerald-400 mb-2">0{idx + 1} // CONSTRAINT</div>
+              <h3 class="text-base font-bold text-white mb-2">{pt.title}</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">{pt.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ════════════ 4. SYSTEM ARCHITECTURE & ENGINEERING DECISIONS ════════════ -->
+      <section class="mb-16 pb-12 border-b border-white/[0.08]">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+          Technical Architecture
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
+          Architectural Decisions & Implementation
+        </h2>
+        <p class="text-sm sm:text-base text-zinc-400 max-w-3xl leading-relaxed mb-8">
+          {study.architecture.overview}
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {study.architecture.decisions.map((card) => (
+            <div class="p-6 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06]">
+                <h3 class="text-base font-bold text-white">{card.title}</h3>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.04] text-emerald-400 border border-white/[0.06]">
+                  {card.badge}
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-300 mb-4 font-medium">{card.description}</p>
+              <ul class="space-y-2">
+                {card.points.map((pt) => (
+                  <li class="flex items-start gap-2 text-xs text-zinc-400">
+                    <span class="text-emerald-400 font-mono">→</span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ════════════ 5. KEY FEATURES BUILT ════════════ -->
+      <section class="mb-16 pb-12 border-b border-white/[0.08]">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-400 mb-3">
+          Feature Breakdown
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-8">
+          Production Capabilities Shipped
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {study.features.map((feat) => (
+            <div class="p-5 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.16] transition-all">
+              <div class="text-[10px] font-mono uppercase tracking-wider text-emerald-400 mb-2">{feat.tag}</div>
+              <h3 class="text-sm font-bold text-white mb-1.5">{feat.title}</h3>
+              <p class="text-xs text-zinc-400 leading-relaxed">{feat.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ════════════ 6. RESULTS & VERIFIED CLIENT FEEDBACK ════════════ -->
+      <section class="mb-16 pb-12 border-b border-white/[0.08]">
+        <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#111114] to-zinc-950 border border-white/[0.08] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)]">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-4">
+            Outcome & Verification
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mb-4">
+            Measurable Production Impact
+          </h2>
+          <p class="text-sm sm:text-base text-zinc-300 leading-relaxed mb-6">
+            {study.outcomes.metricsSummary}
+          </p>
+
+          {study.outcomes.quote && (
+            <div class="p-5 rounded-xl bg-white/[0.02] border border-white/[0.06] mt-6">
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.04]">
+                <div class="text-xs font-mono text-emerald-400 font-semibold">
+                  ★★★★★ {study.outcomes.quote.verified}
+                </div>
+                <div class="text-xs text-zinc-400 font-mono">{study.outcomes.quote.company}</div>
+              </div>
+              <blockquote class="text-xs sm:text-sm text-zinc-300 leading-relaxed italic mb-4">
+                "{study.outcomes.quote.text}"
+              </blockquote>
+              <div class="text-xs font-semibold text-white">
+                {study.outcomes.quote.author} <span class="text-zinc-500 font-normal">· {study.outcomes.quote.role}</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <!-- ════════════ 7. NEXT CASE STUDY & CONVERSION CTA ════════════ -->
+      <footer class="space-y-8">
+        
+        <!-- NEXT PROJECT CARD -->
+        <a
+          href={`/work/${nextStudy.slug}`}
+          class="group block p-6 sm:p-8 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-emerald-500/30 transition-all shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]"
+        >
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400 mb-2">
+            <span>NEXT CASE STUDY</span>
+            <span class="group-hover:translate-x-1 group-hover:text-emerald-400 transition-all font-semibold">
+              Read Case Study →
+            </span>
+          </div>
+          <div class="text-xl sm:text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors mb-1">
+            {nextStudy.title}
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-400 line-clamp-2">
+            {nextStudy.subtitle} — {nextStudy.tagline}
+          </p>
+        </a>
+
+        <!-- BOTTOM CONVERSION CTA BANNER -->
+        <div class="p-8 rounded-2xl bg-zinc-950 border border-white/[0.08] text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 class="text-lg sm:text-xl font-bold text-white mb-1">
+              Have a similar engineering challenge?
+            </h3>
+            <p class="text-xs sm:text-sm text-zinc-400">
+              Available for Q4/Q1 projects with seamless UK, European (CET/GMT), and US timezone overlap.
+            </p>
+          </div>
+          <a
+            href="/#contact"
+            class="px-6 py-3 rounded-xl text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 transition-all flex-shrink-0 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+          >
+            Start a Conversation
+          </a>
+        </div>
+
+      </footer>
+
+    </div>
+
+  </article>
+</Layout>

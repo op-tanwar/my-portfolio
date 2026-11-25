@@ -84,10 +84,10 @@ const nextUrl =
       nextPage={pagination.nextPage}
       basePath={basePath}
       activeTag={tag}
-      headerLabel={`// blog.tag("${tagName}")`}
+      headerLabel={`Topic Tag: #${tagName}`}
       titleWhite={`#${tagName}`}
-      titleGradient="Posts_"
-      subtitle={`${filtered.length} article${filtered.length === 1 ? "" : "s"}`}
+      titleGradient="Articles"
+      subtitle={`${filtered.length} article${filtered.length === 1 ? "" : "s"} tagged with #${tagName}`}
       showSearch={true}
     />
   </div>

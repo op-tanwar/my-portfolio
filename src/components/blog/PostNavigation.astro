@@ -1,31 +1,33 @@
 ---
-import type { BlogPost } from "../../lib/blog";
+import { type BlogPost } from "../../lib/blog";
 
 interface Props {
   prev: BlogPost | null;
   next: BlogPost | null;
-  accent: string;
+  accent?: string;
 }
 
-const { prev, next, accent } = Astro.props;
+const { prev, next } = Astro.props;
 ---
 
 {(prev || next) && (
   <nav
-    class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 sm:mt-12"
+    class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12 sm:mt-16 pt-8 border-t border-white/[0.08]"
     aria-label="Article navigation"
   >
     {prev ? (
       <a
         href={`/blog/${prev.id}`}
-        class="post-nav group p-5 transition-all duration-200 hover:-translate-y-0.5 no-underline"
-        style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+        class="group p-5 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all no-underline flex flex-col justify-between"
         rel="prev"
       >
-        <span class="text-[8px] font-mono tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.25);">
-          ← Previous
-        </span>
-        <p class="text-sm font-mono font-bold mt-2 leading-snug group-hover:text-white transition-colors" style="color:rgba(255,255,255,0.75);">
+        <div class="flex items-center gap-1.5 text-xs font-mono text-zinc-500 mb-2">
+          <svg class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Previous Article</span>
+        </div>
+        <p class="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors line-clamp-2 leading-snug">
           {prev.data.title}
         </p>
       </a>
@@ -36,14 +38,16 @@ const { prev, next, accent } = Astro.props;
     {next ? (
       <a
         href={`/blog/${next.id}`}
-        class="post-nav group p-5 text-right transition-all duration-200 hover:-translate-y-0.5 no-underline sm:col-start-2"
-        style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));"
+        class="group p-5 rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all no-underline flex flex-col justify-between text-right sm:col-start-2"
         rel="next"
       >
-        <span class="text-[8px] font-mono tracking-[0.2em] uppercase" style="color:rgba(255,255,255,0.25);">
-          Next →
-        </span>
-        <p class="text-sm font-mono font-bold mt-2 leading-snug group-hover:text-white transition-colors" style="color:rgba(255,255,255,0.75);">
+        <div class="flex items-center justify-end gap-1.5 text-xs font-mono text-zinc-500 mb-2">
+          <span>Next Article</span>
+          <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+        <p class="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors line-clamp-2 leading-snug">
           {next.data.title}
         </p>
       </a>
@@ -52,10 +56,3 @@ const { prev, next, accent } = Astro.props;
     )}
   </nav>
 )}
-
-<style>
-  .post-nav:hover {
-    border-color: rgba(0, 255, 247, 0.2) !important;
-    box-shadow: 0 0 24px rgba(0, 255, 247, 0.06);
-  }
-</style>

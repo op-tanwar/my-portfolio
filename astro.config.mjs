@@ -14,6 +14,9 @@ export default defineConfig({
         if (url.endsWith("/") || url.match(/\/optanwar\.vercel\.app\/?$/)) {
           return { ...item, changefreq: "weekly", priority: 1.0 };
         }
+        if (url.includes("/work/") || url.endsWith("/work")) {
+          return { ...item, changefreq: "weekly", priority: 0.95 };
+        }
         if (url.includes("/blog/") && !url.includes("/category/") && !url.includes("/tag/")) {
           return { ...item, changefreq: "monthly", priority: 0.8 };
         }

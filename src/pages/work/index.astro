@@ -1,0 +1,76 @@
+---
+// /work index page — showcases all 4 case studies
+import Layout from "../../layouts/Layout.astro";
+import { caseStudies } from "../../data/caseStudies";
+import { getSiteUrl } from "../../lib/site";
+
+const siteUrl = getSiteUrl(Astro.site);
+const canonical = `${siteUrl}/work`;
+---
+
+<Layout
+  title="Case Studies & Engineering Work | Omprakash Tanwar"
+  description="Deep-dive architectural case studies: Astro v5, Next.js App Router, real-time WebSockets, and custom multi-vendor marketplaces built for UK, European, and US clients."
+  canonical={canonical}
+>
+  <div class="pt-32 sm:pt-40 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-14">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        Production Engineering Case Studies
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.03em] mb-4">
+        Architectural Deep-Dives & Production Case Studies
+      </h1>
+      <p class="text-sm sm:text-base text-zinc-400 max-w-2xl leading-relaxed">
+        Concrete technical breakdowns of production systems: Core Web Vitals optimization, MongoDB geospatial indexing, Redis caching, and real-time WebSocket state management.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {
+        caseStudies.map((study) => (
+          <article class="flex flex-col justify-between rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 p-6 sm:p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] group">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06] text-xs font-mono">
+                <span class="text-emerald-400">{study.category}</span>
+                <span class="text-zinc-500">{study.timeline}</span>
+              </div>
+              <h2 class="text-2xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                {study.title}
+              </h2>
+              <p class="text-xs font-mono text-zinc-400 mb-4">{study.subtitle}</p>
+              <p class="text-sm text-zinc-400 leading-relaxed mb-6">{study.tagline}</p>
+              
+              <div class="grid grid-cols-2 gap-2 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-6">
+                {study.impactMetrics.slice(0, 2).map((m) => (
+                  <div>
+                    <div class="text-base font-bold font-mono text-emerald-400">{m.value}</div>
+                    <div class="text-[10px] text-zinc-400">{m.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+              <div class="flex flex-wrap gap-1.5 max-w-[65%]">
+                {study.coreStack.slice(0, 3).map((tech) => (
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.03] text-zinc-300 border border-white/[0.06]">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <a
+                href={`/work/${study.slug}`}
+                class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+              >
+                <span>Read Deep-Dive</span>
+                <span>→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

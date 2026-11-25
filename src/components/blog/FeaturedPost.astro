@@ -1,142 +1,99 @@
 ---
 import { formatDate, getPostReadingTime, type BlogPost } from "../../lib/blog";
+import { Image } from "astro:assets";
 
 interface Props {
   post: BlogPost;
-  accent: string;
+  accent?: string;
 }
-import { Image } from "astro:assets";
-const { post, accent } = Astro.props;
+
+const { post, accent = "#10B981" } = Astro.props;
 const readTime = getPostReadingTime(post);
 ---
 
 <a
   href={`/blog/${post.id}`}
-  class="featured-post group relative grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1 no-underline"
-  style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));"
+  class="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-8 lg:p-10 rounded-3xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.6)] no-underline overflow-hidden items-center"
   aria-label={`Featured article: ${post.data.title}`}
 >
-  <div
-    class="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-    style={`background:linear-gradient(90deg,transparent,${accent},transparent);`}
-    aria-hidden="true"
-  >
-  </div>
-  <div
-    class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-    style={`background:radial-gradient(ellipse at 30% 0%,${accent}08 0%,transparent 65%);`}
-    aria-hidden="true"
-  >
-  </div>
+  <!-- Ambient Glow -->
+  <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-  {
-    post.data.image && (
-      <div
-        class="relative overflow-hidden h-48 sm:h-56 lg:h-full min-h-[200px]"
-        style="clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));"
-      >
+  <!-- Left Column: Visual / Diagram / Cover Image (5 cols) -->
+  <div class="lg:col-span-5 relative rounded-2xl overflow-hidden aspect-[16/10] bg-zinc-950/80 border border-white/[0.06] group-hover:border-white/[0.12] transition-colors">
+    {
+      post.data.image ? (
         <Image
           src={post.data.image}
           alt={post.data.imageAlt || post.data.title}
           width={800}
-          height={450}
+          height={500}
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div
-          class="absolute inset-0 pointer-events-none"
-          style="background:linear-gradient(180deg,transparent 40%,rgba(2,2,4,0.5) 100%);"
-          aria-hidden="true"
-        />
-      </div>
-    )
-  }
-
-  <div class="flex flex-col justify-center gap-4">
-    <div class="flex flex-wrap items-center gap-2">
-      <span
-        class="text-[8px] font-mono font-bold tracking-[0.25em] uppercase px-2 py-1"
-        style={`color:${accent};background:${accent}12;border:1px solid ${accent}33;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));`}
-      >
-        Featured
-      </span>
-      <span
-        class="text-[8px] font-mono font-bold tracking-widest uppercase px-2 py-0.5"
-        style={`color:${accent}88;border:1px solid ${accent}1a;background:${accent}08;`}
-      >
-        {post.data.category}
-      </span>
-      <span class="text-[8px] font-mono" style="color:rgba(255,255,255,0.2);">
-        {readTime}
-      </span>
-    </div>
-
-    <h2
-      class="text-xl sm:text-2xl lg:text-3xl font-black font-mono leading-tight"
-      style="color:rgba(255,255,255,0.92);"
-    >
-      {post.data.title}
-    </h2>
-
-    <p
-      class="text-xs sm:text-sm font-mono leading-relaxed"
-      style="color:rgba(255,255,255,0.38);"
-    >
-      {post.data.description}
-    </p>
-
-    <div class="flex flex-wrap gap-1.5">
-      {
-        post.data.tags.map((tag) => (
-          <span
-            class="text-[7px] sm:text-[8px] font-mono font-bold tracking-widest uppercase px-1.5 py-0.5"
-            style={`color:${accent}88;border:1px solid ${accent}1a;background:${accent}08;`}
-          >
-            {tag}
-          </span>
-        ))
-      }
-    </div>
-
+      ) : (
+        <div class="w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-zinc-900 to-zinc-950 text-center">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <span class="text-xs font-mono text-zinc-400">Architecture Guide</span>
+        </div>
+      )
+    }
     <div
-      class="flex items-center justify-between pt-3 border-t"
-      style="border-color:rgba(255,255,255,0.06);"
-    >
-      <time
-        datetime={post.data.publishDate.toISOString()}
-        class="text-[9px] font-mono"
-        style="color:rgba(255,255,255,0.25);"
-      >
-        {formatDate(post.data.publishDate)}
-      </time>
-      <span
-        class="text-[10px] font-mono font-bold flex items-center gap-1.5 transition-all duration-200 group-hover:gap-2"
-        style={`color:${accent};`}
-      >
-        Read article
-        <svg
-          class="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+      class="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#111114]/80 via-transparent to-transparent opacity-60"
+      aria-hidden="true"
+    />
+  </div>
+
+  <!-- Right Column: Content & Metadata (7 cols) -->
+  <div class="lg:col-span-7 flex flex-col justify-between">
+    <div>
+      <!-- Badges row -->
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Featured Architecture Guide
+        </span>
+        <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-zinc-300">
+          {post.data.category}
+        </span>
+        <span class="text-xs font-mono text-zinc-500">
+          {readTime}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-[-0.03em] leading-tight mb-4 group-hover:text-emerald-300 transition-colors">
+        {post.data.title}
+      </h2>
+
+      <!-- Description -->
+      <p class="text-sm sm:text-base text-zinc-400 leading-relaxed mb-6">
+        {post.data.description}
+      </p>
+    </div>
+
+    <!-- Bottom Action Row -->
+    <div class="pt-6 border-t border-white/[0.06] flex items-center justify-between flex-wrap gap-4">
+      <div class="flex items-center gap-3 text-xs text-zinc-400 font-mono">
+        <time datetime={post.data.publishDate.toISOString()}>
+          {formatDate(post.data.publishDate)}
+        </time>
+        <span>·</span>
+        <span>By Omprakash Tanwar</span>
+      </div>
+
+      <div class="inline-flex items-center gap-2 text-xs font-semibold text-zinc-950 bg-white group-hover:bg-zinc-200 px-5 py-2.5 rounded-xl transition-all shadow-[0_0_20px_rgba(255,255,255,0.12)]">
+        <span>Read Flagship Guide</span>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
-      </span>
+      </div>
     </div>
   </div>
 </a>
-
-<style>
-  .featured-post:hover {
-    background: rgba(255, 255, 255, 0.035) !important;
-    box-shadow: 0 0 40px rgba(0, 255, 247, 0.06);
-  }
-</style>

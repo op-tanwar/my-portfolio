@@ -1,179 +1,128 @@
 ---
-// Navbar.astro — CYBERPUNK NAVBAR (Matches Hero UI)
+// Navbar.astro — Minimal Executive Sticky Glassmorphic Navbar
 
 const links = [
-  {
-    name: "Home",
-    href: "/",
-    title: "Frontend Developer Portfolio - Home"
-  },
-  {
-    name: "About",
-    href: "/#about",
-    title: "About Me - Frontend Developer Skills and Experience"
-  },
-  {
-    name: "Services",
-    href: "/#services",
-    title: "Services - Frontend Developer services and Experience"
-  },
-  {
-    name: "Projects",
-    href: "/#projects",
-    title: "View My Web Development Projects - React and Next.js"
-  },
-  {
-    name: "Skills",
-    href: "/#skills",
-    title: "Frontend Development Skills - React, Next.js, Tailwind CSS"
-  },
-  {
-    name: "Testimonials",
-    href: "/#testimonials",
-    title: "Client Reviews & Testimonials - Omprakash Tanwar"
-  },
-  {
-    name: "Blog",
-    href: "/blog",
-    title: "Frontend Development Blog - React, Next.js, Astro, Sanity CMS and Web Performance"
-  },
-  {
-    name: "Contact",
-    href: "/#contact",
-    title: "Contact Me - Hire a Frontend Developer"
-  }
+  { name: "Work", href: "/#projects", title: "Selected Case Studies & Engineering Work" },
+  { name: "Services", href: "/#services", title: "Frontend & Full-Stack Services" },
+  { name: "Process", href: "/#process", title: "4-Step Engineering Delivery Process" },
+  { name: "Reviews", href: "/#testimonials", title: "Verified Upwork Client Reviews" },
+  { name: "Blog", href: "/blog", title: "Engineering Blog" },
 ];
 ---
 
 <header class="fixed top-0 left-0 w-full z-50">
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
-  
-      <!-- GLASS NAVBAR -->
-      <nav aria-label="Primary Navigation" class="mt-4 flex items-center justify-between px-4 sm:px-5 py-3 relative"
-        style="background:rgba(255,255,255,0.02);
-               border:1px solid rgba(0,255,247,0.12);
-               backdrop-filter:blur(14px);
-               box-shadow:0 0 40px rgba(0,255,247,0.04), inset 0 1px 0 rgba(255,255,255,0.05);
-               clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
-  
-        <!-- TOP RIGHT DOTS -->
-        <div class="absolute top-2 right-2 flex gap-1 opacity-70">
-          <div class="w-1 h-1 rounded-full bg-cyan-400"></div>
-          <div class="w-1 h-1 rounded-full bg-purple-500"></div>
-          <div class="w-1 h-1 rounded-full bg-pink-500"></div>
-        </div>
-  
-        <!-- LOGO -->
-        <div class="flex items-center gap-2 font-mono text-sm tracking-widest flex-shrink-0">
-          <a href="/" class="flex items-center gap-2 font-mono text-sm tracking-widest">
-            <span style="color:#00fff7;">&lt;/&gt;</span>
-            <span class="font-bold"
-              style="background:linear-gradient(90deg,#00fff7,#bf00ff,#ff006e);
-                     -webkit-background-clip:text;
-                     -webkit-text-fill-color:transparent;">
-                      OP.dev
-            </span>
-          </a>
-        </div>
-  
-        <!-- NAV LINKS -->
-        <ul class="nav-list hidden md:flex items-center gap-6 text-[11px] font-mono tracking-[0.2em] uppercase">
-          {links.map(link => (
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
+    <nav
+      aria-label="Primary Navigation"
+      class="flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full bg-[#111114]/80 backdrop-blur-md border border-white/[0.08] shadow-[0_8px_30px_rgb(0,0,0,0.4)] transition-all duration-300"
+    >
+      <!-- BRAND LOGO -->
+      <a
+        href="/"
+        class="flex items-center gap-2 group transition-opacity hover:opacity-90"
+        aria-label="OP.dev Home"
+      >
+        <span class="w-2 h-2 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+        <span class="font-sans font-bold text-sm tracking-tight text-white flex items-center">
+          OP<span class="text-zinc-500 font-mono">.dev</span>
+        </span>
+      </a>
+
+      <!-- DESKTOP NAV LINKS -->
+      <ul class="hidden md:flex items-center gap-1 lg:gap-2">
+        {
+          links.map((link) => (
             <li>
-              <a href={link.href} title={link.title}
-                class="nav-link relative px-1 py-1 transition-all duration-200 whitespace-nowrap"
-                style="color:rgba(255,255,255,0.5);">
+              <a
+                href={link.href}
+                title={link.title}
+                class="px-3 py-1.5 rounded-full text-xs font-medium text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
+              >
                 {link.name}
-  
-                <!-- underline glow -->
-                <span class="absolute left-0 bottom-0 w-0 h-px transition-all duration-300"
-                  style="background:#00fff7;"></span>
               </a>
             </li>
-          ))}
-        </ul>
-  
-        <!-- CTA -->
-        <a href="/#contact"
-          class="nav-cta hidden md:inline-flex items-center gap-2 px-5 py-2 text-[11px] font-black font-mono tracking-[0.15em] uppercase transition-all duration-200 hover:-translate-y-0.5 flex-shrink-0"
-          style="color:#020204;
-                 background:#00fff7;
-                 clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));">
-          Let's Talk
+          ))
+        }
+      </ul>
+
+      <!-- CTA BUTTON & MOBILE TOGGLE -->
+      <div class="flex items-center gap-3">
+        <a
+          href="/#contact"
+          class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 active:scale-95 transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+        >
+          Book a Discovery Call
         </a>
-  
+
         <!-- MOBILE MENU BUTTON -->
-        <button id="menu-btn"
+        <button
+          id="menu-btn"
+          type="button"
           aria-label="Toggle Navigation Menu"
-          class="md:hidden flex items-center justify-center w-9 h-9 cursor-pointer"
-          style="border:1px solid rgba(0,255,247,0.3);
-                 color:#00fff7;">
-          ☰
+          aria-expanded="false"
+          class="md:hidden flex items-center justify-center w-8 h-8 rounded-full text-zinc-300 hover:text-white bg-white/[0.04] border border-white/[0.08] transition-colors focus:outline-none"
+        >
+          <svg class="w-4 h-4 menu-open-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+          <svg class="w-4 h-4 menu-close-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
         </button>
-      </nav>
-  
-      <!-- MOBILE MENU -->
-      <div id="mobile-menu"
-        class="hidden mt-3 p-5 flex flex-col gap-4 md:hidden"
-        style="background:rgba(2,2,4,0.95);
-               border:1px solid rgba(0,255,247,0.15);
-               backdrop-filter:blur(12px);
-               clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));">
-  
-        {links.map(link => (
-          <a href={link.href} title={link.title}
-            class="text-[12px] font-mono tracking-[0.2em] uppercase"
-            style="color:rgba(255,255,255,0.6);">
+      </div>
+    </nav>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden mt-2 p-4 rounded-2xl bg-[#111114]/95 backdrop-blur-xl border border-white/[0.08] shadow-2xl flex flex-col gap-2 transition-all duration-300"
+    >
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="mobile-nav-link px-3 py-2 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/[0.05] transition-colors"
+          >
             {link.name}
           </a>
-        ))}
-  
-        <!-- CTA -->
-        <a href="/#contact"
-          class="flex md:hidden text-center w-full items-center justify-center gap-2 px-5 py-2 text-[11px] font-black font-mono tracking-[0.15em] uppercase transition-all duration-200 hover:-translate-y-0.5"
-          style="color:#020204;
-                 background:#00fff7;
-                 clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));">
-          Let's Talk
+        ))
+      }
+      <div class="pt-2 mt-1 border-t border-white/[0.06]">
+        <a
+          href="/#contact"
+          class="mobile-nav-link flex items-center justify-center w-full py-2.5 rounded-xl text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 transition-colors"
+        >
+          Book a Discovery Call
         </a>
       </div>
-  
     </div>
-  </header>
-  
-  <style>
-  /* Hover effects */
-  .nav-link:hover {
-    color: #00fff7 !important;
-  }
-  .nav-link:hover span {
-    width: 100%;
-    box-shadow: 0 0 8px #00fff7;
-  }
+  </div>
+</header>
 
-  /* Responsiveness fix for 768px to 1100px screen widths */
-  @media (min-width: 768px) and (max-width: 1100px) {
-    .nav-list {
-      gap: 0.625rem !important; /* 10px spacing */
-      letter-spacing: 0.1em !important;
-      font-size: 10px !important;
-    }
-    .nav-link {
-      padding-left: 0.25rem !important;
-      padding-right: 0.25rem !important;
-    }
-    .nav-cta {
-      padding: 0.375rem 0.75rem !important;
-      font-size: 10px !important;
-    }
-  }
-  </style>
-  
-  <script>
-  const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  
-  btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-  });
-  </script>
+<script>
+  (function () {
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const openIcon = btn?.querySelector(".menu-open-icon");
+    const closeIcon = btn?.querySelector(".menu-close-icon");
+    const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+    const toggleMenu = () => {
+      const isHidden = menu?.classList.toggle("hidden");
+      const expanded = !isHidden;
+      btn?.setAttribute("aria-expanded", String(expanded));
+      openIcon?.classList.toggle("hidden", expanded);
+      closeIcon?.classList.toggle("hidden", !expanded);
+    };
+
+    btn?.addEventListener("click", toggleMenu);
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (!menu?.classList.contains("hidden")) {
+          toggleMenu();
+        }
+      });
+    });
+  })();
+</script>
