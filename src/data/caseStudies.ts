@@ -340,7 +340,7 @@ export const caseStudies: CaseStudy[] = [
       metricsSummary:
         "Boutee achieved a verified 98–100 Google Lighthouse performance score on production. The client awarded a 5.0-star Upwork review and credited the frontend quality with establishing instant trust among luxury brand partners.",
       quote: {
-        author: "Eric Mangold",
+        author: "Billy W.",
         role: "Founder & Director",
         company: "Boutee (United Kingdom)",
         text: "From the outset, Omprakash was excellent—highly responsive, quick to deliver, and the quality of his code exceeded my expectations. As the project developed, I asked him to take on more complex elements, including animations and Sanity.io blog integration. What began as a small request evolved into Omprakash building around 95% of the entire site. He was an absolute pleasure to work with—professional, adaptable, proactive throughout—and provided excellent handover documentation.",
