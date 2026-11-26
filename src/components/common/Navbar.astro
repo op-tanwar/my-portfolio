@@ -1,128 +1,216 @@
 ---
-// Navbar.astro — Minimal Executive Sticky Glassmorphic Navbar
+// Navbar.astro — Replicated from Bliex Astro Theme (https://bliex-astro.pages.dev/)
+// Features: Absolute header, fixed floating pill nav with scroll-triggered CTA expansion,
+// Urbanist typography, #de3000 hover accents, and frosted glass aesthetic.
 
 const links = [
-  { name: "Work", href: "/#projects", title: "Selected Case Studies & Engineering Work" },
-  { name: "Services", href: "/#services", title: "Frontend & Full-Stack Services" },
-  { name: "Process", href: "/#process", title: "4-Step Engineering Delivery Process" },
-  { name: "Reviews", href: "/#testimonials", title: "Verified Upwork Client Reviews" },
+  {
+    name: "Work",
+    href: "/#projects",
+    title: "Selected Case Studies & Engineering Work",
+  },
+  {
+    name: "Services",
+    href: "/#services",
+    title: "Frontend & Full-Stack Services",
+  },
+  {
+    name: "Process",
+    href: "/#process",
+    title: "4-Step Engineering Delivery Process",
+  },
+  {
+    name: "Reviews",
+    href: "/#testimonials",
+    title: "Verified Upwork Client Reviews",
+  },
   { name: "Blog", href: "/blog", title: "Engineering Blog" },
 ];
 ---
 
-<header class="fixed top-0 left-0 w-full z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4">
-    <nav
-      aria-label="Primary Navigation"
-      class="flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full bg-[#111114]/80 backdrop-blur-md border border-white/[0.08] shadow-[0_8px_30px_rgb(0,0,0,0.4)] transition-all duration-300"
+<header class="w-full absolute top-0 left-0 z-50 pointer-events-none transition-all duration-300 font-['Urbanist',sans-serif]">
+  <div class="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-8 py-5 flex items-center justify-between pointer-events-auto relative">
+    <!-- BRAND LOGO (BLIEX STYLE WITH INFINITY/LINKED RING MARK) -->
+    <a
+      href="/"
+      class="flex items-center gap-2.5 group focus:outline-none"
+      aria-label="OP.dev Home"
     >
-      <!-- BRAND LOGO -->
-      <a
-        href="/"
-        class="flex items-center gap-2 group transition-opacity hover:opacity-90"
-        aria-label="OP.dev Home"
-      >
-        <span class="w-2 h-2 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
-        <span class="font-sans font-bold text-sm tracking-tight text-white flex items-center">
-          OP<span class="text-zinc-500 font-mono">.dev</span>
-        </span>
-      </a>
-
-      <!-- DESKTOP NAV LINKS -->
-      <ul class="hidden md:flex items-center gap-1 lg:gap-2">
-        {
-          links.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                title={link.title}
-                class="px-3 py-1.5 rounded-full text-xs font-medium text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-
-      <!-- CTA BUTTON & MOBILE TOGGLE -->
-      <div class="flex items-center gap-3">
-        <a
-          href="/#contact"
-          class="hidden sm:inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 active:scale-95 transition-all duration-200 shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+      <div class="w-6 h-6 flex items-center justify-center text-white group-hover:text-[#de3000] transition-colors duration-300">
+        <svg
+          class="w-full h-full"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
-          Book a Discovery Call
-        </a>
-
-        <!-- MOBILE MENU BUTTON -->
-        <button
-          id="menu-btn"
-          type="button"
-          aria-label="Toggle Navigation Menu"
-          aria-expanded="false"
-          class="md:hidden flex items-center justify-center w-8 h-8 rounded-full text-zinc-300 hover:text-white bg-white/[0.04] border border-white/[0.08] transition-colors focus:outline-none"
-        >
-          <svg class="w-4 h-4 menu-open-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-          <svg class="w-4 h-4 menu-close-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+          <circle cx="8" cy="12" r="5"></circle>
+          <circle cx="16" cy="12" r="5"></circle>
+        </svg>
       </div>
-    </nav>
+      <span class="font-bold text-xl tracking-tight text-white flex items-center">
+        OP<span class="text-white/60">.dev</span>
+      </span>
+    </a>
 
-    <!-- MOBILE MENU DRAWER -->
-    <div
-      id="mobile-menu"
-      class="hidden md:hidden mt-2 p-4 rounded-2xl bg-[#111114]/95 backdrop-blur-xl border border-white/[0.08] shadow-2xl flex flex-col gap-2 transition-all duration-300"
+    <!-- FLOATING CENTERED PILL NAV (DESKTOP) -->
+    <nav
+      id="floating-nav-pill"
+      aria-label="Primary Navigation"
+      class="hidden md:flex fixed top-5 left-1/2 -translate-x-1/2 z-50 items-center p-1 rounded-full bg-black/40 backdrop-blur-[20px] border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-500"
     >
-      {
-        links.map((link) => (
+      <div class="flex items-center gap-0.5">
+        {links.map((link) => (
           <a
             href={link.href}
-            class="mobile-nav-link px-3 py-2 rounded-xl text-sm font-medium text-zinc-300 hover:text-white hover:bg-white/[0.05] transition-colors"
+            title={link.title}
+            class="nav-pill-link px-3.5 py-1 text-sm font-medium text-white/90 hover:text-white hover:bg-white/[0.12] rounded-full transition-all duration-300 tracking-[0.2px]"
           >
             {link.name}
           </a>
-        ))
-      }
-      <div class="pt-2 mt-1 border-t border-white/[0.06]">
+        ))}
+      </div>
+
+      <!-- EXPANDABLE CTA INSIDE PILL (REVEALED ON SCROLL) -->
+      <div
+        id="nav-pill-cta"
+        class="max-w-0 opacity-0 overflow-hidden transition-all duration-500 ease-out whitespace-nowrap flex items-center"
+      >
         <a
           href="/#contact"
-          class="mobile-nav-link flex items-center justify-center w-full py-2.5 rounded-xl text-xs font-semibold text-zinc-950 bg-white hover:bg-zinc-200 transition-colors"
+          class="ml-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-white text-[#181818] border border-white hover:bg-[#de3000] hover:border-[#de3000] hover:text-white transition-all duration-300 shadow-sm"
         >
           Book a Discovery Call
         </a>
       </div>
+    </nav>
+
+    <!-- RIGHT CTA BUTTON & MOBILE TOGGLE -->
+    <div class="flex items-center gap-3">
+      <!-- OUTER TOP-RIGHT CTA (FADES OUT WHEN PILL CTA EXPANDS ON SCROLL) -->
+      <a
+        href="/#contact"
+        id="nav-outer-cta"
+        class="hidden md:inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-white text-[#181818] border border-white hover:bg-[#de3000] hover:border-[#de3000] hover:text-white transition-all duration-300 shadow-sm tracking-[0.2px]"
+      >
+        Book a Discovery Call
+      </a>
+
+      <!-- MOBILE HAMBURGER BUTTON -->
+      <button
+        id="menu-btn"
+        type="button"
+        aria-label="Toggle Navigation Menu"
+        aria-expanded="false"
+        class="md:hidden flex items-center justify-center w-9 h-9 rounded-full text-white bg-black/40 backdrop-blur-md border border-white/[0.08] hover:bg-white/[0.1] transition-colors focus:outline-none"
+      >
+        <svg
+          class="w-4 h-4 menu-open-icon"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+        <svg
+          class="w-4 h-4 menu-close-icon hidden"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU DRAWER (SLIDES DOWN UNDER HEADER) -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden fixed top-20 inset-x-4 p-6 rounded-2xl bg-black/90 backdrop-blur-2xl border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col gap-3 text-center z-50 pointer-events-auto transition-all duration-300"
+  >
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class="mobile-nav-link text-base font-medium text-white/90 hover:text-[#de3000] hover:bg-white/[0.06] rounded-xl py-2 px-3 transition-colors"
+      >
+        {link.name}
+      </a>
+    ))}
+    <div class="pt-2 border-t border-white/[0.08]">
+      <a
+        href="/#contact"
+        class="mobile-nav-link flex items-center justify-center w-full py-2.5 rounded-full text-xs font-semibold bg-white text-[#181818] hover:bg-[#de3000] hover:text-white transition-colors tracking-[0.2px]"
+      >
+        Book a Discovery Call
+      </a>
     </div>
   </div>
 </header>
 
 <script>
-  (function () {
-    const btn = document.getElementById("menu-btn");
-    const menu = document.getElementById("mobile-menu");
-    const openIcon = btn?.querySelector(".menu-open-icon");
-    const closeIcon = btn?.querySelector(".menu-close-icon");
+  function initNavbar() {
+    const pillCta = document.getElementById("nav-pill-cta");
+    const outerCta = document.getElementById("nav-outer-cta");
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const openIcon = menuBtn?.querySelector(".menu-open-icon");
+    const closeIcon = menuBtn?.querySelector(".menu-close-icon");
     const mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
+    // Scroll-triggered pill button expansion (Matches Bliex GSAP behavior)
+    let isScrolled = false;
+    const handleScroll = () => {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      if (scrollY > 70 && !isScrolled) {
+        isScrolled = true;
+        pillCta?.classList.remove("max-w-0", "opacity-0");
+        pillCta?.classList.add("max-w-[200px]", "opacity-100");
+        outerCta?.classList.add("opacity-0", "pointer-events-none");
+      } else if (scrollY <= 70 && isScrolled) {
+        isScrolled = false;
+        pillCta?.classList.remove("max-w-[200px]", "opacity-100");
+        pillCta?.classList.add("max-w-0", "opacity-0");
+        outerCta?.classList.remove("opacity-0", "pointer-events-none");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    // Mobile menu toggle
     const toggleMenu = () => {
-      const isHidden = menu?.classList.toggle("hidden");
+      const isHidden = mobileMenu?.classList.toggle("hidden");
       const expanded = !isHidden;
-      btn?.setAttribute("aria-expanded", String(expanded));
+      menuBtn?.setAttribute("aria-expanded", String(expanded));
       openIcon?.classList.toggle("hidden", expanded);
       closeIcon?.classList.toggle("hidden", !expanded);
     };
 
-    btn?.addEventListener("click", toggleMenu);
+    menuBtn?.addEventListener("click", toggleMenu);
 
     mobileLinks.forEach((link) => {
       link.addEventListener("click", () => {
-        if (!menu?.classList.contains("hidden")) {
+        if (!mobileMenu?.classList.contains("hidden")) {
           toggleMenu();
         }
       });
     });
-  })();
+  }
+
+  // Support initial load and Astro View Transitions
+  initNavbar();
+  document.addEventListener("astro:page-load", initNavbar);
 </script>

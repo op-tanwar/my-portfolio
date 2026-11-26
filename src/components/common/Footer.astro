@@ -1,106 +1,384 @@
 ---
-// Footer.astro — Minimal Executive Dark Footer
+// Footer.astro — Replicated from Bliex Astro Theme (https://bliex-astro.pages.dev/)
+// Features: Top large CTA banner card, Brand + 3-column editorial navigation,
+// Padlock privacy badge, circular white-to-orange hover social links, Astro badge,
+// and upward-opening Utility Page dropdown.
 
 interface Props {
   name?: string;
   year?: string;
 }
 
-const {
-  name = "Omprakash Tanwar",
-  year = String(new Date().getFullYear()),
-} = Astro.props;
+const { name = "Omprakash Tanwar", year = String(new Date().getFullYear()) } =
+  Astro.props;
 
-const navLinks = [
-  { label: "Work", href: "/#projects" },
-  { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#process" },
-  { label: "Reviews", href: "/#testimonials" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/#contact" },
-];
 const serviceLinks = [
   { label: "Hire Astro Developer", href: "/hire-astro-developer" },
   { label: "Hire Next.js Developer", href: "/hire-nextjs-developer" },
   { label: "Hire React Developer", href: "/hire-react-developer" },
-  { label: "Custom E-Commerce Developer", href: "/custom-ecommerce-developer" },
+  { label: "Custom E-Commerce", href: "/custom-ecommerce-developer" },
   { label: "Figma to Code", href: "/figma-to-code-developer" },
+];
+
+const workLinks = [
+  { label: "Urban Nursery", href: "/work/urban-nursery" },
+  { label: "Boutee UK", href: "/work/boutee" },
+  { label: "GoQuant Orderbook", href: "/work/goquant-orderbook" },
+  { label: "SchoolDekho", href: "/work/schooldekho" },
+];
+
+const resourceLinks = [
+  { label: "Engineering Blog", href: "/blog" },
+  { label: "4-Step Process", href: "/#process" },
+  { label: "Client Reviews", href: "/#testimonials" },
+  { label: "Contact Us", href: "/#contact" },
 ];
 ---
 
-<footer id="footer" class="border-t border-white/[0.08] bg-[#09090b] py-14 relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- TOP ROW: BRAND & NAVIGATION -->
-    <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-white/[0.06]">
-      
-      <!-- BRAND LOGO & TAGLINE -->
-      <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-2 group">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
-          <span class="font-sans font-bold text-sm tracking-tight text-white flex items-center">
-            OP<span class="text-zinc-500 font-mono">.dev</span>
-          </span>
-        </a>
-        <span class="text-zinc-600">/</span>
-        <span class="text-xs text-zinc-400">Senior Frontend & Full-Stack Engineer</span>
-      </div>
+<footer
+  id="footer"
+  class="bg-black text-white pt-12 pb-20 relative overflow-hidden font-['Urbanist',sans-serif]"
+>
+  <div class="max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-8">
+    <!-- 1. TOP CTA BANNER CARD (BLIEX .cta-card REPLICATE) -->
+    <div class="cta-card rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:p-16 relative overflow-hidden border border-white/[0.12] shadow-[0_20px_80px_rgba(0,0,0,0.8)]">
+      <!-- MESH GRADIENT BACKDROP -->
+      <div class="absolute inset-0 bg-gradient-to-br from-[#0e3a34] via-[#091a1e] to-[#09090b] opacity-95 pointer-events-none"></div>
+      <div class="absolute -top-32 -right-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-[#de3000]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <!-- NAV LINKS -->
-      <nav class="flex flex-wrap items-center justify-center gap-6" aria-label="Footer navigation">
-        {
-          navLinks.map((link) => (
+      <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 lg:gap-12">
+        <div class="max-w-xl">
+          <h2 class="text-3xl sm:text-4xl lg:text-[54px] font-normal leading-[1.14] text-white tracking-tight">
+            Start building AI-powered & high-performance commerce
+          </h2>
+        </div>
+
+        <div class="max-w-md flex flex-col gap-6">
+          <p class="text-white/80 text-base leading-relaxed">
+            Give your customers instant answers, sub-second page loads, and
+            seamless checkout flows — engineered by an elite frontend architect.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
             <a
-              href={link.href}
-              class="text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+              href="/#contact"
+              class="px-8 py-3.5 rounded-full font-semibold text-sm bg-[#de3000] hover:bg-[#ff3b00] text-white transition-all duration-300 hover:scale-105 shadow-[0_0_30px_rgba(222,48,0,0.4)] tracking-[0.2px]"
             >
-              {link.label}
+              Start for free
             </a>
-          ))
-        }
-      </nav>
-
-    </div>
-
-    <!-- MIDDLE ROW: SPECIALIZED SERVICE PATHS (SEO BUYER INTENT) -->
-    <div class="py-6 border-b border-white/[0.06] flex flex-wrap items-center justify-between gap-4 text-xs">
-      <span class="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
-        Direct Engineering Services:
-      </span>
-      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-        {
-          serviceLinks.map((s) => (
             <a
-              href={s.href}
-              class="text-zinc-400 hover:text-emerald-400 transition-colors font-medium text-xs"
+              href="/#projects"
+              class="px-8 py-3.5 rounded-full font-semibold text-sm bg-white text-black hover:bg-zinc-200 transition-all duration-300 hover:scale-105 tracking-[0.2px]"
             >
-              {s.label}
+              Book a demo
             </a>
-          ))
-        }
-      </div>
-    </div>
-
-    <!-- BOTTOM ROW: COPYRIGHT & METRICS -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400">
-      <div>
-        © {year} {name}. Engineered with Astro v5 & Tailwind CSS v4.
-      </div>
-
-      <div class="flex items-center gap-4">
-        <a
-          href="/rss.xml"
-          class="font-mono text-xs text-zinc-400 hover:text-zinc-200 transition-colors"
-        >
-          RSS Feed
-        </a>
-        <span class="text-zinc-700">·</span>
-        <div class="flex items-center gap-1.5 font-mono text-zinc-300">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>100% Upwork JSS · EU / UK / US Friendly</span>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- 2. MIDDLE BRAND + 3-COLUMN EDITORIAL NAVIGATION (.footer-top-div) -->
+    <div class="my-16 lg:my-20 flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16">
+      <!-- LEFT BRAND COLUMN (.footer-wrapper) -->
+      <div class="flex flex-col justify-between gap-8 max-w-md">
+        <div>
+          <!-- BRAND LOGO -->
+          <a
+            href="/"
+            class="flex items-center gap-2.5 group inline-flex"
+            aria-label="OP.dev Home"
+          >
+            <div class="w-6 h-6 flex items-center justify-center text-white group-hover:text-[#de3000] transition-colors duration-300">
+              <svg
+                class="w-full h-full"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="8" cy="12" r="5"></circle>
+                <circle cx="16" cy="12" r="5"></circle>
+              </svg>
+            </div>
+            <span class="font-bold text-xl tracking-tight text-white flex items-center">
+              OP<span class="text-white/60">.dev</span>
+            </span>
+          </a>
+
+          <!-- SECURITY & PRIVACY DIV (.footer-security-div) -->
+          <div class="flex items-center gap-4 mt-8">
+            <div class="w-11 h-11 rounded-full bg-white/[0.12] flex items-center justify-center shrink-0">
+              <svg
+                class="w-4 h-4 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0110 0v4"></path>
+              </svg>
+            </div>
+            <p class="text-sm font-semibold text-white/70 max-w-sm leading-relaxed">
+              OP.dev is built to keep your data safe. We put privacy, security,
+              and strict NDAs front and centre, so you don’t have to.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 CIRCULAR SOCIAL MEDIA BUTTONS (.footer-social-media-div) -->
+        <div class="flex items-center gap-2.5 pt-2">
+          <!-- LINKEDIN -->
+          <a
+            href="https://www.linkedin.com/in/optanwar/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+            class="w-12 h-12 rounded-full bg-white text-[#181818] flex items-center justify-center hover:bg-[#de3000] hover:text-white transition-all duration-500 hover:scale-110 shadow-md group"
+          >
+            <svg
+              class="w-4 h-4 fill-current transition-transform duration-300 group-hover:scale-110"
+              viewBox="0 0 24 24"
+            >
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+            </svg>
+          </a>
+
+          <!-- GITHUB / X -->
+          <a
+            href="https://github.com/optanwar"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+            class="w-12 h-12 rounded-full bg-white text-[#181818] flex items-center justify-center hover:bg-[#de3000] hover:text-white transition-all duration-500 hover:scale-110 shadow-md group"
+          >
+            <svg
+              class="w-4 h-4 fill-current transition-transform duration-300 group-hover:scale-110"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+            </svg>
+          </a>
+
+          <!-- X / TWITTER -->
+          <a
+            href="https://x.com/optanwardev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X Profile"
+            class="w-12 h-12 rounded-full bg-white text-[#181818] flex items-center justify-center hover:bg-[#de3000] hover:text-white transition-all duration-500 hover:scale-110 shadow-md group"
+          >
+            <svg
+              class="w-4 h-4 fill-current transition-transform duration-300 group-hover:scale-110"
+              viewBox="0 0 24 24"
+            >
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+
+          <!-- WHATSAPP -->
+          <a
+            href="https://wa.me/917440262928"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat on WhatsApp"
+            class="w-12 h-12 rounded-full bg-white text-[#181818] flex items-center justify-center hover:bg-[#de3000] hover:text-white transition-all duration-500 hover:scale-110 shadow-md group"
+          >
+            <svg
+              class="w-4 h-4 fill-current transition-transform duration-300 group-hover:scale-110"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.63c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.25-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.21-.18-.46-.3z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT 3-COLUMN EDITORIAL LINKS GRID (.footer-detail-div) -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-12 lg:gap-16 w-full lg:w-auto">
+        <!-- SERVICES COLUMN -->
+        <div>
+          <div class="text-sm text-white/50 font-medium uppercase tracking-wider mb-5">
+            Services
+          </div>
+          <div class="flex flex-col gap-2">
+            {serviceLinks.map((link) => (
+              <a
+                href={link.href}
+                class="text-xl sm:text-2xl font-normal text-white hover:text-[#de3000] transition-colors py-1 block"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- WORK / CASE STUDIES COLUMN -->
+        <div>
+          <div class="text-sm text-white/50 font-medium uppercase tracking-wider mb-5">
+            Case Studies
+          </div>
+          <div class="flex flex-col gap-2">
+            {workLinks.map((link) => (
+              <a
+                href={link.href}
+                class="text-xl sm:text-2xl font-normal text-white hover:text-[#de3000] transition-colors py-1 block"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- RESOURCES COLUMN -->
+        <div>
+          <div class="text-sm text-white/50 font-medium uppercase tracking-wider mb-5">
+            Resources
+          </div>
+          <div class="flex flex-col gap-2">
+            {resourceLinks.map((link) => (
+              <a
+                href={link.href}
+                class="text-xl sm:text-2xl font-normal text-white hover:text-[#de3000] transition-colors py-1 block"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. BOTTOM BAR: ASTRO BADGE, COPYRIGHT & UTILITY DROPDOWN (.footer-bottom-div) -->
+    <div class="pt-8 border-t border-white/[0.08] flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-white/70">
+      <!-- ASTRO BADGE -->
+      <div>
+        <a
+          href="https://astro.build/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/[0.1] hover:bg-white/[0.12] transition-colors text-white group"
+          aria-label="Powered by Astro"
+        >
+          <svg
+            class="w-4 h-4 text-[#ff5d01] group-hover:scale-110 transition-transform"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+          </svg>
+          <span class="text-xs font-semibold tracking-wide">
+            Powered by <strong class="text-white font-bold">Astro</strong>
+          </span>
+        </a>
+      </div>
+
+      <!-- COPYRIGHT -->
+      <div class="text-xs sm:text-sm text-white/60 text-center font-normal">
+        © {year} {name}. All rights reserved. 100% Upwork JSS · Top Rated.
+      </div>
+
+      <!-- UTILITY DROPDOWN (BLIEX .utility-dropdown REPLICATE) -->
+      <div class="relative utility-dropdown">
+        <button
+          type="button"
+          id="utility-dropdown-toggle"
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="px-5 py-2.5 rounded-full bg-white text-[#181818] font-semibold text-xs flex items-center gap-2 hover:bg-zinc-200 transition-colors cursor-pointer shadow-sm focus:outline-none tracking-[0.2px]"
+        >
+          <span>Utility Page</span>
+          <svg
+            id="utility-dropdown-icon"
+            class="w-3.5 h-3.5 text-[#181818] transition-transform duration-300"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+
+        <!-- DROPDOWN MENU (OPENS UPWARD ABOVE BUTTON) -->
+        <div
+          id="utility-dropdown-menu"
+          class="hidden absolute bottom-12 right-0 w-52 p-4 rounded-2xl bg-[#202020] border border-white/[0.08] shadow-[0_0_80px_rgba(0,0,0,0.9)] flex flex-col gap-2 z-50 transition-all duration-300"
+        >
+          <a
+            href="/rss.xml"
+            class="text-xs font-medium text-white/80 hover:text-white hover:bg-white/[0.06] rounded-xl px-3 py-2 transition-colors flex items-center justify-between"
+          >
+            <span>RSS Feed</span>
+            <span class="text-[10px] text-zinc-500 font-mono">XML</span>
+          </a>
+          <a
+            href="https://www.upwork.com/freelancers/~0134460f9e15915d38"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium text-white/80 hover:text-white hover:bg-white/[0.06] rounded-xl px-3 py-2 transition-colors flex items-center justify-between"
+          >
+            <span>Upwork Profile</span>
+            <span class="text-[10px] text-emerald-400 font-mono">100% JSS</span>
+          </a>
+          <a
+            href="https://github.com/optanwar"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-xs font-medium text-white/80 hover:text-white hover:bg-white/[0.06] rounded-xl px-3 py-2 transition-colors flex items-center justify-between"
+          >
+            <span>GitHub</span>
+            <span class="text-[10px] text-zinc-500 font-mono">Code</span>
+          </a>
+          <a
+            href="/#contact"
+            class="text-xs font-medium text-white/80 hover:text-white hover:bg-white/[0.06] rounded-xl px-3 py-2 transition-colors flex items-center justify-between"
+          >
+            <span>Book a Discovery Call</span>
+            <span class="text-[10px] text-[#de3000] font-mono">Call</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>
+
+<script>
+  function initFooter() {
+    const toggleBtn = document.getElementById("utility-dropdown-toggle");
+    const menu = document.getElementById("utility-dropdown-menu");
+    const icon = document.getElementById("utility-dropdown-icon");
+
+    if (!toggleBtn || !menu) return;
+
+    const toggle = (e: MouseEvent) => {
+      e.stopPropagation();
+      const isHidden = menu.classList.toggle("hidden");
+      toggleBtn.setAttribute("aria-expanded", String(!isHidden));
+      icon?.classList.toggle("rotate-180", !isHidden);
+    };
+
+    const closeMenu = (e: MouseEvent) => {
+      if (
+        !menu.contains(e.target as Node) &&
+        !toggleBtn.contains(e.target as Node)
+      ) {
+        menu.classList.add("hidden");
+        toggleBtn.setAttribute("aria-expanded", "false");
+        icon?.classList.remove("rotate-180");
+      }
+    };
+
+    toggleBtn.addEventListener("click", toggle);
+    document.addEventListener("click", closeMenu);
+  }
+
+  initFooter();
+  document.addEventListener("astro:page-load", initFooter);
+</script>
