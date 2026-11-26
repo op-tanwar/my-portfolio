@@ -29,7 +29,7 @@ export const figmaToCodeDeveloper: ServiceLandingConfig = {
   badges: [
     { label: "100% Fidelity", sub: "Target", color: "#f7df1e" },
     { label: "Top Rated", sub: "Upwork", color: "#14a800" },
-    { label: "Astro / Next", sub: "Output", color: "#00fff7" },
+    { label: "Astro / Next.js", sub: "Output", color: "#00fff7" },
     { label: "Agencies", sub: "Welcome", color: "#bf00ff" },
   ],
   capabilitiesTitle: "Figma → production",
