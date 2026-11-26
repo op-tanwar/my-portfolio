@@ -1,137 +1,694 @@
 ---
-// ProjectsSection.astro — Selected Work Showcase (Homepage Bento linking to /work/[slug])
+// ProjectsSection.astro — 100% Bliex Astro Replica (Sticky Stacking Scroll Section)
+// Matches "Discover Intelligent Commerce" / "Your brand style, mastered." section on https://bliex-astro.pages.dev/
+// Features: Staggered position:sticky stacking cards, alternating 2-column layouts,
+// Bliex #0f0f0f surfaces with upward drop-shadows, Urbanist typography, and white pill CTAs.
+
 import { caseStudies } from "../../data/caseStudies";
+
+const projects = caseStudies.slice(0, 4);
 ---
 
-<section id="projects" class="py-24 sm:py-32 relative scroll-mt-20">
-  <!-- Subtle section anchor alias -->
-  <div id="work" class="sr-only">Work</div>
+<section
+  id="projects"
+  class="section py-16 sm:py-20 lg:py-24 relative scroll-mt-20 font-['Urbanist',sans-serif] text-white"
+>
+  <!-- Anchor Alias for Work -->
+  <div id="work" class="sr-only">
+    Work
+  </div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- SECTION HEADER -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          Selected Case Studies & Engineering Work
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.03em]">
-          Engineered for speed, scale & conversion.
-        </h2>
+    <!-- 1. SECTION HEADER (EXACT BLIEX HEADER AS REQUESTED) -->
+    <div class="text-center mb-10 sm:mb-14 flex flex-col items-center gap-4 sm:gap-5">
+      <!-- Eyebrow Pill -->
+      <div
+        data-scroll-01
+        class="inline-flex items-center gap-1.5 px-4 py-1 border border-white/50 rounded-full"
+      >
+        <span class="text-xs font-medium text-white/90 tracking-wide">
+          Discover Intelligent Commerce
+        </span>
       </div>
-      <div class="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed">
-        Production systems built for European and US tech founders. Click any case study for deep-dive technical breakdowns.
-      </div>
+
+      <!-- Main Headline -->
+      <h2
+        data-scroll-02
+        class="text-3xl sm:text-4xl lg:text-5xl xl:text-[56px] font-normal leading-[1.15] text-white tracking-tight max-w-4xl"
+      >
+        Your brand style, mastered.
+      </h2>
+
+      <!-- Subtitle -->
+      <p
+        data-scroll-03
+        class="text-white/70 text-xs sm:text-sm max-w-[480px] mx-auto leading-relaxed"
+      >
+        Three powerful modules that make your brand impossible to dilute - no
+        matter how fast or how far you scale.
+      </p>
     </div>
 
-    <!-- 2-COLUMN BENTO PROJECT GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {
-        caseStudies.map((project) => (
-          <article class="flex flex-col rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 overflow-hidden group shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
-            
-            <!-- BROWSER-FRAME HEADER MOCKUP -->
-            <div class="px-5 py-3.5 bg-zinc-950/80 border-b border-white/[0.06] flex items-center justify-between">
-              <div class="flex items-center gap-2" aria-hidden="true">
-                <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
-                <div class="ml-2 px-3 py-1 rounded-md bg-white/[0.03] border border-white/[0.04] text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 max-w-[200px] sm:max-w-xs truncate">
-                  <svg class="w-3 h-3 text-zinc-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                  </svg>
-                  <span class="truncate">{project.displayUrl}</span>
-                </div>
-              </div>
+    <!-- 2. STICKY STACKING CARDS WRAPPER (.feature-main-wrapper) -->
+    <div class="feature-main-wrapper flex flex-col gap-2 relative pb-8 lg:pb-16">
+      <!-- ════════════ CARD 1: URBAN NURSERY (VISUAL LEFT, TEXT RIGHT) ════════════ -->
+      <div
+        data-scroll-01
+        class="feature-grid _01 w-full min-h-0 lg:min-h-[440px] xl:min-h-[480px] rounded-[28px] sm:rounded-[36px] bg-[#0f0f0f] border border-white/[0.08] shadow-[0_-12px_60px_0_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:px-10 lg:py-8 xl:px-12 xl:py-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 items-center"
+      >
+        <!-- VISUAL COLUMN (LEFT) -->
+        <div class="flex items-center justify-center w-full h-full">
+          <div class="w-full max-w-[480px] p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-zinc-950/80 border border-white/[0.08] shadow-2xl relative overflow-hidden group">
+            <!-- Subtle ambient glow -->
+            <div class="absolute -top-20 -left-20 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono font-semibold text-emerald-400">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                {project.clientStatus.split(" ")[0]}
+            <!-- Browser Mockup Header -->
+            <div class="flex items-center justify-between pb-3 mb-3.5 border-b border-white/[0.06] text-xs font-mono text-zinc-400">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                <span class="ml-2 text-[11px] text-zinc-300">
+                  urbannursery-neon.vercel.app
+                </span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold">
+                Live Production
               </span>
             </div>
 
-            <!-- BROWSER VIEWPORT MOCKUP AREA -->
-            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
-              
-              <div>
-                <!-- CATEGORY & REGION -->
-                <div class="flex items-center justify-between text-xs text-zinc-400 font-mono mb-2">
-                  <span>{project.category}</span>
-                  <span>{project.timeline}</span>
-                </div>
-
-                <!-- TITLE & TAGLINE -->
-                <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2 group-hover:text-emerald-300 transition-colors">
-                  {project.title}
-                </h3>
-                <p class="text-xs font-medium text-emerald-400/90 mb-4 font-mono">
-                  {project.subtitle}
-                </p>
-
-                <!-- DESCRIPTION -->
-                <p class="text-sm text-zinc-400 leading-relaxed mb-6">
-                  {project.tagline}
-                </p>
-              </div>
-
-              <div>
-                <!-- KEY METRICS ROW -->
-                <div class="grid grid-cols-3 gap-2.5 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] mb-6">
-                  {project.impactMetrics.slice(0, 3).map((m) => (
-                    <div class="text-center">
-                      <div class="text-xs sm:text-sm font-bold font-mono text-zinc-200">
-                        {m.value}
-                      </div>
-                      <div class="text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5 font-sans">
-                        {m.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <!-- TECH PILLS -->
-                <div class="flex flex-wrap gap-1.5 mb-6">
-                  {project.coreStack.slice(0, 5).map((tag) => (
-                    <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/[0.03] text-zinc-300 border border-white/[0.06]">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <!-- ACTION BUTTONS: LIVE SITE + READ FULL CASE STUDY -->
-                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/[0.06]">
-                  <a
-                    href={`/work/${project.slug}`}
-                    class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors group/link"
-                  >
-                    <span>Read Full Case Study</span>
-                    <span class="group-hover/link:translate-x-1 transition-transform">→</span>
-                  </a>
-
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+            <!-- Staggered Layered UI Elements (Bliex Card 1 Style) -->
+            <div class="space-y-2.5">
+              <!-- Item 1: Geospatial Radius Match -->
+              <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <span>Live Site</span>
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </a>
-                  )}
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">
+                      12km Hyperlocal Radius Search
+                    </div>
+                    <div class="text-[11px] text-zinc-400">
+                      MongoDB 2dsphere indexing & geo-partitioning
+                    </div>
+                  </div>
                 </div>
-
+                <span class="text-xs font-mono text-emerald-400 font-bold shrink-0">
+                  &lt;500ms
+                </span>
               </div>
 
+              <!-- Item 2: Redis Cart Multi-Vendor Engine -->
+              <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">
+                      Atomic Redis Cart Caching
+                    </div>
+                    <div class="text-[11px] text-zinc-400">
+                      Zero overselling across distributed vendor inventories
+                    </div>
+                  </div>
+                </div>
+                <span class="text-xs font-mono text-blue-400 font-bold shrink-0">
+                  0% Conflict
+                </span>
+              </div>
+
+              <!-- Item 3: Razorpay Split Payouts -->
+              <div class="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-xs sm:text-sm font-semibold text-white">
+                      Automated Split Vendor Payouts
+                    </div>
+                    <div class="text-[11px] text-zinc-400">
+                      Direct webhook escrow & dispute handling
+                    </div>
+                  </div>
+                </div>
+                <span class="text-xs font-mono text-purple-400 font-bold shrink-0">
+                  Instant
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEXT COLUMN (RIGHT) -->
+        <div class="flex flex-col justify-center items-start gap-4 sm:gap-5">
+          <div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-semibold">
+            Module 01 · Hyperlocal E-Commerce
+          </div>
+          <h3 class="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-normal text-white leading-[1.2] tracking-tight">
+            Urban Nursery — Multi-Vendor Marketplace
+          </h3>
+          <div class="space-y-2.5 sm:space-y-3">
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Traditional multi-vendor platforms suffer from stale inventory
+              sync and slow geospatial queries. Urban Nursery connects regional
+              plant nurseries with same-day local buyers through intelligent
+              12km geospatial radius calculations.
+            </p>
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Engineered with Next.js 15 App Router, Express, and atomic Redis
+              cart locks. Achieved sub-500ms API response times and zero
+              race-condition oversells during peak holiday flash sales.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
+            <a
+              href="/work/urban-nursery"
+              class="px-6 py-3 rounded-full font-semibold text-xs sm:text-sm bg-white text-black hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-md tracking-[0.2px]"
+            >
+              Explore Case Study
+            </a>
+            <a
+              href="https://urbannursery-neon.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-5 py-3 rounded-full font-semibold text-xs sm:text-sm text-white/80 border border-white/20 hover:border-white hover:text-white transition-all flex items-center gap-2"
+            >
+              <span>Live Site</span>
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════ CARD 2: BOUTEE UK (TEXT LEFT, VISUAL RIGHT - ALTERNATING) ════════════ -->
+      <div
+        data-scroll-01
+        class="feature-grid _02 w-full min-h-0 lg:min-h-[440px] xl:min-h-[480px] rounded-[28px] sm:rounded-[36px] bg-[#0f0f0f] border border-white/[0.08] shadow-[0_-12px_60px_0_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:px-10 lg:py-8 xl:px-12 xl:py-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 items-center"
+      >
+        <!-- TEXT COLUMN (LEFT ON DESKTOP) -->
+        <div class="flex flex-col justify-center items-start gap-4 sm:gap-5 lg:order-1 order-2">
+          <div class="text-xs font-mono uppercase tracking-wider text-[#de3000] font-semibold">
+            Module 02 · Bespoke Luxury Commerce
+          </div>
+          <h3 class="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-normal text-white leading-[1.2] tracking-tight">
+            Boutee UK — High-Converting Jewellery Store
+          </h3>
+          <div class="space-y-2.5 sm:space-y-3">
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Heavy JavaScript bundles and bloated Shopify apps slow down luxury
+              buyer journeys. Boutee UK required a bespoke, sub-second headless
+              storefront with instant diamond customizers and Sanity CMS
+              editorial freedom.
+            </p>
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Architected with Astro v5 Islands and Tailwind CSS v4. Cut page
+              weight by 78%, hitting a verified 98–100 Lighthouse score and
+              lifting checkout conversion rates by +34% across UK mobile
+              traffic.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
+            <a
+              href="/work/boutee"
+              class="px-6 py-3 rounded-full font-semibold text-xs sm:text-sm bg-white text-black hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-md tracking-[0.2px]"
+            >
+              Explore Case Study
+            </a>
+            <a
+              href="https://boutee.co.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-5 py-3 rounded-full font-semibold text-xs sm:text-sm text-white/80 border border-white/20 hover:border-white hover:text-white transition-all flex items-center gap-2"
+            >
+              <span>Live Site</span>
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- VISUAL COLUMN (RIGHT ON DESKTOP - BLIEX CARD 2 STYLE) -->
+        <div class="flex items-center justify-center w-full h-full lg:order-2 order-1">
+          <div class="w-full max-w-[480px] p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-zinc-950/80 border border-white/[0.08] shadow-2xl relative overflow-hidden">
+            <!-- Overlapping Question Badge (Bliex Card 2 Style) -->
+            <div class="p-2.5 px-4 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center justify-between shadow-lg mb-3.5 max-w-sm ml-auto">
+              <span>"Can I configure this ring in 18k recycled gold?"</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse ml-2"></span>
             </div>
 
-          </article>
-        ))
-      }
-    </div>
+            <!-- Central Product Card Mockup -->
+            <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center gap-3.5 mb-3.5">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-tr from-amber-500/20 to-yellow-500/10 border border-amber-500/30 flex items-center justify-center text-amber-300 shrink-0">
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between text-xs mb-0.5">
+                  <span class="font-bold text-white truncate mr-2">
+                    Solitaire Diamond Band
+                  </span>
+                  <span class="font-mono text-emerald-400 font-semibold shrink-0">
+                    £1,850
+                  </span>
+                </div>
+                <div class="text-[11px] text-zinc-400 truncate">
+                  Astro Island + Sanity Real-time Customizer
+                </div>
+                <div class="mt-1.5 flex gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-amber-200 border border-white/40"></span>
+                  <span class="w-3 h-3 rounded-full bg-zinc-300 border border-white/40"></span>
+                  <span class="w-3 h-3 rounded-full bg-rose-300 border border-white/40"></span>
+                </div>
+              </div>
+            </div>
 
+            <!-- Overlapping AI Response Card (Bliex Card 2 Style) -->
+            <div class="p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-zinc-900/90 border border-white/[0.12] shadow-2xl max-w-md">
+              <div class="flex items-center gap-2 mb-1 text-xs font-bold text-white">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>Sub-Second Performance Breakdown</span>
+              </div>
+              <p class="text-[11px] sm:text-xs text-zinc-300 leading-relaxed font-mono">
+                Lighthouse 100/100 · 0.7s LCP · 0ms Cumulative Layout Shift. Instant UK checkout with Stripe Elements.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════ CARD 3: GOQUANT (VISUAL LEFT, TEXT RIGHT) ════════════ -->
+      <div
+        data-scroll-01
+        class="feature-grid _03 w-full min-h-0 lg:min-h-[440px] xl:min-h-[480px] rounded-[28px] sm:rounded-[36px] bg-[#0f0f0f] border border-white/[0.08] shadow-[0_-12px_60px_0_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:px-10 lg:py-8 xl:px-12 xl:py-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 items-center"
+      >
+        <!-- VISUAL COLUMN (LEFT - BLIEX CARD 3 STYLE) -->
+        <div class="flex items-center justify-center w-full h-full">
+          <div class="w-full max-w-[480px] p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-zinc-950/80 border border-white/[0.08] shadow-2xl relative overflow-hidden">
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-white/[0.06] text-xs font-mono text-zinc-400">
+              <span class="text-white font-semibold flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                BTC-USD · Real-Time Depth Visualizer
+              </span>
+              <span class="text-emerald-400 font-bold">&lt;100ms Latency</span>
+            </div>
+
+            <!-- Real-Time Orderbook Depth Rows -->
+            <div class="space-y-1 font-mono text-[11px] sm:text-xs mb-2.5">
+              <!-- Asks (Red) -->
+              <div class="flex items-center justify-between px-2.5 py-1 rounded bg-rose-500/[0.08] text-rose-400">
+                <span>94,320.50</span>
+                <span>1.4820 BTC</span>
+                <span class="text-zinc-500">$139.7k</span>
+              </div>
+              <div class="flex items-center justify-between px-2.5 py-1 rounded bg-rose-500/[0.05] text-rose-400">
+                <span>94,318.00</span>
+                <span>0.8450 BTC</span>
+                <span class="text-zinc-500">$79.6k</span>
+              </div>
+
+              <!-- Mid Market Spread Indicator -->
+              <div class="py-0.5 text-center text-[10px] sm:text-[11px] text-zinc-400 font-bold bg-white/[0.03] rounded border border-white/[0.04]">
+                SPREAD: $0.50 · 5,000+ MSG/SEC STREAM
+              </div>
+
+              <!-- Bids (Green) -->
+              <div class="flex items-center justify-between px-2.5 py-1 rounded bg-emerald-500/[0.05] text-emerald-400">
+                <span>94,317.50</span>
+                <span>2.1400 BTC</span>
+                <span class="text-zinc-500">$201.8k</span>
+              </div>
+              <div class="flex items-center justify-between px-2.5 py-1 rounded bg-emerald-500/[0.08] text-emerald-400">
+                <span>94,315.00</span>
+                <span>3.7250 BTC</span>
+                <span class="text-zinc-500">$351.3k</span>
+              </div>
+            </div>
+
+            <!-- Overlapping Execution Metric Badge -->
+            <div class="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-zinc-900/90 border border-white/[0.12] flex items-center justify-between text-xs">
+              <span class="text-zinc-300">HTML5 Canvas + Redux Buffer</span>
+              <span class="font-mono text-emerald-400 font-bold">
+                Stable 60 FPS
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEXT COLUMN (RIGHT) -->
+        <div class="flex flex-col justify-center items-start gap-4 sm:gap-5">
+          <div class="text-xs font-mono uppercase tracking-wider text-blue-400 font-semibold">
+            Module 03 · High-Frequency Systems
+          </div>
+          <h3 class="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-normal text-white leading-[1.2] tracking-tight">
+            GoQuant — Real-Time Trading Orderbook
+          </h3>
+          <div class="space-y-2.5 sm:space-y-3">
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Standard React state updates trigger massive DOM thrashing when
+              handling raw cryptocurrency WebSocket streams. GoQuant needed an
+              institutional-grade visualizer that renders depth charts without
+              dropping frames.
+            </p>
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Engineered with React 19, Redux Toolkit normalized buffers, and
+              HTML5 Canvas batch drawing. Benchmarked under extreme volatility
+              with sub-100ms end-to-end execution and smooth 60 FPS rendering.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
+            <a
+              href="/work/goquant-orderbook"
+              class="px-6 py-3 rounded-full font-semibold text-xs sm:text-sm bg-white text-black hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-md tracking-[0.2px]"
+            >
+              Explore Case Study
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════ CARD 4: SCHOOLDEKHO (TEXT LEFT, VISUAL RIGHT - ALTERNATING) ════════════ -->
+      <div
+        data-scroll-01
+        class="feature-grid _04 w-full min-h-0 lg:min-h-[440px] xl:min-h-[480px] rounded-[28px] sm:rounded-[36px] bg-[#0f0f0f] border border-white/[0.08] shadow-[0_-12px_60px_0_rgba(0,0,0,0.95)] p-5 sm:p-7 lg:px-10 lg:py-8 xl:px-12 xl:py-10 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 items-center"
+      >
+        <!-- TEXT COLUMN (LEFT ON DESKTOP) -->
+        <div class="flex flex-col justify-center items-start gap-4 sm:gap-5 lg:order-1 order-2">
+          <div class="text-xs font-mono uppercase tracking-wider text-purple-400 font-semibold">
+            Module 04 · High-Traffic Marketplace
+          </div>
+          <h3 class="text-xl sm:text-2xl lg:text-[28px] xl:text-[34px] font-normal text-white leading-[1.2] tracking-tight">
+            SchoolDekho — Dynamic EdTech Discovery Platform
+          </h3>
+          <div class="space-y-2.5 sm:space-y-3">
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Serving hundreds of thousands of parents across diverse network
+              conditions requires bulletproof SEO, instant multi-filter
+              responses, and programmatic landing pages that rank on Page 1 of
+              Google.
+            </p>
+            <p class="text-white/70 text-xs sm:text-sm leading-relaxed">
+              Architected dynamic indexing across 5,000+ schools with tailored
+              board, location, and fee filters. Supports 250,000+ monthly active
+              parents while maintaining sub-second load times and 4.8★ user
+              satisfaction.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 pt-1 sm:pt-2">
+            <a
+              href="/work/schooldekho"
+              class="px-6 py-3 rounded-full font-semibold text-xs sm:text-sm bg-white text-black hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-md tracking-[0.2px]"
+            >
+              Explore Case Study
+            </a>
+            <a
+              href="https://schooldekho.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-5 py-3 rounded-full font-semibold text-xs sm:text-sm text-white/80 border border-white/20 hover:border-white hover:text-white transition-all flex items-center gap-2"
+            >
+              <span>Live Site</span>
+              <svg
+                class="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- VISUAL COLUMN (RIGHT ON DESKTOP - BLIEX CARD 4 STYLE) -->
+        <div class="flex items-center justify-center w-full h-full lg:order-2 order-1">
+          <div class="w-full max-w-[480px] p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-zinc-950/80 border border-white/[0.08] shadow-2xl relative overflow-hidden">
+            <!-- Ambient blurred orb (Bliex Card 4 style) -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-purple-500/10 via-blue-500/10 to-transparent blur-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 space-y-2.5">
+              <!-- Filter Badge -->
+              <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
+                <span class="px-2.5 py-0.5 rounded-full bg-white/[0.08] border border-white/10 text-white">
+                  CBSE / ICSE Board
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-white/[0.08] border border-white/10 text-white">
+                  South Delhi
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  Top Rated 4.8★
+                </span>
+              </div>
+
+              <!-- Search Bar Mockup -->
+              <div class="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2 text-zinc-300 truncate mr-2">
+                  <svg
+                    class="w-3.5 h-3.5 text-zinc-400 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    ></path>
+                  </svg>
+                  <span class="truncate">Schools near Vasant Vihar with STEM Labs</span>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-400/20 text-emerald-400 font-mono text-[10px] shrink-0">
+                  18 Matches
+                </span>
+              </div>
+
+              <!-- High Volume Metrics Grid -->
+              <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <div class="p-3 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+                  <div class="text-lg sm:text-xl font-bold font-mono text-white">
+                    250,000+
+                  </div>
+                  <div class="text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">
+                    Monthly Active Parents
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl sm:rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+                  <div class="text-lg sm:text-xl font-bold font-mono text-emerald-400">
+                    Top-3 Rank
+                  </div>
+                  <div class="text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">
+                    Programmatic SEO Rank
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  /* ════════════ 1. SCROLL-REVEAL ENTRANCE ANIMATION (GSAP/BLIEX EQUIVALENT) ════════════ */
+  [data-scroll-01],
+  [data-scroll-02],
+  [data-scroll-03] {
+    opacity: 0;
+    transform: translateY(36px);
+    transition:
+      opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  [data-scroll-01].is-revealed,
+  [data-scroll-02].is-revealed,
+  [data-scroll-03].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-scroll-02] {
+    transition-delay: 0.15s;
+  }
+
+  [data-scroll-03] {
+    transition-delay: 0.3s;
+  }
+
+  /* ════════════ 2. STICKY STACKING CARDS ON DESKTOP (>991px) ════════════ */
+  @media screen and (min-width: 992px) {
+    .feature-grid._01 {
+      position: sticky;
+      top: 80px;
+      z-index: 1;
+    }
+    .feature-grid._02 {
+      position: sticky;
+      top: 104px;
+      z-index: 10;
+    }
+    .feature-grid._03 {
+      position: sticky;
+      top: 128px;
+      z-index: 20;
+    }
+    .feature-grid._04 {
+      position: sticky;
+      top: 152px;
+      z-index: 30;
+    }
+  }
+
+  /* ════════════ 3. SHORT VIEWPORTS & LAPTOP SCREENS (HEIGHT <= 850px) ════════════ */
+  @media screen and (min-width: 992px) and (max-height: 850px) {
+    #projects {
+      padding-top: 3.5rem !important;
+      padding-bottom: 4rem !important;
+    }
+    .feature-grid {
+      min-height: 380px !important;
+      padding-top: 1.25rem !important;
+      padding-bottom: 1.25rem !important;
+      padding-left: 1.75rem !important;
+      padding-right: 1.75rem !important;
+      gap: 1.25rem !important;
+    }
+    .feature-grid._01 {
+      top: 64px !important;
+    }
+    .feature-grid._02 {
+      top: 78px !important;
+    }
+    .feature-grid._03 {
+      top: 92px !important;
+    }
+    .feature-grid._04 {
+      top: 106px !important;
+    }
+  }
+
+  /* ════════════ 4. RESPONSIVE STACKING BEHAVIOR (<=991px) ════════════ */
+  @media screen and (max-width: 991px) {
+    .feature-grid {
+      position: static !important;
+      top: auto !important;
+      margin-bottom: 24px;
+      min-height: auto !important;
+    }
+  }
+</style>
+
+<script>
+  function initFeatureScrollReveal() {
+    const revealElements = document.querySelectorAll(
+      "[data-scroll-01], [data-scroll-02], [data-scroll-03]",
+    );
+    if (!revealElements.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      revealElements.forEach((el) => el.classList.add("is-revealed"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -5% 0px",
+        threshold: 0.05,
+      },
+    );
+
+    revealElements.forEach((el) => observer.observe(el));
+  }
+
+  initFeatureScrollReveal();
+  document.addEventListener("astro:page-load", initFeatureScrollReveal);
+</script>

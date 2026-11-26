@@ -15,7 +15,7 @@ const {
 <section
   id="hero"
   aria-label="Frontend Engineer & Consultant Hero"
-  class="relative pt-32 pb-16 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden"
+  class="relative pt-24 pb-12 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-20 xl:pt-36 xl:pb-24 overflow-hidden"
 >
   <!-- SUBTLE AMBIENT RADIAL GLOW (Linear/Raycast style) -->
   <div
@@ -31,34 +31,34 @@ const {
   ></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
       
       <!-- ════════════ LEFT COLUMN: VALUE PROPOSITION ════════════ -->
       <div class="lg:col-span-7 flex flex-col items-start">
         
         <!-- TOP STATUS PILL: EUROPEAN & GLOBAL OVERLAP -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.08)]">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-4 sm:mb-5 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.08)]">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
           </span>
           <span class="tracking-tight">Available for New Projects</span>
           <span class="text-emerald-500/40">·</span>
-          <span class="text-zinc-300 font-mono text-[11px]">Top Rated on Upwork (100% JSS) · EU / UK / US Overlap</span>
+          <span class="text-zinc-300 font-mono text-[11px]">Top Rated (100% JSS) · EU / UK / US Overlap</span>
         </div>
 
         <!-- BOLD OUTCOME-DRIVEN HEADLINE -->
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-[-0.035em] leading-[1.08] mb-6">
+        <h1 class="hero-headline text-3xl sm:text-4xl lg:text-5xl xl:text-[54px] font-extrabold text-white tracking-[-0.035em] leading-[1.12] mb-4 sm:mb-5">
           Senior Frontend & Full-Stack Engineer building ultra-fast <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-100 to-zinc-400">Astro, Next.js & Custom E-Commerce</span> platforms.
         </h1>
 
         <!-- HIGH-READABILITY SUBHEADLINE -->
-        <p class="text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed mb-8">
+        <p class="hero-sub text-sm sm:text-base lg:text-lg text-zinc-400 max-w-xl leading-relaxed mb-6 sm:mb-7">
           I help European and global founders ship sub-second marketing sites, scalable React/Next.js web apps, and multi-vendor marketplaces — engineered for Core Web Vitals, technical SEO, and clean handoff.
         </p>
 
         <!-- DUAL CONVERSION CTAS -->
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-10 w-full sm:w-auto">
+        <div class="hero-ctas flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8 w-full sm:w-auto">
           <a
             href={contactUrl}
             class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-zinc-950 bg-white hover:bg-zinc-200 active:scale-[0.98] transition-all shadow-[0_0_24px_rgba(255,255,255,0.2)] w-full sm:w-auto"
@@ -78,7 +78,7 @@ const {
         </div>
 
         <!-- KEY PROOF METRICS STRIP -->
-        <div class="grid grid-cols-3 gap-6 sm:gap-10 pt-6 border-t border-white/[0.08] w-full max-w-lg">
+        <div class="hero-metrics grid grid-cols-3 gap-6 sm:gap-8 pt-4 sm:pt-5 border-t border-white/[0.08] w-full max-w-lg">
           <div>
             <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-mono">
               3<span class="text-emerald-400">+</span>
@@ -103,13 +103,13 @@ const {
 
       <!-- ════════════ RIGHT COLUMN: LIVE ENGINEERING BENCHMARK CARD ════════════ -->
       <div class="lg:col-span-5 flex justify-center lg:justify-end">
-        <div class="w-full max-w-md rounded-2xl bg-[#111114]/90 border border-white/[0.08] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden group hover:border-white/[0.16] transition-all duration-300">
+        <div class="benchmark-card w-full max-w-md rounded-2xl bg-[#111114]/90 border border-white/[0.08] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] p-4 sm:p-5 backdrop-blur-xl relative overflow-hidden group hover:border-white/[0.16] transition-all duration-300">
           
           <!-- Subtle top glow -->
           <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-24 bg-emerald-500/10 blur-2xl rounded-full pointer-events-none"></div>
 
           <!-- CARD HEADER -->
-          <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.06]">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/[0.06]">
             <div class="flex items-center gap-2">
               <div class="flex gap-1.5" aria-hidden="true">
                 <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
@@ -125,53 +125,53 @@ const {
           </div>
 
           <!-- 4 LIGHTHOUSE SCORE PILLS -->
-          <div class="mb-5">
-            <div class="text-xs font-medium text-zinc-400 mb-2.5 flex items-center justify-between">
+          <div class="mb-3.5 sm:mb-4">
+            <div class="text-xs font-medium text-zinc-400 mb-2 flex items-center justify-between">
               <span>Google Core Web Vitals Benchmark</span>
               <span class="text-[11px] font-mono text-emerald-400">Production Verified</span>
             </div>
             <div class="grid grid-cols-4 gap-2 text-center">
-              <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
-                <div class="text-base sm:text-lg font-bold font-mono text-emerald-400">100</div>
+              <div class="p-2 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
+                <div class="text-sm sm:text-base font-bold font-mono text-emerald-400">100</div>
                 <div class="text-[9px] uppercase tracking-wider text-zinc-400 mt-0.5">Perf</div>
               </div>
-              <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
-                <div class="text-base sm:text-lg font-bold font-mono text-emerald-400">100</div>
+              <div class="p-2 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
+                <div class="text-sm sm:text-base font-bold font-mono text-emerald-400">100</div>
                 <div class="text-[9px] uppercase tracking-wider text-zinc-400 mt-0.5">A11y</div>
               </div>
-              <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
-                <div class="text-base sm:text-lg font-bold font-mono text-emerald-400">100</div>
+              <div class="p-2 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
+                <div class="text-sm sm:text-base font-bold font-mono text-emerald-400">100</div>
                 <div class="text-[9px] uppercase tracking-wider text-zinc-400 mt-0.5">Practices</div>
               </div>
-              <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
-                <div class="text-base sm:text-lg font-bold font-mono text-emerald-400">100</div>
+              <div class="p-2 rounded-xl bg-white/[0.02] border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors">
+                <div class="text-sm sm:text-base font-bold font-mono text-emerald-400">100</div>
                 <div class="text-[9px] uppercase tracking-wider text-zinc-400 mt-0.5">SEO</div>
               </div>
             </div>
           </div>
 
           <!-- ARCHITECTURE METRICS BREAKDOWN -->
-          <div class="space-y-2.5 mb-5">
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
+          <div class="space-y-1.5 sm:space-y-2 mb-3.5 sm:mb-4">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
               <span class="text-xs text-zinc-400">Largest Contentful Paint (LCP)</span>
               <span class="text-xs font-mono font-semibold text-emerald-400">&lt; 0.8s</span>
             </div>
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
               <span class="text-xs text-zinc-400">Cumulative Layout Shift (CLS)</span>
               <span class="text-xs font-mono font-semibold text-emerald-400">0.00</span>
             </div>
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
               <span class="text-xs text-zinc-400">Client Timezone Alignment</span>
               <span class="text-xs font-mono font-semibold text-zinc-200">CET / GMT / EST Overlap</span>
             </div>
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-zinc-950/60 border border-white/[0.04]">
               <span class="text-xs text-zinc-400">Privacy & Compliance</span>
               <span class="text-xs font-mono font-semibold text-emerald-400">GDPR & WCAG 2.1 AA</span>
             </div>
           </div>
 
           <!-- PRODUCTION STACK CHIPS -->
-          <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between">
+          <div class="pt-3 border-t border-white/[0.06] flex items-center justify-between">
             <span class="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">Specialization</span>
             <div class="flex items-center gap-1.5">
               <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] text-zinc-300 border border-white/[0.06]">Astro</span>
@@ -187,8 +187,8 @@ const {
     </div>
 
     <!-- ════════════ BOTTOM IMMEDIATE TRUST STRIP ════════════ -->
-    <div class="mt-16 sm:mt-20 pt-8 border-t border-white/[0.06]">
-      <div class="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-zinc-400">
+    <div class="trust-strip mt-8 sm:mt-10 lg:mt-12 pt-4 sm:pt-5 border-t border-white/[0.06]">
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-zinc-400">
         <div class="flex items-center gap-2">
           <span class="text-emerald-400 font-bold">5.0 ★</span>
           <span class="text-zinc-300 font-medium">Upwork Client Rating (100% JSS)</span>
@@ -211,3 +211,36 @@ const {
 
   </div>
 </section>
+
+<style>
+  /* Laptop viewports (e.g. 1366x768, 1440x900, 1536x864, or 1080p with 125%/150% scaling) */
+  @media screen and (min-width: 1024px) and (max-height: 820px) {
+    #hero {
+      padding-top: 5.75rem !important; /* ~92px accounting for floating navbar */
+      padding-bottom: 2rem !important;
+    }
+    #hero .hero-headline {
+      font-size: 2.5rem !important; /* 40px */
+      line-height: 1.12 !important;
+      margin-bottom: 0.875rem !important;
+    }
+    #hero .hero-sub {
+      font-size: 0.9375rem !important;
+      margin-bottom: 1.25rem !important;
+      line-height: 1.5 !important;
+    }
+    #hero .hero-ctas {
+      margin-bottom: 1.25rem !important;
+    }
+    #hero .hero-metrics {
+      padding-top: 1rem !important;
+    }
+    #hero .trust-strip {
+      margin-top: 1.5rem !important;
+      padding-top: 1rem !important;
+    }
+    #hero .benchmark-card {
+      padding: 1rem !important;
+    }
+  }
+</style>
