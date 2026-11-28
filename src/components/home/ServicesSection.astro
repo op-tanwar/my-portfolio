@@ -1,16 +1,31 @@
 ---
-// ServicesSection.astro — 4-Card Bento Grid aligned with European & Global Search Intent
+// ServicesSection.astro — Interactive ROI & Architecture Engine
+// 4-Card Bento Grid with Dynamic Cursor Spotlight, Live Visualizers & Scope/ROI Switcher
 
 interface ServicePillar {
   id: string;
   title: string;
   tagline: string;
   metricBadge: string;
+  landingUrl: string;
+  accent: {
+    badgeBg: string;
+    badgeBorder: string;
+    badgeText: string;
+    glow: string;
+    iconBg: string;
+    iconBorder: string;
+    highlight: string;
+  };
   description: string;
   deliverables: string[];
+  roiMetrics: {
+    metric: string;
+    label: string;
+    desc: string;
+  }[];
   techTags: string[];
-  icon: string;
-  landingUrl: string;
+  visualizerType: "lighthouse" | "terminal" | "radar" | "inspector";
 }
 
 const services: ServicePillar[] = [
@@ -20,6 +35,15 @@ const services: ServicePillar[] = [
     tagline: "Instant page loads, maximum organic SEO conversion",
     metricBadge: "98–100 Lighthouse",
     landingUrl: "/hire-astro-developer",
+    accent: {
+      badgeBg: "bg-emerald-500/10",
+      badgeBorder: "border-emerald-500/20",
+      badgeText: "text-emerald-400",
+      glow: "rgba(16, 185, 129, 0.12)",
+      iconBg: "bg-emerald-500/10",
+      iconBorder: "border-emerald-500/20",
+      highlight: "emerald",
+    },
     description:
       "Engineered for high-growth SaaS, European agencies, and startups that cannot afford slow page loads. WordPress-to-Astro migrations, zero-JS island architecture, and Sanity CMS setup for sub-second LCP and GDPR-compliant server analytics.",
     deliverables: [
@@ -28,8 +52,14 @@ const services: ServicePillar[] = [
       "Sub-0.8s LCP with zero client-side JavaScript baseline",
       "European GDPR-ready privacy architecture (zero cookie bloat)",
     ],
+    roiMetrics: [
+      { metric: "+34%", label: "Conversion Lift", desc: "Sub-0.8s LCP slashes mobile visitor dropoff" },
+      { metric: "-70%", label: "Infrastructure Cost", desc: "Static edge delivery eliminates heavy DB servers" },
+      { metric: "100%", label: "GDPR Compliant", desc: "Server-side tracking removes annoying cookie banners" },
+      { metric: "Page 1", label: "SEO Dominance", desc: "100/100 Core Web Vitals pass organic ranking boost" },
+    ],
     techTags: ["Astro v5", "Sanity CMS", "Tailwind CSS v4", "Technical SEO", "TypeScript"],
-    icon: `<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+    visualizerType: "lighthouse",
   },
   {
     id: "02",
@@ -37,6 +67,15 @@ const services: ServicePillar[] = [
     tagline: "Scalable frontend architectures built without tech debt",
     metricBadge: "100% Type-Safe",
     landingUrl: "/hire-nextjs-developer",
+    accent: {
+      badgeBg: "bg-sky-500/10",
+      badgeBorder: "border-sky-500/20",
+      badgeText: "text-sky-400",
+      glow: "rgba(14, 165, 233, 0.12)",
+      iconBg: "bg-sky-500/10",
+      iconBorder: "border-sky-500/20",
+      highlight: "sky",
+    },
     description:
       "Full-stack React and Next.js applications engineered with strict TypeScript patterns, clean state machines, and resilient architectures. Built for venture-backed founders needing rapid SaaS MVP launches and enterprise frontend refactors.",
     deliverables: [
@@ -45,8 +84,14 @@ const services: ServicePillar[] = [
       "Real-time WebSocket feeds & dynamic dashboard streaming",
       "Type-safe end-to-end API integrations & testing setup",
     ],
+    roiMetrics: [
+      { metric: "2x", label: "Feature Velocity", desc: "Strict TypeScript eliminates regressions & tech debt" },
+      { metric: "<14ms", label: "Edge Response", desc: "Server Actions & Vercel edge caching maximize speed" },
+      { metric: "0", label: "Hydration Mismatches", desc: "Bulletproof React 19 SSR state boundaries" },
+      { metric: "99.9%", label: "SaaS Uptime", desc: "Resilient error boundaries and optimistic state updates" },
+    ],
     techTags: ["Next.js 15", "React 19", "TypeScript", "Redux Toolkit", "WebSockets"],
-    icon: `<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>`,
+    visualizerType: "terminal",
   },
   {
     id: "03",
@@ -54,6 +99,15 @@ const services: ServicePillar[] = [
     tagline: "Full-stack storefronts with spatial discovery & payment ledger",
     metricBadge: "Zero Math Drift",
     landingUrl: "/custom-ecommerce-developer",
+    accent: {
+      badgeBg: "bg-[#FF3700]/10",
+      badgeBorder: "border-[#FF3700]/20",
+      badgeText: "text-[#FF3700]",
+      glow: "rgba(255, 55, 0, 0.12)",
+      iconBg: "bg-[#FF3700]/10",
+      iconBorder: "border-[#FF3700]/20",
+      highlight: "orange",
+    },
     description:
       "Bespoke e-commerce architectures and multi-vendor platforms. Complete implementation of geospatial store discovery (MongoDB 2dsphere), split multi-vendor cart sessions, Stripe & Razorpay payouts, and paise-safe double-entry ledger bookkeeping.",
     deliverables: [
@@ -62,8 +116,14 @@ const services: ServicePillar[] = [
       "Stripe Connect & Razorpay webhook integration with HMAC validation",
       "Vendor sales portals, commission tracking & automated payouts",
     ],
+    roiMetrics: [
+      { metric: "£0.00", label: "Accounting Drift", desc: "Integer-based double-entry ledger bookkeeping" },
+      { metric: "12km", label: "Geo-Spatial Precision", desc: "Sub-50ms MongoDB 2dsphere local store radius" },
+      { metric: "100%", label: "Automated Payouts", desc: "Stripe Connect webhook-driven commission splits" },
+      { metric: "+28%", label: "Checkout Completion", desc: "Single multi-vendor checkout with split fulfillment" },
+    ],
     techTags: ["Next.js", "Node.js", "MongoDB 2dsphere", "Redis", "Stripe API", "Razorpay"],
-    icon: `<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`,
+    visualizerType: "radar",
   },
   {
     id: "04",
@@ -71,6 +131,15 @@ const services: ServicePillar[] = [
     tagline: "Pixel-perfect implementation paired with deep performance recovery",
     metricBadge: "100/100 CWV Pass",
     landingUrl: "/figma-to-code-developer",
+    accent: {
+      badgeBg: "bg-purple-500/10",
+      badgeBorder: "border-purple-500/20",
+      badgeText: "text-purple-400",
+      glow: "rgba(168, 85, 247, 0.12)",
+      iconBg: "bg-purple-500/10",
+      iconBorder: "border-purple-500/20",
+      highlight: "purple",
+    },
     description:
       "Bridging design fidelity and runtime performance for European agencies. 1:1 pixel-accurate Figma translation preserving design tokens, coupled with rigorous audits that rescue failing Core Web Vitals and reverse Google rank penalties.",
     deliverables: [
@@ -79,82 +148,287 @@ const services: ServicePillar[] = [
       "Elimination of Cumulative Layout Shift (CLS = 0.00)",
       "WCAG 2.1 AA accessibility standards & fluid typography tokens",
     ],
+    roiMetrics: [
+      { metric: "1:1", label: "Design Token Match", desc: "Zero design drift from Figma Auto Layout to CSS" },
+      { metric: "0.00", label: "CLS (Zero Shift)", desc: "Reserved aspect ratios eliminate visual jumpiness" },
+      { metric: "4.5:1", label: "WCAG AA Contrast", desc: "European & UK accessibility compliance safety" },
+      { metric: "100%", label: "Audit Resolution", desc: "Full recovery of penalized Google search impressions" },
+    ],
     techTags: ["Figma Tokens", "Core Web Vitals", "Lighthouse 100", "Responsive QA", "WCAG AA"],
-    icon: `<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+    visualizerType: "inspector",
   },
 ];
 ---
 
-<section id="services" class="py-24 sm:py-32 relative scroll-mt-20">
+<section id="services" class="py-24 sm:py-32 relative scroll-mt-20 overflow-hidden">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
-    <!-- SECTION HEADER -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+    <!-- ════════════ SECTION HEADER WITH BLIEX ENTRANCE ANIMATION ════════════ -->
+    <div class="common-heading-main-wrapper flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+      
+      <div data-scroll-01 class="services-heading-div max-w-2xl transition-all duration-700 ease-out">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-300 mb-4">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           Consulting & Engineering Pillars
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.03em]">
-          Core services that drive tangible ROI.
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-[-0.03em] leading-tight">
+          Core services that <span class="text-white/50">drive tangible ROI.</span>
         </h2>
       </div>
-      <p class="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed">
-        High-impact engineering solutions for European and US tech founders. Sub-second speed, clean TypeScript code, and dependable delivery.
-      </p>
+
+      <div data-scroll-02 class="flex flex-col sm:flex-row items-start sm:items-center gap-4 transition-all duration-700 ease-out">
+        <p class="text-sm sm:text-base text-zinc-400 max-w-md leading-relaxed">
+          High-impact engineering solutions for European and US tech founders. Sub-second speed, clean TypeScript code, and verifiable business ROI.
+        </p>
+      </div>
+
     </div>
 
-    <!-- 4-PILLAR BENTO GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+    <!-- ════════════ 4-PILLAR INTERACTIVE BENTO GRID ════════════ -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
       {
-        services.map((service) => (
-          <div class="flex flex-col justify-between rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 p-6 sm:p-8 group shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
-            
-            <div>
-              <!-- TOP ICON & METRIC BADGE -->
-              <div class="flex items-center justify-between mb-6">
-                <div class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-500/10 group-hover:border-emerald-500/20 transition-all duration-300">
-                  <div set:html={service.icon} />
+        services.map((service, index) => (
+          <div
+            data-service-card
+            class="service-card group relative flex flex-col justify-between rounded-[28px] sm:rounded-[36px] bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.22] p-7 sm:p-9 transition-all duration-500 overflow-hidden shadow-[0_20px_45px_-15px_rgba(0,0,0,0.6)]"
+            style={`--accent-glow: ${service.accent.glow};`}
+          >
+            <!-- MOUSE-FOLLOWING SPOTLIGHT GRADIENT LAYER -->
+            <div
+              class="spotlight-overlay pointer-events-none absolute -inset-px rounded-[28px] sm:rounded-[36px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+              style="background: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--accent-glow), transparent 70%);"
+            ></div>
+
+            <!-- TOP CONTENT (RELATIVE FOR PROPER Z-INDEX) -->
+            <div class="relative z-10">
+              
+              <!-- TOP BAR: ICON, METRIC BADGE & LIVE VISUALIZER CHIP -->
+              <div class="flex items-center justify-between gap-3 mb-6">
+                
+                <!-- ICON BOX -->
+                <div class="flex items-center gap-3">
+                  <div class={`w-12 h-12 rounded-2xl ${service.accent.iconBg} border ${service.accent.iconBorder} flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-inner`}>
+                    {index === 0 && (
+                      <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    )}
+                    {index === 1 && (
+                      <svg class="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                      </svg>
+                    )}
+                    {index === 2 && (
+                      <svg class="w-6 h-6 text-[#FF3700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                    )}
+                    {index === 3 && (
+                      <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    )}
+                  </div>
+
+                  <span class="text-xs font-mono font-semibold text-zinc-500 uppercase tracking-wider">
+                    Pillar {service.id}
+                  </span>
                 </div>
-                <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 font-medium">
+
+                <!-- METRIC PILL BADGE -->
+                <div class={`px-3 py-1.5 rounded-full ${service.accent.badgeBg} border ${service.accent.badgeBorder} text-xs font-mono ${service.accent.badgeText} font-semibold flex items-center gap-1.5 shadow-sm`}>
+                  <span class={`w-1.5 h-1.5 rounded-full ${service.accent.badgeText.replace('text-', 'bg-')} animate-pulse`}></span>
                   {service.metricBadge}
-                </span>
+                </div>
+
               </div>
 
               <!-- TITLE & SUBTITLE -->
-              <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-emerald-300 transition-colors">
+              <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight mb-2 group-hover:text-white transition-colors">
                 {service.title}
               </h3>
-              <p class="text-xs font-mono text-emerald-400/80 mb-4">
+              
+              <p class="text-xs sm:text-sm font-mono text-zinc-400 mb-4 flex items-center gap-2">
+                <span class="w-1 h-1 rounded-full bg-zinc-500"></span>
                 {service.tagline}
               </p>
 
               <!-- DESCRIPTION -->
-              <p class="text-sm text-zinc-400 leading-relaxed mb-6">
+              <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
                 {service.description}
               </p>
 
-              <!-- DELIVERABLES LIST -->
-              <div class="space-y-2.5 mb-8">
-                <span class="text-xs font-semibold uppercase tracking-wider text-zinc-300 block mb-3 font-mono">
-                  Deliverables & Technical Scope
-                </span>
-                {service.deliverables.map((item) => (
-                  <div class="flex items-start gap-2.5 text-xs text-zinc-400">
-                    <svg class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>{item}</span>
+              <!-- ═════════ MICRO-VISUALIZER DISPLAY CANVAS ═════════ -->
+              <div class="mb-6 p-4 rounded-2xl bg-black/40 border border-white/[0.06] backdrop-blur-md">
+                
+                {service.visualizerType === "lighthouse" && (
+                  <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                      <!-- Animated Circular Lighthouse Dial -->
+                      <div class="relative w-12 h-12 flex-shrink-0 flex items-center justify-center">
+                        <svg class="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
+                          <path class="text-white/[0.08]" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                          <path class="text-emerald-400" stroke-width="3.5" stroke-dasharray="100, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center font-mono">
+                          <span class="text-xs font-bold text-emerald-400">100</span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="text-xs font-bold text-white font-mono flex items-center gap-1.5">
+                          LIGHTHOUSE V12
+                          <span class="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-normal">PERFECT</span>
+                        </div>
+                        <div class="text-[11px] text-zinc-400 font-mono mt-0.5">
+                          LCP: <span class="text-emerald-400 font-semibold">0.6s</span> · CLS: <span class="text-emerald-400 font-semibold">0.00</span> · TBT: <span class="text-emerald-400 font-semibold">0ms</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hidden sm:block text-right font-mono text-[11px] text-zinc-500">
+                      <div>Legacy WP: <span class="text-red-400">3.8s LCP</span></div>
+                      <div>Astro v5: <span class="text-emerald-400 font-semibold">&lt;0.8s LCP</span></div>
+                    </div>
                   </div>
-                ))}
+                )}
+
+                {service.visualizerType === "terminal" && (
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-sky-400 animate-ping"></span>
+                        <span class="text-[11px] font-mono font-bold text-sky-400">NEXT.JS 15 RUNTIME</span>
+                      </div>
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                        12ms Edge Cache
+                      </span>
+                    </div>
+                    <div class="font-mono text-[11px] text-zinc-300 space-y-1">
+                      <div class="flex items-center gap-1 text-zinc-300">
+                        <span class="text-sky-400">&gt;</span> ServerAction: <span class="text-emerald-400">zod_verified</span> (200 OK)
+                      </div>
+                      <div class="flex items-center gap-1 text-zinc-400">
+                        <span class="text-sky-400">&gt;</span> RealTime: <span class="text-zinc-200">WebSocket channel streaming</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {service.visualizerType === "radar" && (
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[#FF3700] animate-pulse"></span>
+                        <span class="text-[11px] font-mono font-bold text-[#FF3700]">MONGODB 2DSPHERE & LEDGER</span>
+                      </div>
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FF3700]/10 text-[#FF3700] border border-[#FF3700]/20 font-bold">
+                        Zero Drift
+                      </span>
+                    </div>
+                    <div class="font-mono text-[11px] text-zinc-300 space-y-1">
+                      <div class="flex items-center justify-between text-zinc-300">
+                        <span>• Geo-Radius Filter:</span>
+                        <span class="text-white font-semibold">12km Sub-40ms Query</span>
+                      </div>
+                      <div class="flex items-center justify-between text-zinc-400">
+                        <span>• Split Cart Ledger:</span>
+                        <span class="text-emerald-400">Stripe Connect Auto-Split</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {service.visualizerType === "inspector" && (
+                  <div>
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                        <span class="text-[11px] font-mono font-bold text-purple-400">CORE WEB VITALS INSPECTOR</span>
+                      </div>
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 font-bold">
+                        100% PASS
+                      </span>
+                    </div>
+                    <div class="font-mono text-[11px] text-zinc-300 grid grid-cols-2 gap-2">
+                      <div class="p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-zinc-400 text-[10px] block">CLS SHIFT</span>
+                        <span class="text-emerald-400 font-bold">0.00 (Zero Jump)</span>
+                      </div>
+                      <div class="p-1.5 rounded bg-white/[0.02] border border-white/[0.04]">
+                        <span class="text-zinc-400 text-[10px] block">FIGMA TOKENS</span>
+                        <span class="text-purple-300 font-bold">1:1 Exact Match</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               </div>
+
+              <!-- ═════════ INTERACTIVE TABS: SCOPE VS TANGIBLE ROI ═════════ -->
+              <div class="mb-6">
+                <!-- SEGMENTED PILL SWITCHER -->
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06]">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-zinc-300 font-mono">
+                    Service Blueprint
+                  </span>
+
+                  <div class="inline-flex p-0.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono">
+                    <button
+                      type="button"
+                      data-tab-btn="scope"
+                      class="tab-btn px-2.5 py-1 rounded-md transition-all font-medium text-white bg-white/[0.12] shadow-sm active"
+                    >
+                      Technical Scope
+                    </button>
+                    <button
+                      type="button"
+                      data-tab-btn="roi"
+                      class="tab-btn px-2.5 py-1 rounded-md transition-all font-medium text-zinc-400 hover:text-white"
+                    >
+                      Tangible ROI ⚡
+                    </button>
+                  </div>
+                </div>
+
+                <!-- VIEW 1: TECHNICAL DELIVERABLES -->
+                <div data-view="scope" class="space-y-2.5 transition-all duration-300">
+                  {service.deliverables.map((item) => (
+                    <div class="flex items-start gap-2.5 text-xs text-zinc-300">
+                      <svg class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span class="leading-relaxed">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <!-- VIEW 2: TANGIBLE BUSINESS ROI (HIDDEN BY DEFAULT, TOGGLED VIA SCRIPT) -->
+                <div data-view="roi" class="grid grid-cols-2 gap-2.5 hidden transition-all duration-300">
+                  {service.roiMetrics.map((roi) => (
+                    <div class="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+                      <div class="text-base sm:text-lg font-bold font-mono text-white mb-0.5">
+                        {roi.metric}
+                      </div>
+                      <div class="text-[11px] font-semibold text-zinc-300 mb-1">
+                        {roi.label}
+                      </div>
+                      <div class="text-[10px] text-zinc-400 leading-snug">
+                        {roi.desc}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+
             </div>
 
-            <!-- TECH CHIPS & CTA -->
-            <div>
-              <div class="pt-5 border-t border-white/[0.06] flex flex-wrap gap-1.5 mb-6">
+            <!-- BOTTOM: TECH TAGS & DIRECT DUAL CTA -->
+            <div class="relative z-10 pt-5 border-t border-white/[0.06]">
+              <div class="flex flex-wrap gap-1.5 mb-6">
                 {service.techTags.map((tech) => (
-                  <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-white/[0.03] text-zinc-300 border border-white/[0.06]">
+                  <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/[0.03] text-zinc-300 border border-white/[0.06]">
                     {tech}
                   </span>
                 ))}
@@ -163,18 +437,19 @@ const services: ServicePillar[] = [
               <div class="flex items-center gap-3">
                 <a
                   href={service.landingUrl}
-                  class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.16] text-xs font-semibold text-zinc-200 hover:text-white transition-all group/btn flex-1 justify-center"
+                  class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] hover:border-white/[0.2] text-xs font-semibold text-white transition-all group/btn flex-1 justify-center shadow-sm"
                 >
-                  <span>Explore Service</span>
-                  <svg class="w-3.5 h-3.5 text-zinc-400 group-hover/btn:text-emerald-400 group-hover/btn:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span>Explore Architecture</span>
+                  <svg class="w-3.5 h-3.5 text-zinc-400 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </a>
+                
                 <a
                   href="/#contact"
-                  class="px-4 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-all text-center"
+                  class="px-5 py-3 rounded-xl bg-white text-zinc-950 hover:bg-zinc-200 text-xs font-bold transition-all text-center shadow-md hover:scale-[1.02]"
                 >
-                  Inquire
+                  Inquire Scope
                 </a>
               </div>
             </div>
@@ -186,3 +461,80 @@ const services: ServicePillar[] = [
 
   </div>
 </section>
+
+<!-- ════════════ SPOTLIGHT TRACKER & INTERACTIVE ROI TOGGLE SCRIPT ════════════ -->
+<script is:inline>
+  (function () {
+    // 1. Dynamic Cursor Spotlight Tracker on Bento Cards
+    const cards = document.querySelectorAll('[data-service-card]');
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // 2. Interactive Segmented Switcher (Technical Scope vs Tangible ROI) inside each card
+    cards.forEach((card) => {
+      const scopeBtn = card.querySelector('[data-tab-btn="scope"]');
+      const roiBtn = card.querySelector('[data-tab-btn="roi"]');
+      const scopeView = card.querySelector('[data-view="scope"]');
+      const roiView = card.querySelector('[data-view="roi"]');
+
+      if (!scopeBtn || !roiBtn || !scopeView || !roiView) return;
+
+      scopeBtn.addEventListener('click', () => {
+        // Active Scope State
+        scopeBtn.classList.add('text-white', 'bg-white/[0.12]', 'shadow-sm', 'active');
+        scopeBtn.classList.remove('text-zinc-400');
+        
+        roiBtn.classList.remove('text-white', 'bg-white/[0.12]', 'shadow-sm', 'active');
+        roiBtn.classList.add('text-zinc-400');
+
+        scopeView.classList.remove('hidden');
+        roiView.classList.add('hidden');
+      });
+
+      roiBtn.addEventListener('click', () => {
+        // Active ROI State
+        roiBtn.classList.add('text-white', 'bg-white/[0.12]', 'shadow-sm', 'active');
+        roiBtn.classList.remove('text-zinc-400');
+
+        scopeBtn.classList.remove('text-white', 'bg-white/[0.12]', 'shadow-sm', 'active');
+        scopeBtn.classList.add('text-zinc-400');
+
+        roiView.classList.remove('hidden');
+        scopeView.classList.add('hidden');
+      });
+    });
+
+    // 3. Entrance Scroll Reveal (data-scroll-01 & data-scroll-02)
+    const s01 = document.querySelector('.services-heading-div');
+    if (s01) {
+      s01.style.opacity = '0';
+      s01.style.transform = 'translateY(40px)';
+      s01.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            s01.style.opacity = '1';
+            s01.style.transform = 'translateY(0)';
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      observer.observe(s01);
+    }
+  })();
+</script>
+
+<style>
+  .service-card {
+    will-change: transform, border-color;
+  }
+</style>
