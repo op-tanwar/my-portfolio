@@ -1,5 +1,7 @@
 ---
-// TestimonialsSection.astro — Verified UK, European & US Client Reviews (2x2 Grid)
+// TestimonialsSection.astro — 100% Bliex Astro Replica (Infinite Testimonials Carousel Marquee)
+// Matches "The AI platform teams actually rely on" section on https://bliex-astro.pages.dev/
+// Preserves all verified Upwork client reviews, ratings (5.0 / 5.0, 100% JSS, Top Rated), and JSON-LD SEO schema.
 
 interface Testimonial {
   id: string;
@@ -33,7 +35,7 @@ const testimonials: Testimonial[] = [
     clientName: "Swiss Digital Agency Lead",
     clientRole: "Technical Director",
     projectTitle: "Astro.js Relaunch & Sanity Headless CMS Architecture",
-    projectType: "Swiss Brand & E-Commerce Relaunch (twing.swiss)",
+    projectType: "Swiss Brand & E-Commerce Relaunch",
     rating: 5.0,
     date: "Switzerland · November 2024",
     platform: "Upwork Verified",
@@ -69,12 +71,16 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+// Duplicate list for seamless infinite marquee loop
+const marqueeTestimonials = [...testimonials, ...testimonials];
+
 // JSON-LD Structured Data for SEO
 const reviewSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Client Reviews & Testimonials for Omprakash Tanwar",
-  description: "Verified Upwork client reviews for frontend engineering, Astro, Next.js, React, and web performance optimization from UK, Swiss, and US clients.",
+  description:
+    "Verified Upwork client reviews for frontend engineering, Astro, Next.js, React, and web performance optimization from UK, Swiss, and US clients.",
   itemListElement: testimonials.map((t, idx) => ({
     "@type": "ListItem",
     position: idx + 1,
@@ -103,87 +109,348 @@ const reviewSchema = {
 <!-- JSON-LD SEO Schema -->
 <script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />
 
-<section id="testimonials" class="py-24 sm:py-32 relative scroll-mt-20">
+<section
+  id="testimonials"
+  class="section py-16 sm:py-20 lg:py-24 relative scroll-mt-20 font-['Urbanist',sans-serif] text-white overflow-hidden"
+>
   <!-- Anchor alias -->
   <div id="reviews" class="sr-only">Reviews</div>
 
+  <!-- ════════════ 1. SECTION HEADER (CENTERED BLIEX EDITORIAL STYLE) ════════════ -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- SECTION HEADER -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          Upwork Verified 5.0 ★ Client Testimonials
-        </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-[-0.03em]">
-          Proven track record with UK, Swiss & US founders.
-        </h2>
+    <div class="text-center mb-10 sm:mb-14 flex flex-col items-center">
+      <!-- Eyebrow Pill -->
+      <div
+        class="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400 mb-4 sm:mb-5 shadow-[0_0_20px_rgba(16,185,129,0.12)]"
+      >
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Upwork Verified 5.0 ★ Client Testimonials</span>
       </div>
 
-      <div class="flex items-center gap-4 p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-        <div class="text-right">
-          <div class="text-base font-bold font-mono text-white">100% Upwork JSS</div>
-          <div class="text-xs text-zinc-400">Top Rated Freelancer</div>
+      <!-- Main Headline -->
+      <h2
+        class="text-2xl sm:text-4xl lg:text-5xl xl:text-[56px] font-normal leading-[1.15] text-white tracking-tight max-w-4xl mx-auto mb-4 sm:mb-6"
+      >
+        Proven track record with UK, Swiss & US founders.
+      </h2>
+
+      <!-- Subtitle -->
+      <p class="max-w-[540px] mx-auto text-xs sm:text-sm lg:text-base text-white/70 font-normal leading-relaxed mb-6 sm:mb-8">
+        Verifiable reviews from enterprise directors, agency leads, and startup founders who hired me for sub-second Astro, Next.js, and e-commerce architectures.
+      </p>
+
+      <!-- Trust Metrics Badges (User Requested: 100% Upwork JSS, Top Rated, 5.0 / 5.0, ★★★★★ 5.0) -->
+      <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5">
+        <!-- 100% Upwork JSS + Top Rated -->
+        <div
+          class="flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.04] border border-white/[0.1] backdrop-blur-md shadow-sm"
+        >
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span class="text-xs sm:text-sm font-bold font-mono text-white">100% Upwork JSS</span>
+          <span class="text-white/30">·</span>
+          <span class="text-xs sm:text-sm text-zinc-300 font-medium">Top Rated Freelancer</span>
         </div>
-        <div class="h-8 w-px bg-white/[0.08]" aria-hidden="true"></div>
-        <div class="text-emerald-400 font-extrabold font-mono text-xl">5.0 / 5.0</div>
+
+        <!-- 5.0 / 5.0 Star Rating with Bliex Orange Squares -->
+        <div
+          class="flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.04] border border-white/[0.1] backdrop-blur-md shadow-sm"
+        >
+          <!-- 5 Bliex Orange Star Boxes -->
+          <div class="flex items-center gap-0.5 sm:gap-1">
+            {
+              [...Array(5)].map(() => (
+                <div class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3.5px] sm:rounded-[4px] bg-[#de3000] flex items-center justify-center shadow-sm shrink-0">
+                  <svg
+                    class="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                </div>
+              ))
+            }
+          </div>
+          <span class="text-xs sm:text-sm font-extrabold font-mono text-emerald-400 ml-0.5 sm:ml-1">
+            5.0 / 5.0
+          </span>
+          <span class="text-[10px] sm:text-[11px] font-mono text-zinc-400 hidden xs:inline">
+            (100% 5-Star)
+          </span>
+        </div>
+
+        <!-- CTAs: Start a Project + Book Call -->
+        <a
+          href="/#contact"
+          class="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full font-semibold text-xs sm:text-sm bg-white text-black hover:bg-zinc-200 transition-all duration-300 hover:scale-105 shadow-sm"
+        >
+          Work With Me
+        </a>
       </div>
     </div>
+  </div>
 
-    <!-- 2x2 VERIFIED REVIEWS GRID (NO TRUNCATION) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+  <!-- ════════════ 2. INFINITE CAROUSEL MARQUEE (.testimonial-slider-wrapper) ════════════ -->
+  <div class="testimonial-slider-wrapper relative w-full overflow-hidden py-2 sm:py-4">
+    <!-- TRACK 1 -->
+    <div class="testimonial-slider flex gap-4 sm:gap-5 shrink-0">
       {
-        testimonials.map((review) => (
-          <div class="flex flex-col justify-between rounded-2xl bg-[#111114]/90 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 p-6 sm:p-8 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
-            
+        marqueeTestimonials.map((review, idx) => (
+          <div
+            class="testimonial-card w-[290px] xs:w-[320px] sm:w-[380px] md:w-[420px] lg:w-[460px] min-h-[360px] sm:min-h-[400px] lg:min-h-[420px] p-5 sm:p-7 lg:p-8 rounded-[24px] sm:rounded-[32px] lg:rounded-[36px] bg-[#111114] border border-white/[0.08] hover:border-white/[0.2] transition-all duration-300 shadow-[0_16px_50px_rgba(0,0,0,0.85)] flex flex-col justify-between shrink-0 group"
+          >
+            <!-- TOP BAR: DATE & BLIEX 5-STAR SQUARES -->
             <div>
-              <!-- HEADER: RATING + VERIFIED BADGE -->
-              <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/[0.06]">
-                <div class="flex items-center gap-1 text-emerald-400">
-                  <span class="text-sm font-bold tracking-tight">★★★★★</span>
-                  <span class="text-xs font-mono text-zinc-300 ml-1.5">{review.rating.toFixed(1)}</span>
+              <div class="flex items-center justify-between pb-3 sm:pb-4 mb-3 sm:mb-4 border-b border-white/[0.06] gap-2">
+                <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                  <!-- 5 Orange Star Rects (Bliex Style) -->
+                  <div class="flex items-center gap-0.5 sm:gap-1">
+                    {
+                      [...Array(5)].map(() => (
+                        <div class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3.5px] sm:rounded-[4px] bg-[#de3000] flex items-center justify-center shrink-0">
+                          <svg
+                            class="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        </div>
+                      ))
+                    }
+                  </div>
+                  <span class="text-xs font-mono font-bold text-white ml-0.5 sm:ml-1">
+                    {review.rating.toFixed(1)}
+                  </span>
                 </div>
 
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-mono text-emerald-400">
-                  <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                <!-- Verified Platform Badge -->
+                <div class="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] sm:text-[11px] font-mono text-emerald-400 shrink-0">
+                  <svg
+                    class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
                   </svg>
                   <span>{review.platform}</span>
                 </div>
               </div>
 
               <!-- PROJECT TITLE & TYPE -->
-              <div class="mb-4">
-                <h3 class="text-base font-bold text-white tracking-tight mb-0.5">
+              <div class="mb-3">
+                <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-white tracking-tight mb-0.5 leading-snug">
                   {review.projectTitle}
                 </h3>
-                <p class="text-xs font-mono text-zinc-400">
-                  {review.projectType} · {review.date}
+                <p class="text-[11px] sm:text-xs font-mono text-zinc-400">
+                  {review.projectType}
                 </p>
               </div>
 
-              <!-- FULL REVIEW TEXT (NO TRUNCATION) -->
-              <p class="text-sm text-zinc-300 leading-relaxed mb-6 font-normal">
+              <!-- VERBATIM REVIEW TEXT (PRESERVED 100% UNCHANGED) -->
+              <p class="text-[11px] sm:text-xs lg:text-sm text-zinc-300 leading-relaxed font-normal line-clamp-5 sm:line-clamp-6 group-hover:line-clamp-none transition-all duration-300">
                 "{review.content}"
               </p>
             </div>
 
             <!-- CLIENT SIGN-OFF -->
-            <div class="pt-4 border-t border-white/[0.06] flex items-center justify-between">
-              <div>
-                <div class="text-sm font-semibold text-white">{review.clientName}</div>
-                <div class="text-xs text-zinc-400">{review.clientRole}</div>
+            <div class="pt-3.5 sm:pt-4 mt-4 sm:mt-5 border-t border-white/[0.06] flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="text-xs sm:text-sm font-semibold text-white truncate">
+                  {review.clientName}
+                </div>
+                <div class="text-[11px] sm:text-xs text-zinc-400 truncate">
+                  {review.clientRole} · {review.date}
+                </div>
               </div>
-              <div class="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-xs font-mono font-bold text-zinc-300">
+              <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-xs font-mono font-bold text-white shadow-sm shrink-0">
                 {review.clientName.charAt(0)}
               </div>
             </div>
-
           </div>
         ))
       }
     </div>
 
+    <!-- TRACK 2 (DUPLICATE FOR SEAMLESS 100% INFINITE LOOP) -->
+    <div class="testimonial-slider flex gap-4 sm:gap-5 shrink-0" aria-hidden="true">
+      {
+        marqueeTestimonials.map((review, idx) => (
+          <div
+            class="testimonial-card w-[290px] xs:w-[320px] sm:w-[380px] md:w-[420px] lg:w-[460px] min-h-[360px] sm:min-h-[400px] lg:min-h-[420px] p-5 sm:p-7 lg:p-8 rounded-[24px] sm:rounded-[32px] lg:rounded-[36px] bg-[#111114] border border-white/[0.08] hover:border-white/[0.2] transition-all duration-300 shadow-[0_16px_50px_rgba(0,0,0,0.85)] flex flex-col justify-between shrink-0 group"
+          >
+            <!-- TOP BAR: DATE & BLIEX 5-STAR SQUARES -->
+            <div>
+              <div class="flex items-center justify-between pb-3 sm:pb-4 mb-3 sm:mb-4 border-b border-white/[0.06] gap-2">
+                <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                  <!-- 5 Orange Star Rects (Bliex Style) -->
+                  <div class="flex items-center gap-0.5 sm:gap-1">
+                    {
+                      [...Array(5)].map(() => (
+                        <div class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-[3.5px] sm:rounded-[4px] bg-[#de3000] flex items-center justify-center shrink-0">
+                          <svg
+                            class="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        </div>
+                      ))
+                    }
+                  </div>
+                  <span class="text-xs font-mono font-bold text-white ml-0.5 sm:ml-1">
+                    {review.rating.toFixed(1)}
+                  </span>
+                </div>
+
+                <!-- Verified Platform Badge -->
+                <div class="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] sm:text-[11px] font-mono text-emerald-400 shrink-0">
+                  <svg
+                    class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span>{review.platform}</span>
+                </div>
+              </div>
+
+              <!-- PROJECT TITLE & TYPE -->
+              <div class="mb-3">
+                <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-white tracking-tight mb-0.5 leading-snug">
+                  {review.projectTitle}
+                </h3>
+                <p class="text-[11px] sm:text-xs font-mono text-zinc-400">
+                  {review.projectType}
+                </p>
+              </div>
+
+              <!-- VERBATIM REVIEW TEXT (PRESERVED 100% UNCHANGED) -->
+              <p class="text-[11px] sm:text-xs lg:text-sm text-zinc-300 leading-relaxed font-normal line-clamp-5 sm:line-clamp-6 group-hover:line-clamp-none transition-all duration-300">
+                "{review.content}"
+              </p>
+            </div>
+
+            <!-- CLIENT SIGN-OFF -->
+            <div class="pt-3.5 sm:pt-4 mt-4 sm:mt-5 border-t border-white/[0.06] flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <div class="text-xs sm:text-sm font-semibold text-white truncate">
+                  {review.clientName}
+                </div>
+                <div class="text-[11px] sm:text-xs text-zinc-400 truncate">
+                  {review.clientRole} · {review.date}
+                </div>
+              </div>
+              <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center text-xs font-mono font-bold text-white shadow-sm shrink-0">
+                {review.clientName.charAt(0)}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
   </div>
 </section>
+
+<style>
+  /* ════════════ BLIEX INFINITE TESTIMONIAL MARQUEE ANIMATION ════════════ */
+  .testimonial-slider-wrapper {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    overflow: hidden;
+    user-select: none;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 4%,
+      black 96%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 4%,
+      black 96%,
+      transparent 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-slider-wrapper {
+      gap: 1.25rem;
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+      );
+    }
+  }
+
+  .testimonial-slider {
+    display: flex;
+    gap: 1rem;
+    animation: testimonial-marquee 50s linear infinite;
+    will-change: transform;
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-slider {
+      gap: 1.25rem;
+    }
+  }
+
+  @keyframes testimonial-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% - 1rem));
+    }
+  }
+
+  @media (min-width: 768px) {
+    @keyframes testimonial-marquee {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-100% - 1.25rem));
+      }
+    }
+  }
+
+  /* Smooth pause on hover and active touch */
+  .testimonial-slider-wrapper:hover .testimonial-slider,
+  .testimonial-slider-wrapper:active .testimonial-slider {
+    animation-play-state: paused;
+  }
+
+  /* Accessibility: Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-slider {
+      animation: none !important;
+      overflow-x: auto;
+    }
+  }
+</style>
+
